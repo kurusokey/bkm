@@ -58,4 +58,4 @@ export default function Footer() {
                 <Link href="/" className="text-parchment-dark hover:text-pirate-gold transition-colors">
                   ⚓ Accueil
                 </Link>
-              </li
+              </li>
