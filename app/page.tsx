@@ -239,3 +239,9 @@ export default async function Home() {
         <div className="absolute inset-0 opacity-30 pointer-events-none">
           <svg className="absolute bottom-0 w-full" viewBox="0 0 1200 100" preserveAspectRatio="none">
             <path fill="var(--pirate-black)" d="M0,50 Q300,100 600,50 T1200,50 L1200,100 L0,100 Z">
+                        </svg>
+        </div>
+      </section>
+    </main>
+  );
+}
