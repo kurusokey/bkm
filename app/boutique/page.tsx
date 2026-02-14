@@ -21,26 +21,39 @@ export default async function BoutiquePage() {
   const products = await getAllProducts();
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Notre Boutique</h1>
-      
-      <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-8">
-        <p className="text-red-800 font-semibold text-center">
-          L'abus d'alcool est dangereux pour la santé. À consommer avec modération.
+    <div className="min-h-screen bg-noir-profond pt-24 pb-16">
+      <div className="container mx-auto px-8">
+        {/* Titre section */}
+        <h1 className="section-title">
+          La Collection
+        </h1>
+        <div className="section-divider"></div>
+        <p className="section-subtitle">
+          Découvrez nos rhums arrangés artisanaux, élaborés avec les meilleurs fruits des Caraïbes
         </p>
-      </div>
 
-      {products.length === 0 ? (
-        <p className="text-center text-gray-600 py-12">
-          Aucun produit disponible pour le moment.
-        </p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        {/* Message d'avertissement */}
+        <div className="warning-message max-w-2xl mx-auto mb-16">
+          L'abus d'alcool est dangereux pour la santé. À consommer avec modération.
         </div>
-      )}
+
+        {/* Grille de produits */}
+        {products.length === 0 ? (
+          <p className="text-center text-gris-pierre py-12">
+            Aucun produit disponible pour le moment.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {products.map((product, index) => (
+              <ProductCard 
+                key={product.id} 
+                product={product}
+                index={index}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
