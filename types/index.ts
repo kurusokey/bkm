@@ -10,6 +10,7 @@ export interface Product {
   image_url: string | null;
   stock_quantity: number;
   is_active: boolean;
+    is_featured?: boolean;
   created_at: string;
 }
 
