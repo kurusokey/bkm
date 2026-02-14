@@ -59,3 +59,16 @@ export default function Footer() {
                   ⚓ Accueil
                 </Link>
               </li>
+                          </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-pirate-wood/20 pt-8 text-center">
+          <p className="text-parchment-dark">
+            © {currentYear} Blackbeard Rhums. Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
