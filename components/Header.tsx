@@ -9,120 +9,114 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-pirate-brown/95 text-white sticky top-0 z-40 shadow-2xl backdrop-blur-sm border-b-4 border-pirate-gold">
-      <div className="container mx-auto px-4 py-4">
+    <header className="fixed top-0 w-full bg-noir-profond/85 backdrop-blur-sm border-b border-or-vieilli/15 z-50">
+      <nav className="container mx-auto px-8 py-4">
         <div className="flex justify-between items-center">
-          {/* Logo avec ancre */}
+          {/* Logo */}
           <Link 
-            href="/" 
-            className="text-2xl font-bold hover:text-pirate-gold transition-colors flex items-center gap-3 group"
+            href="/"
+            className="text-2xl font-serif text-ivoire tracking-wider hover:text-or-vieilli transition-colors"
           >
-            <svg 
-              className="w-8 h-8 group-hover:rotate-12 transition-transform duration-300" 
-              viewBox="0 0 24 24" 
-              fill="currentColor"
-            >
-              <path d="M12 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm0 8c-1.1 0-2 .9-2 2v8l-3 2a2 2 0 1 0 0 4h10a2 2 0 1 0 0-4l-3-2v-8c0-1.1-.9-2-2-2zM5 14a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm14 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
-            </svg>
-            <span className="font-['Pirata_One'] tracking-wider">
-              🏴‍☠️ Blackbeard
-            </span>
+            BLACKBEARD
           </Link>
 
           {/* Navigation Desktop */}
-          <nav className="hidden md:flex space-x-6 items-center">
+          <div className="hidden md:flex items-center gap-8">
             <Link 
               href="/" 
-              className="hover:text-pirate-gold transition-colors font-semibold relative group"
+              className="text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
             >
               Accueil
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pirate-gold group-hover:w-full transition-all duration-300"></span>
             </Link>
             <Link 
               href="/boutique" 
-              className="hover:text-pirate-gold transition-colors font-semibold relative group"
+              className="text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
             >
-              Boutique
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pirate-gold group-hover:w-full transition-all duration-300"></span>
+              Collection
             </Link>
             <Link 
               href="/a-propos" 
-              className="hover:text-pirate-gold transition-colors font-semibold relative group"
+              className="text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
             >
-              À propos
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pirate-gold group-hover:w-full transition-all duration-300"></span>
+              La Cave
             </Link>
-
-            {/* Panier avec badge */}
-            <Link
+            
+            {/* Panier */}
+            <Link 
               href="/panier"
-              className="relative bg-pirate-gold hover:bg-pirate-gold-light px-4 py-2 rounded-lg hover:scale-105 transition-all font-bold text-pirate-dark shadow-lg"
+              className="relative text-ivoire hover:text-or-vieilli transition-colors"
             >
-              <span className="flex items-center gap-2">
-                🛒 Panier
-                {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-blood-red text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center animate-pulse shadow-lg">
-                    {totalItems}
-                  </span>
-                )}
-              </span>
+              <svg 
+                className="w-6 h-6" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={1.5} 
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" 
+                />
+              </svg>
+              {totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-or-vieilli text-noir-profond text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+                  {totalItems}
+                </span>
+              )}
             </Link>
-          </nav>
+          </div>
 
-          {/* Bouton Menu Mobile */}
-          <button
+          {/* Menu Mobile Toggle */}
+          <button 
+            className="md:hidden text-ivoire"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden relative bg-pirate-gold/80 hover:bg-pirate-gold px-4 py-2 rounded-lg hover:scale-105 transition-all"
+            aria-label="Toggle menu"
           >
-            <svg className="w-6 h-6 text-pirate-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {isMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-blood-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                {totalItems}
-              </span>
-            )}
           </button>
         </div>
 
         {/* Menu Mobile */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 space-y-3 animate-fade-in border-t-2 border-pirate-gold/30 pt-4">
+          <div className="md:hidden mt-4 pb-4 border-t border-or-vieilli/15 pt-4 space-y-4">
             <Link 
               href="/" 
-              className="block hover:text-pirate-gold transition-colors font-semibold py-2 hover:pl-2"
+              className="block text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              ⚓ Accueil
+              Accueil
             </Link>
             <Link 
               href="/boutique" 
-              className="block hover:text-pirate-gold transition-colors font-semibold py-2 hover:pl-2"
+              className="block text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              🍹 Boutique
+              Collection
             </Link>
             <Link 
               href="/a-propos" 
-              className="block hover:text-pirate-gold transition-colors font-semibold py-2 hover:pl-2"
+              className="block text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              📜 À propos
+              La Cave
             </Link>
-            <Link
-              href="/panier"
-              className="block bg-pirate-gold text-pirate-dark font-bold px-4 py-3 rounded-lg hover:bg-pirate-gold-light transition-all shadow-lg"
+            <Link 
+              href="/panier" 
+              className="block text-sm text-ivoire uppercase tracking-widest hover:text-or-vieilli transition-colors"
               onClick={() => setIsMenuOpen(false)}
             >
-              🛒 Panier {totalItems > 0 && `(${totalItems})`}
+              Panier ({totalItems})
             </Link>
-          </nav>
+          </div>
         )}
-      </div>
+      </nav>
     </header>
   );
 }
