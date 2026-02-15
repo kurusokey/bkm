@@ -36,7 +36,7 @@ export default function Footer() {
           {/* Logo & Description — takes 2 columns */}
           <div className="md:col-span-2">
             <h3 className="font-display text-2xl md:text-3xl text-gold tracking-widest mb-6">
-              BLACKBEARD
+              BO KAY MWEN
             </h3>
             <div className="gold-line mb-6" />
             <p className="text-cream-muted leading-relaxed text-sm max-w-sm">
@@ -99,7 +99,7 @@ export default function Footer() {
         <div className="gold-line-wide mx-auto mb-12" />
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-cream-muted/60 text-xs tracking-wider">
-            &copy; {currentYear} Blackbeard Rhums. Tous droits reserves.
+            &copy; {currentYear} Bo Kay Mwen. Tous droits reserves.
           </p>
           <p className="text-cream-muted/40 text-xs tracking-wider">
             L&apos;abus d&apos;alcool est dangereux pour la sante. A consommer avec moderation.

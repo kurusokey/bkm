@@ -39,12 +39,12 @@ export default function AProposPage() {
         <ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16 md:mb-24">
             <div className="md:col-span-7 bg-charcoal border border-gold-muted/15 rounded-2xl p-6 md:p-10">
-              <h2 className="font-serif text-gold mb-6">L&apos;Aventure Blackbeard</h2>
+              <h2 className="font-serif text-gold mb-6">L&apos;Aventure Bo Kay Mwen</h2>
               <div className="gold-line mb-6" />
               <div className="space-y-5 text-cream-muted leading-relaxed">
                 <p>
                   Passionnes par les saveurs authentiques et les traditions artisanales,
-                  nous avons cree Blackbeard pour partager notre amour
+                  nous avons cree Bo Kay Mwen pour partager notre amour
                   des spiritueux de qualite.
                 </p>
                 <p>

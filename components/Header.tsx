@@ -32,7 +32,7 @@ export default function Header() {
               scrolled ? 'text-xl text-gold' : 'text-2xl text-gold'
             }`}
           >
-            BLACKBEARD
+            BO KAY MWEN
           </Link>
 
           {/* Navigation Desktop */}

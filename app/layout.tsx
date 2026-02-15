@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700'] });
 
 export const metadata: Metadata = {
-  title: 'Blackbeard — Rhums Arrangés Artisanaux',
+  title: 'Bô Kay Mwen — Rhums Arrangés Artisanaux',
   description: 'Découvrez nos rhums arrangés artisanaux, macérés avec des ingrédients naturels des Caraïbes.',
 };
 
