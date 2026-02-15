@@ -7,7 +7,7 @@ const PRODUCT_IMAGES: Record<string, string> = {
   'punch-coco-gingembre': '/images/products/punch-coco-gingembre.jpg',
   'punch-goyave': '/images/products/punch-goyave.jpg',
   'punch-mangue-ananas': '/images/products/punch-mangue-ananas.jpg',
-  'punch-mangue': '/images/products/punch-mangue.jpg',
+  'punch-litchis': '/images/products/punch-litchis.jpg',
 };
 
 const DEFAULT_IMAGE = '/images/products/default-punch.jpg';
