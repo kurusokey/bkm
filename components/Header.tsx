@@ -25,15 +25,9 @@ export default function Header() {
     >
       <nav className={`max-w-7xl mx-auto px-6 transition-all duration-500 ${scrolled ? 'py-3' : 'py-5'}`}>
         <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link
-            href="/"
-            className={`font-display tracking-widest hover:text-gold-light transition-all duration-500 ${
-              scrolled ? 'text-xl text-gold' : 'text-2xl text-gold'
-            }`}
-          >
-            BO KAY MWEN
-          </Link>
+          {/* Logo (hidden) */}
+          <Link href="/" className="w-0 h-0 overflow-hidden absolute" aria-label="Accueil" />
+          <div />
 
           {/* Navigation Desktop */}
           <div className="hidden md:flex items-center gap-8">
@@ -41,19 +35,19 @@ export default function Header() {
               href="/"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              Accueil
+              Bô Kay Gwen
             </Link>
             <Link
               href="/boutique"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              Produits
+              Nos rhums arrangés
             </Link>
             <Link
               href="/a-propos"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              Notre Histoire
+              L&apos;art du planteur
             </Link>
 
             {/* Panier */}
@@ -96,21 +90,21 @@ export default function Header() {
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Accueil
+              Bô Kay Gwen
             </Link>
             <Link
               href="/boutique"
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Produits
+              Nos rhums arrangés
             </Link>
             <Link
               href="/a-propos"
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Notre Histoire
+              L&apos;art du planteur
             </Link>
             <Link
               href="/panier"

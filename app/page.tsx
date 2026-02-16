@@ -30,31 +30,22 @@ export default function Home() {
             <div className="gold-line-wide mx-auto mb-8" />
           </ScrollReveal>
 
-          <ScrollReveal delay={400} direction="up" distance={40} duration={1000}>
-            <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-gold-light mb-6 font-serif">
-              Rhums Arranges d&apos;Exception
-            </p>
-          </ScrollReveal>
-
-          <ScrollReveal delay={600} direction="up" distance={50} duration={1200}>
+          <ScrollReveal delay={400} direction="up" distance={50} duration={1200}>
             <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-gold font-semibold mb-8 tracking-wide text-shadow-lg leading-[0.95]">
-              Bo Kay Mwen
+              Bô Kay Mwen
             </h1>
           </ScrollReveal>
 
           <ScrollReveal delay={800} direction="up" distance={30} duration={1000}>
             <p className="text-lg md:text-xl lg:text-2xl text-cream/90 max-w-2xl mx-auto mb-12 leading-relaxed text-shadow-sm font-light">
-              Rhums arranges 100% local — Des creations artisanales realisees avec les meilleurs fruits des iles de la Caraibe.
+              Rhums arrangés d&apos;origine caribéenne, inspirés par les saveurs locales
             </p>
           </ScrollReveal>
 
           <ScrollReveal delay={1000} direction="up" distance={20} duration={1000}>
             <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
               <Link href="/boutique" className="btn-luxury-filled">
-                Decouvrir nos Planteurs
-              </Link>
-              <Link href="/a-propos" className="btn-luxury">
-                Notre Histoire
+                Découvre nos Planteurs
               </Link>
             </div>
           </ScrollReveal>
@@ -123,7 +114,7 @@ export default function Home() {
           <ScrollReveal>
             <div className="text-center mb-16 md:mb-24">
               <p className="text-xs uppercase tracking-[0.3em] text-cream-muted mb-4 font-serif">Nos Engagements</p>
-              <h2 className="font-serif text-gold mb-6">Pourquoi Bo Kay Mwen</h2>
+              <h2 className="font-serif text-gold mb-6">Pourquoi Bô Kay Mwen</h2>
               <div className="gold-line-wide mx-auto mb-6" />
               <p className="text-cream/80 text-base leading-relaxed max-w-2xl mx-auto">
                 Nos planteurs sont faits de maniere artisanale avec des produits locaux.
