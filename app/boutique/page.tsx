@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import ProductCard from '@/components/ProductCard';
 import ScrollReveal from '@/components/ScrollReveal';
+import ProductCarousel from '@/components/ProductCarousel';
 import { getAllProducts } from '@/lib/products';
 
 export default function BoutiquePage() {
@@ -27,25 +27,16 @@ export default function BoutiquePage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-28">
-        {/* Product grid */}
+      {/* Product Carousel */}
+      <section className="py-16 md:py-28">
         {products.length === 0 ? (
           <p className="text-center text-cream-muted py-20 text-lg">
             Aucun produit disponible pour le moment.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-14">
-            {products.map((product, index) => (
-              <ScrollReveal key={product.id} delay={index * 150} direction="up" distance={50}>
-                <ProductCard
-                  product={product}
-                  index={index}
-                />
-              </ScrollReveal>
-            ))}
-          </div>
+          <ProductCarousel products={products} />
         )}
-      </div>
+      </section>
     </div>
   );
 }
