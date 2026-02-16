@@ -10,7 +10,7 @@ export default function BoutiquePage() {
       {/* Hero — ambiance distillerie */}
       <div className="relative overflow-hidden" style={{ height: '50vh', minHeight: '320px' }}>
         <Image
-          src="/images/barrels.jpg"
+          src="/images/distillery.jpg"
           alt=""
           fill
           priority
