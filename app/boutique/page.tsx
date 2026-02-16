@@ -21,11 +21,6 @@ export default function BoutiquePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/40 to-ink z-[1]" />
 
         <div className="relative z-10 text-center">
-          <ScrollReveal delay={400} direction="up" distance={40} duration={1000}>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-gold text-shadow-lg mb-4">
-              Découvre nos planteurs
-            </h1>
-          </ScrollReveal>
           <ScrollReveal delay={600} direction="up" distance={20} duration={1000}>
             <div className="gold-line-wide mx-auto" />
           </ScrollReveal>

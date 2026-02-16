@@ -45,7 +45,7 @@ export default function Home() {
           <ScrollReveal delay={1000} direction="up" distance={20} duration={1000}>
             <div className="flex flex-col sm:flex-row gap-5 justify-center items-center">
               <Link href="/boutique" className="btn-luxury-filled">
-                Découvre nos Planteurs
+                Découvre nos créations
               </Link>
             </div>
           </ScrollReveal>
