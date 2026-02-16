@@ -84,7 +84,7 @@ export default function ProductList({ products }: ProductListProps) {
                   {price}&euro;
                 </p>
 
-                {/* Bouton ajout panier */}
+                {/* Bouton ajout panier — couleurs madras */}
                 <button
                   onClick={() => handleAdd(product)}
                   style={{
@@ -97,14 +97,16 @@ export default function ProductList({ products }: ProductListProps) {
                     letterSpacing: '0.15em',
                     textTransform: 'uppercase' as const,
                     borderRadius: '8px',
-                    border: isAdded ? '1px solid #2A7C7B' : '1px solid rgba(200, 162, 77, 0.5)',
+                    border: isAdded ? '1px solid #2A7C7B' : '1px solid rgba(196, 30, 58, 0.6)',
                     background: isAdded
-                      ? 'linear-gradient(180deg, #2A7C7B 0%, #1f5f5e 100%)'
-                      : 'linear-gradient(180deg, #C8A24D 0%, #A6852E 100%)',
-                    color: isAdded ? '#F5F0E8' : '#0B0E11',
+                      ? 'linear-gradient(135deg, #2A7C7B 0%, #1f5f5e 100%)'
+                      : 'linear-gradient(135deg, #C41E3A 0%, #D4A017 50%, #1B6B3A 100%)',
+                    color: '#F5F0E8',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
+                    boxShadow: isAdded
+                      ? '0 2px 8px rgba(0,0,0,0.3)'
+                      : '0 2px 12px rgba(196, 30, 58, 0.25), 0 2px 8px rgba(0,0,0,0.3)',
                   }}
                 >
                   {isAdded ? 'Ajouté !' : 'Ajouter au panier'}
