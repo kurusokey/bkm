@@ -28,7 +28,7 @@ export default function BoutiquePage() {
       </div>
 
       {/* Product list */}
-      <section className="max-w-md mx-auto px-6 py-16">
+      <section className="max-w-sm mx-auto px-5 py-12">
         {products.length === 0 ? (
           <p className="text-center text-cream-muted py-20 text-lg">
             Aucun produit disponible pour le moment.
