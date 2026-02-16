@@ -51,7 +51,7 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <Link href="/" className="text-cream-muted hover:text-gold transition-colors duration-500 text-sm">
-                  Bô Kay Gwen
+                  Bô Kay Mwen
                 </Link>
               </li>
               <li>
