@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
-import ProductCarousel from '@/components/ProductCarousel';
+import ProductList from '@/components/ProductList';
 import { getAllProducts } from '@/lib/products';
 
 export default function BoutiquePage() {
@@ -8,8 +8,8 @@ export default function BoutiquePage() {
 
   return (
     <div className="min-h-screen bg-ink">
-      {/* Hero banner — cinematic */}
-      <div className="relative h-[50vh] min-h-[350px] md:h-[60vh] flex items-end justify-center overflow-hidden pb-16 md:pb-24">
+      {/* Hero banner */}
+      <div className="relative h-[50vh] min-h-[350px] flex items-end justify-center overflow-hidden pb-16">
         <Image
           src="/images/spirits.jpg"
           alt=""
@@ -27,14 +27,14 @@ export default function BoutiquePage() {
         </div>
       </div>
 
-      {/* Product Carousel */}
-      <section className="py-16 md:py-28">
+      {/* Product list */}
+      <section className="max-w-md mx-auto px-6 py-16">
         {products.length === 0 ? (
           <p className="text-center text-cream-muted py-20 text-lg">
             Aucun produit disponible pour le moment.
           </p>
         ) : (
-          <ProductCarousel products={products} />
+          <ProductList products={products} />
         )}
       </section>
     </div>
