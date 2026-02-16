@@ -26,12 +26,6 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         {/* Gradient overlay on hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Badge Featured */}
-        {product.is_featured && (
-          <div className="absolute top-5 right-5 px-4 py-1.5 bg-gold/10 backdrop-blur-sm border border-gold-muted/40 text-gold text-[0.6875rem] uppercase tracking-[0.15em] rounded-full">
-            Edition Limitee
-          </div>
-        )}
 
         {/* Collection number */}
         <div className="absolute top-5 left-5 text-cream-muted/30 text-sm font-serif tracking-widest">
