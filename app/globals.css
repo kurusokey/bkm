@@ -223,6 +223,57 @@ h3 {
 }
 
 /* ============================================
+   MADRAS & MARCHÉ CRÉOLE
+   ============================================ */
+
+/* Tissu madras — fond carreaux CSS */
+.madras-cloth {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(200,162,77,0.12) 0px, rgba(200,162,77,0.12) 1px,
+      transparent 1px, transparent 18px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(166,61,74,0.10) 0px, rgba(166,61,74,0.10) 1px,
+      transparent 1px, transparent 18px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(42,124,123,0.06) 0px, rgba(42,124,123,0.06) 1px,
+      transparent 1px, transparent 36px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(200,162,77,0.06) 0px, rgba(200,162,77,0.06) 1px,
+      transparent 1px, transparent 36px
+    );
+}
+
+/* Surface bois — fond chaud avec grain subtil */
+.wood-surface {
+  background: linear-gradient(
+    180deg,
+    #2A1F14 0%,
+    #33261A 30%,
+    #2E2116 60%,
+    #261C10 100%
+  );
+}
+
+/* Ardoise de marché */
+.market-slate {
+  background: linear-gradient(
+    170deg,
+    #1A2A1A 0%,
+    #1E2E1E 50%,
+    #1A2618 100%
+  );
+  border: 2px solid rgba(200,162,77,0.2);
+}
+
+/* ============================================
    KEYFRAMES
    ============================================ */
 

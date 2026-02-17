@@ -53,11 +53,10 @@ export default function ProductList({ products }: ProductListProps) {
               {/* Image avec cadre boisé */}
               <Link href={`/produits/${product.slug}`} className="block">
                 <div
-                  className="relative mx-auto overflow-hidden"
+                  className="relative w-full overflow-hidden"
                   style={{
-                    width: '260px',
-                    height: '300px',
-                    borderRadius: '12px',
+                    aspectRatio: '13 / 15',
+                    borderRadius: '10px',
                     border: '1px solid rgba(74, 122, 61, 0.2)',
                     background: 'linear-gradient(180deg, rgba(20, 35, 20, 0.8) 0%, rgba(15, 26, 15, 0.9) 100%)',
                     boxShadow: '0 8px 32px rgba(13,31,21,0.5), inset 0 1px 0 rgba(74, 122, 61, 0.08)',
@@ -67,47 +66,39 @@ export default function ProductList({ products }: ProductListProps) {
                     src={getProductImage(product.slug, product.image_url)}
                     alt={product.name}
                     fill
-                    className="object-contain p-6"
-                    sizes="260px"
+                    className="object-contain p-5"
+                    sizes="300px"
                   />
                 </div>
               </Link>
 
               {/* Infos produit */}
-              <div className="text-center mt-5">
+              <div className="text-center mt-4">
                 <Link href={`/produits/${product.slug}`}>
-                  <h2 className="font-serif text-gold tracking-wider" style={{ fontSize: '1.15rem' }}>
+                  <h2 className="font-serif text-gold tracking-wider text-base">
                     {product.name}
                   </h2>
                 </Link>
 
-                <p className="text-warm-white font-semibold tracking-wide mt-2" style={{ fontSize: '1.05rem' }}>
+                <p className="text-warm-white font-semibold tracking-wide mt-1.5 text-base">
                   {price}&euro;
                 </p>
 
-                {/* Bouton ajout panier — couleurs madras */}
+                {/* Bouton ajout panier */}
                 <button
                   onClick={() => handleAdd(product)}
+                  className="w-full mt-4 text-cream font-semibold uppercase tracking-[0.12em] cursor-pointer transition-all duration-300"
                   style={{
-                    display: 'block',
-                    width: '260px',
-                    margin: '16px auto 0',
-                    padding: '12px 0',
-                    fontSize: '0.7rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.15em',
-                    textTransform: 'uppercase' as const,
+                    padding: '10px 0',
+                    fontSize: '0.68rem',
                     borderRadius: '8px',
-                    border: isAdded ? '1px solid #2A7C7B' : '1px solid rgba(196, 30, 58, 0.6)',
+                    border: isAdded ? '1px solid #2A7C7B' : '1px solid rgba(196, 30, 58, 0.5)',
                     background: isAdded
                       ? 'linear-gradient(135deg, #2A7C7B 0%, #1f5f5e 100%)'
                       : 'linear-gradient(135deg, #C41E3A 0%, #D4A017 50%, #1B6B3A 100%)',
-                    color: '#F5F0E8',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
                     boxShadow: isAdded
                       ? '0 2px 8px rgba(0,0,0,0.3)'
-                      : '0 2px 12px rgba(196, 30, 58, 0.25), 0 2px 8px rgba(0,0,0,0.3)',
+                      : '0 2px 10px rgba(196, 30, 58, 0.2), 0 2px 6px rgba(0,0,0,0.2)',
                   }}
                 >
                   {isAdded ? 'Ajouté !' : 'Ajouter au panier'}

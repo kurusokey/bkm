@@ -38,11 +38,11 @@ export default function BoutiquePage() {
         </div>
 
         {/* Zone produits avec fond semi-transparent */}
-        <div style={{ background: 'linear-gradient(180deg, rgba(13,31,21,0.5) 0%, rgba(26,46,26,0.55) 50%, rgba(42,31,14,0.5) 100%)', backdropFilter: 'blur(2px)' }}>
+        <div className="flex justify-center w-full" style={{ background: 'linear-gradient(180deg, rgba(13,31,21,0.5) 0%, rgba(26,46,26,0.55) 50%, rgba(42,31,14,0.5) 100%)', backdropFilter: 'blur(2px)' }}>
           <div
+            className="w-full"
             style={{
               maxWidth: '340px',
-              margin: '0 auto',
               padding: '40px 20px 60px',
             }}
           >

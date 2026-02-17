@@ -41,13 +41,13 @@ export default function Header() {
               href="/boutique"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              Nos rhums arrangés
+              Ròm aranjé
             </Link>
             <Link
               href="/a-propos"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              L&apos;art du planteur
+              Istwa an nou
             </Link>
 
             {/* Panier */}
@@ -97,21 +97,21 @@ export default function Header() {
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Nos rhums arrangés
+              Ròm aranjé
             </Link>
             <Link
               href="/a-propos"
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              L&apos;art du planteur
+              Istwa an nou
             </Link>
             <Link
               href="/panier"
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Panier ({totalItems})
+              Pani&eacute; ({totalItems})
             </Link>
           </div>
         )}
