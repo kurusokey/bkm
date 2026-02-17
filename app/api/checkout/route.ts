@@ -42,10 +42,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    const message =
-      err instanceof Stripe.errors.StripeError
-        ? err.message
-        : 'Erreur interne du serveur';
+    const message = err instanceof Error ? err.message : 'Erreur interne du serveur';
+    console.error('[checkout]', message);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

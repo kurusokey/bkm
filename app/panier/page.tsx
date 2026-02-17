@@ -49,9 +49,10 @@ export default function PanierPage() {
       }
 
       window.location.href = data.url;
-    } catch {
+    } catch (err) {
       setIsLoading(false);
-      alert('Une erreur est survenue. Veuillez réessayer.');
+      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
+      alert('Erreur : ' + msg);
     }
   };
 
