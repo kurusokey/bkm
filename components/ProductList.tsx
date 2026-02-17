@@ -32,11 +32,12 @@ export default function ProductList({ products }: ProductListProps) {
             {/* Separateur décoratif entre les produits */}
             {index > 0 && (
               <div className="flex items-center justify-center gap-4 py-10">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gold-muted/30" />
-                <svg className="w-5 h-5 text-gold-muted/40 shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61z" />
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, transparent, rgba(74,122,61,0.4))' }} />
+                <svg className="w-5 h-5 shrink-0" style={{ color: 'rgba(74,122,61,0.5)' }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <line x1="8" y1="20" x2="16" y2="4" />
+                  <line x1="14" y1="8" x2="18" y2="2" />
                 </svg>
-                <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gold-muted/30" />
+                <div className="h-px flex-1" style={{ background: 'linear-gradient(270deg, transparent, rgba(74,122,61,0.4))' }} />
               </div>
             )}
 
@@ -57,9 +58,9 @@ export default function ProductList({ products }: ProductListProps) {
                     width: '260px',
                     height: '300px',
                     borderRadius: '12px',
-                    border: '1px solid rgba(139, 116, 52, 0.2)',
-                    background: 'linear-gradient(180deg, rgba(30, 24, 16, 0.8) 0%, rgba(22, 18, 12, 0.9) 100%)',
-                    boxShadow: '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(200, 162, 77, 0.08)',
+                    border: '1px solid rgba(74, 122, 61, 0.2)',
+                    background: 'linear-gradient(180deg, rgba(20, 35, 20, 0.8) 0%, rgba(15, 26, 15, 0.9) 100%)',
+                    boxShadow: '0 8px 32px rgba(13,31,21,0.5), inset 0 1px 0 rgba(74, 122, 61, 0.08)',
                   }}
                 >
                   <Image
