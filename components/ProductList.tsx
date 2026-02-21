@@ -56,8 +56,8 @@ export default function ProductList({ products }: ProductListProps) {
             {/* Infos */}
             <div className="text-center px-3 pb-4">
               <Link href={`/produits/${product.slug}`}>
-                <h2 className="font-serif text-gold tracking-wider text-sm md:text-base leading-tight">
-                  {product.name}
+                <h2 className="font-serif text-gold tracking-wider text-xs md:text-sm leading-tight whitespace-nowrap">
+                  {product.name.replace(/^Punch\s+/i, '')}
                 </h2>
               </Link>
 
