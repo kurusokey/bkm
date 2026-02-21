@@ -42,7 +42,7 @@ export default function BoutiquePage() {
           <div
             className="w-full"
             style={{
-              maxWidth: '340px',
+              maxWidth: '900px',
               padding: '40px 20px 60px',
             }}
           >
