@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 interface CheckoutItem {
   id: string;
   name: string;
@@ -12,6 +10,16 @@ interface CheckoutItem {
 
 export async function POST(request: NextRequest) {
   try {
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) {
+      return NextResponse.json(
+        { error: 'STRIPE_SECRET_KEY non configurée' },
+        { status: 500 },
+      );
+    }
+
+    const stripe = new Stripe(secretKey);
+
     const { items } = (await request.json()) as { items: CheckoutItem[] };
 
     if (!items || items.length === 0) {
