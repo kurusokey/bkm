@@ -30,7 +30,7 @@ export default function ProductList({ products }: ProductListProps) {
         return (
           <div
             key={product.id}
-            className="rounded-xl overflow-hidden"
+            className="rounded-xl overflow-hidden flex flex-col"
             style={{
               background: 'rgba(15, 26, 15, 0.6)',
               border: '1px solid rgba(74, 122, 61, 0.15)',
@@ -53,27 +53,33 @@ export default function ProductList({ products }: ProductListProps) {
               </div>
             </Link>
 
-            {/* Infos */}
-            <div className="text-center px-3 pb-4">
-              <Link href={`/produits/${product.slug}`} className="flex items-center justify-center min-h-[2.4em]">
+            {/* Infos — flex col pour aligner toutes les cartes */}
+            <div className="text-center px-3 pb-4 flex flex-col flex-grow">
+              {/* Nom — hauteur fixe pour 2 lignes */}
+              <Link href={`/produits/${product.slug}`} className="flex items-center justify-center h-8 md:h-10">
                 <h2 className="font-serif text-gold tracking-normal text-[0.7rem] md:text-sm leading-snug">
                   {product.name.replace(/^Punch\s+/i, '')}
                 </h2>
               </Link>
 
-              {product.tagline && (
-                <p className="text-cream-muted/50 text-[0.6rem] font-serif tracking-wider mt-0.5 italic">
-                  {product.tagline}
-                </p>
-              )}
+              {/* Tagline — hauteur fixe */}
+              <div className="h-4">
+                {product.tagline && (
+                  <p className="text-cream-muted/50 text-[0.6rem] font-serif tracking-wider italic">
+                    {product.tagline}
+                  </p>
+                )}
+              </div>
 
+              {/* Prix */}
               <p className="text-warm-white font-semibold tracking-wide mt-1 text-sm md:text-base">
                 {price}&euro;
               </p>
 
+              {/* Bouton — toujours en bas */}
               <button
                 onClick={() => handleAdd(product)}
-                className="w-full mt-3 text-cream font-semibold uppercase tracking-[0.1em] cursor-pointer transition-all duration-300"
+                className="w-full mt-auto pt-3 text-cream font-semibold uppercase tracking-[0.1em] cursor-pointer transition-all duration-300"
                 style={{
                   padding: '8px 0',
                   fontSize: '0.6rem',
