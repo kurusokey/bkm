@@ -17,6 +17,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const found = getProductBySlug(slug);
@@ -26,9 +27,12 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     if (product) {
-      addToCart(product);
+      addToCart(product, quantity);
       setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
+      setTimeout(() => {
+        setAdded(false);
+        setQuantity(1);
+      }, 2000);
     }
   };
 
@@ -138,6 +142,30 @@ export default function ProductPage() {
                 </div>
               )}
 
+              {/* Quantite */}
+              {product.stock_quantity > 0 && (
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="text-cream-muted text-sm tracking-wider">Quantit&eacute;</span>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                      className="w-9 h-9 flex items-center justify-center rounded-lg text-cream/80 text-lg transition-colors duration-300"
+                      style={{ background: 'rgba(200,162,77,0.08)', border: '1px solid rgba(200,162,77,0.25)' }}
+                    >
+                      &minus;
+                    </button>
+                    <span className="text-cream font-semibold w-8 text-center text-lg">{quantity}</span>
+                    <button
+                      onClick={() => setQuantity((q) => Math.min(product.stock_quantity, q + 1))}
+                      className="w-9 h-9 flex items-center justify-center rounded-lg text-cream/80 text-lg transition-colors duration-300"
+                      style={{ background: 'rgba(200,162,77,0.08)', border: '1px solid rgba(200,162,77,0.25)' }}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              )}
+
               <button
                 onClick={handleAddToCart}
                 disabled={product.stock_quantity === 0}
@@ -147,7 +175,9 @@ export default function ProductPage() {
                     : 'bg-slate-dark text-cream-muted cursor-not-allowed border border-gold-muted/10'
                 }`}
               >
-                {added ? 'Ajoute au panier' : 'Ajouter au panier'}
+                {added
+                  ? `${quantity > 1 ? quantity + ' bouteilles ajout\u00e9es' : 'Ajout\u00e9 au panier'}`
+                  : `Ajouter au panier${quantity > 1 ? ' (' + quantity + ')' : ''}`}
               </button>
 
               <p className="mt-8 text-cream-muted/40 text-xs text-center tracking-wider">
