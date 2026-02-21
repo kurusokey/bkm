@@ -11,6 +11,7 @@ export interface Product {
   stock_quantity: number;
   is_active: boolean;
     is_featured?: boolean;
+    tagline?: string;
     ingredients?: string[];
     price?: number;
   volume?: string;
