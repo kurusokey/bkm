@@ -57,12 +57,15 @@ export default function BoutiquePage() {
         </div>
 
         {/* Footer — on revoit le champ à travers */}
-        <div className="flex items-center justify-center" style={{ height: '30vh', minHeight: '200px' }}>
+        <div className="flex flex-col items-center justify-center" style={{ height: '30vh', minHeight: '200px' }}>
           <p
             className="font-serif text-gold text-center tracking-wider text-shadow-sm"
             style={{ fontSize: '0.6rem', textTransform: 'uppercase', letterSpacing: '0.35em', opacity: 0.5 }}
           >
             Né dans les champs de cannes
+          </p>
+          <p className="text-cream/20 text-xs text-center mt-6 px-6">
+            L&apos;abus d&apos;alcool est dangereux pour la sant&eacute;. &Agrave; consommer avec mod&eacute;ration.
           </p>
         </div>
       </div>

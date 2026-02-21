@@ -48,6 +48,13 @@ export default function Home() {
         </div>
 
       </section>
+
+      {/* Mention légale alcool */}
+      <div className="bg-ink text-center py-4 px-6">
+        <p className="text-cream/20 text-xs">
+          L&apos;abus d&apos;alcool est dangereux pour la sant&eacute;. &Agrave; consommer avec mod&eacute;ration.
+        </p>
+      </div>
     </main>
   );
 }
