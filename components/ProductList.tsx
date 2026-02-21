@@ -55,14 +55,14 @@ export default function ProductList({ products }: ProductListProps) {
 
             {/* Infos */}
             <div className="text-center px-3 pb-4">
-              <Link href={`/produits/${product.slug}`}>
+              <Link href={`/produits/${product.slug}`} className="flex items-center justify-center min-h-[2.4em]">
                 <h2 className="font-serif text-gold tracking-normal text-[0.7rem] md:text-sm leading-snug">
                   {product.name.replace(/^Punch\s+/i, '')}
                 </h2>
               </Link>
 
               {product.tagline && (
-                <p className="text-cream-muted/50 text-[0.65rem] font-serif tracking-wider mt-1 italic">
+                <p className="text-cream-muted/50 text-[0.6rem] font-serif tracking-wider mt-0.5 italic">
                   {product.tagline}
                 </p>
               )}
