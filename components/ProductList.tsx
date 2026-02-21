@@ -22,7 +22,7 @@ export default function ProductList({ products }: ProductListProps) {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
       {products.map((product) => {
         const price = (product.price_cents / 100).toFixed(2);
         const isAdded = addedId === product.id;
@@ -54,16 +54,16 @@ export default function ProductList({ products }: ProductListProps) {
             </Link>
 
             {/* Nom */}
-            <Link href={`/produits/${product.slug}`} className="flex items-center justify-center px-1 pt-1">
-              <h2 className="font-serif text-gold tracking-tight text-[0.5rem] md:text-[0.6rem] leading-snug text-center">
-                {product.name.replace(/^Punch\s+/i, '')}
+            <Link href={`/produits/${product.slug}`} className="flex items-center justify-center px-2 pt-1">
+              <h2 className="font-serif text-gold text-xs md:text-sm leading-tight text-center whitespace-pre-line">
+                {product.name.replace(/^Punch\s+/i, '').replace('-', '\n')}
               </h2>
             </Link>
 
             {/* Tagline */}
-            <div className="text-center px-1">
+            <div className="text-center px-2">
               {product.tagline && (
-                <p className="text-cream-muted/50 text-[0.45rem] md:text-[0.5rem] font-serif italic">
+                <p className="text-cream-muted/50 text-[0.6rem] md:text-xs font-serif italic">
                   {product.tagline}
                 </p>
               )}
