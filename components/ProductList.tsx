@@ -26,7 +26,7 @@ export default function ProductList({ products }: ProductListProps) {
       {products.map((product) => {
         const price = (product.price_cents / 100).toFixed(2);
         const isAdded = addedId === product.id;
-        const shortName = product.name.replace(/^Punch\s+/i, '');
+        const shortName = product.name.replace(/^Punch\s+/i, '').replace(/-/g, ' ');
 
         return (
           <div key={product.id} className="flex flex-col">
