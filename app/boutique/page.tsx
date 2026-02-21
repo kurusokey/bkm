@@ -42,8 +42,8 @@ export default function BoutiquePage() {
           <div
             className="w-full"
             style={{
-              maxWidth: '900px',
-              padding: '40px 20px 60px',
+              maxWidth: '720px',
+              padding: '40px 16px 60px',
             }}
           >
             {products.length === 0 ? (
