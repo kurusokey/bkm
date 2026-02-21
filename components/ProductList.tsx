@@ -80,6 +80,12 @@ export default function ProductList({ products }: ProductListProps) {
                   </h2>
                 </Link>
 
+                {product.flavor && (
+                  <p className="text-cream-muted/50 text-xs font-serif tracking-wider mt-1">
+                    {product.flavor}
+                  </p>
+                )}
+
                 <p className="text-warm-white font-semibold tracking-wide mt-1.5 text-base">
                   {price}&euro;
                 </p>
