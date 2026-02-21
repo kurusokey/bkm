@@ -35,7 +35,7 @@ export default function Header() {
               href="/"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              Bô Kay Mwen
+              Accueil
             </Link>
             <Link
               href="/boutique"
@@ -90,7 +90,7 @@ export default function Header() {
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Bô Kay Mwen
+              Accueil
             </Link>
             <Link
               href="/boutique"
