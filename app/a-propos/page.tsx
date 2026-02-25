@@ -1,5 +1,11 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
+
+export const metadata: Metadata = {
+  title: 'À Propos — Bô Kay Mwen',
+  description: 'Notre histoire : un amour profond pour la terre antillaise, des ingrédients locaux et des recettes artisanales. Découvrez l\'âme de Bô Kay Mwen.',
+};
 
 export default function AProposPage() {
   return (
@@ -79,7 +85,7 @@ export default function AProposPage() {
                 <br />
                 nous puisons dans ce terroir d&apos;exception
                 <br />
-                l&apos;essence de nos rhums arrangés.
+                l&apos;essence de nos punchs.
               </p>
             </div>
           </ScrollReveal>
@@ -140,7 +146,7 @@ export default function AProposPage() {
           <ScrollReveal>
             <div className="mb-28">
               <p className="text-cream-muted/90 leading-[2.8] tracking-wide">
-                Nos rhums arrangés célèbrent
+                Nos punchs célèbrent
                 <br />
                 la richesse des fruits tropicaux
                 <br />

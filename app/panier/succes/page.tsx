@@ -46,7 +46,7 @@ export default function SuccesPage() {
           <ScrollReveal delay={600} direction="up" distance={20} duration={1000}>
             <p className="text-cream-muted mb-10 leading-relaxed">
               Vous recevrez un e-mail de confirmation de Stripe.
-              Votre rhum arrangé arrive bientôt !
+              Votre punch arrive bientôt !
             </p>
             <Link href="/boutique" className="btn-luxury-filled">
               Retour à la boutique

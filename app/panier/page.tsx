@@ -87,7 +87,7 @@ export default function PanierPage() {
 
             <ScrollReveal delay={600} direction="up" distance={20} duration={1000}>
               <p className="text-cream-muted mb-10 leading-relaxed">
-                D&eacute;couvre nos rhums arrang&eacute;s artisanaux.
+                D&eacute;couvre nos punchs artisanaux.
               </p>
               <Link href="/boutique" className="btn-luxury-filled">
                 An nou all&eacute;

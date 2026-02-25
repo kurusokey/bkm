@@ -27,7 +27,7 @@ export default function ProductList({ products }: ProductListProps) {
       {products.map((product, index) => {
         const price = (product.price_cents / 100).toFixed(2);
         const isAdded = addedId === product.id;
-        const shortName = product.name.replace(/^Punch\s+/i, '').replace(/-/g, ' ');
+        const shortName = product.category === 'coffret' ? product.name : product.name.replace(/^Punch\s+/i, '').replace(/-/g, ' ');
 
         return (
           <ScrollReveal key={product.id} delay={index * 60} distance={24}>

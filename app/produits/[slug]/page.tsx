@@ -57,7 +57,7 @@ export default function ProductPage() {
   }
 
   const price = (product.price_cents / 100).toFixed(2);
-  const displayName = product.name.replace(/^Punch\s+/i, '');
+  const displayName = product.category === 'coffret' ? product.name : product.name.replace(/^Punch\s+/i, '');
 
   return (
     <div className="min-h-screen relative">
@@ -145,7 +145,7 @@ export default function ProductPage() {
                     opacity: 0.6,
                   }}
                 >
-                  Punch artisanal
+                  {product.category === 'coffret' ? 'Coffret cadeau' : 'Punch artisanal'}
                 </p>
 
                 {/* Nom */}
@@ -163,8 +163,20 @@ export default function ProductPage() {
 
                 <div className="gold-line-wide" style={{ margin: '24px 0' }} />
 
+                {/* Contenu du coffret */}
+                {product.pack_contents && product.pack_contents.length > 0 && (
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] mb-3 font-serif text-cream-muted text-shadow-sm">Contenu du coffret</p>
+                    <ul className="text-cream text-sm leading-relaxed text-shadow-sm space-y-1">
+                      {product.pack_contents.map((item, i) => (
+                        <li key={i}>— {item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
                 {/* Ingrédients */}
-                {product.ingredients && product.ingredients.length > 0 && (
+                {product.ingredients && product.ingredients.length > 0 && !product.pack_contents && (
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] mb-3 font-serif text-cream-muted text-shadow-sm">Ingrédients</p>
                     <p className="text-cream text-sm leading-relaxed text-shadow-sm">
@@ -187,15 +199,25 @@ export default function ProductPage() {
                       <span className="text-cream-muted">Volume :</span> {product.volume_ml / 10}cl
                     </p>
                   )}
-                  <p className="text-shadow-sm">
-                    <span className="text-cream-muted">Stock :</span>{' '}
-                    {product.stock_quantity > 0 ? (
-                      <span className="text-teal-light">{product.stock_quantity}</span>
-                    ) : (
+                  {product.stock_quantity === 0 && (
+                    <p className="text-shadow-sm">
                       <span className="text-crimson-light">Rupture de stock</span>
-                    )}
-                  </p>
+                    </p>
+                  )}
                 </div>
+
+                {/* Conseils de dégustation */}
+                {product.tasting_tips && (
+                  <>
+                    <div className="gold-line-wide" style={{ margin: '24px 0' }} />
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] mb-3 font-serif text-cream-muted text-shadow-sm">Conseils de dégustation</p>
+                      <p className="text-cream text-sm leading-relaxed text-shadow-sm italic">
+                        {product.tasting_tips}
+                      </p>
+                    </div>
+                  </>
+                )}
 
                 <div className="gold-line-wide" style={{ margin: '24px 0' }} />
 

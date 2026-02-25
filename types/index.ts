@@ -13,6 +13,9 @@ export interface Product {
     is_featured?: boolean;
     tagline?: string;
     ingredients?: string[];
+    tasting_tips?: string;
+    category?: 'punch' | 'coffret';
+    pack_contents?: string[];
     price?: number;
   volume?: string;
   created_at: string;

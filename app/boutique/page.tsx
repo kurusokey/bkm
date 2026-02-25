@@ -1,7 +1,13 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import ProductList from '@/components/ProductList';
 import { getAllProducts } from '@/lib/products';
+
+export const metadata: Metadata = {
+  title: 'Boutique — Bô Kay Mwen',
+  description: 'Découvrez notre gamme de punchs artisanaux des Caraïbes : ananas-passion, coco, goyave, pili-pili et bien plus. 100% local, 100% fait maison.',
+};
 
 export default function BoutiquePage() {
   const products = getAllProducts();
