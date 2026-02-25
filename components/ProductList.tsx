@@ -56,11 +56,11 @@ export default function ProductList({ products }: ProductListProps) {
               </Link>
 
               {/* Infos — flex-1 pour largeur constante sur mobile */}
-              <div className="flex-1 flex flex-col justify-center py-2 pr-3 sm:px-3 sm:py-3 min-w-0">
+              <div className="flex-1 flex flex-col justify-center py-3 pr-4 sm:px-4 sm:py-4 min-w-0">
                 <Link href={`/produits/${product.slug}`}>
                   <h2
                     className="font-serif text-gold leading-tight sm:text-center"
-                    style={{ fontSize: '0.8rem' }}
+                    style={{ fontSize: '1rem' }}
                   >
                     {shortName}
                   </h2>
@@ -68,26 +68,26 @@ export default function ProductList({ products }: ProductListProps) {
 
                 {product.tagline && (
                   <p
-                    className="text-cream-muted italic sm:text-center mt-0.5"
-                    style={{ fontSize: '0.6rem' }}
+                    className="text-cream-muted italic sm:text-center mt-1"
+                    style={{ fontSize: '0.75rem' }}
                   >
                     {product.tagline}
                   </p>
                 )}
 
                 <p
-                  className="text-warm-white font-semibold sm:text-center mt-1"
-                  style={{ fontSize: '0.75rem' }}
+                  className="text-warm-white font-semibold sm:text-center mt-2"
+                  style={{ fontSize: '0.95rem' }}
                 >
                   {price}&euro;
                 </p>
 
                 <button
                   onClick={() => handleAdd(product)}
-                  className="mt-2 self-start sm:self-auto sm:w-full cursor-pointer font-semibold uppercase transition-all duration-300"
+                  className="mt-3 self-start sm:self-auto sm:w-full cursor-pointer font-semibold uppercase transition-all duration-300"
                   style={{
-                    padding: '3px 8px',
-                    fontSize: '0.5rem',
+                    padding: '6px 12px',
+                    fontSize: '0.65rem',
                     letterSpacing: '0.08em',
                     borderRadius: '4px',
                     border: isAdded
