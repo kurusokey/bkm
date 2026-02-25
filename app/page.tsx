@@ -33,8 +33,8 @@ export default function Home() {
           </ScrollReveal>
 
           <ScrollReveal delay={800} direction="up" distance={30} duration={1000}>
-            <p className="text-lg md:text-xl lg:text-2xl text-cream/90 max-w-2xl mx-auto mb-12 leading-relaxed text-shadow-sm font-light">
-              Rhums arrangés d&apos;origine caribéenne.
+            <p className="text-base md:text-lg lg:text-xl text-cream/90 mx-auto mb-12 text-shadow-sm font-light whitespace-nowrap">
+              Le goût des îles dans une bouteille.
             </p>
           </ScrollReveal>
 

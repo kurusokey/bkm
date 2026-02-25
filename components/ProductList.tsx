@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Product } from '@/types';
 import { getProductImage } from '@/lib/productImages';
 import { useCart } from '@/context/CartContext';
+import ScrollReveal from '@/components/ScrollReveal';
 
 interface ProductListProps {
   products: Product[];
@@ -22,64 +23,87 @@ export default function ProductList({ products }: ProductListProps) {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-8">
-      {products.map((product) => {
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
+      {products.map((product, index) => {
         const price = (product.price_cents / 100).toFixed(2);
         const isAdded = addedId === product.id;
         const shortName = product.name.replace(/^Punch\s+/i, '').replace(/-/g, ' ');
 
         return (
-          <div key={product.id} className="flex flex-col">
-            {/* Image — cadre carré, jamais tronquée */}
-            <Link href={`/produits/${product.slug}`} className="block">
-              <div
-                className="relative w-full rounded-lg"
-                style={{
-                  aspectRatio: '1',
-                  background: 'rgba(15, 26, 15, 0.6)',
-                  border: '1px solid rgba(74, 122, 61, 0.15)',
-                }}
-              >
-                <Image
-                  src={getProductImage(product.slug, product.image_url)}
-                  alt={product.name}
-                  fill
-                  className="object-contain p-3"
-                  sizes="(min-width: 768px) 260px, 45vw"
-                />
-              </div>
-            </Link>
-
-            {/* Nom */}
-            <Link href={`/produits/${product.slug}`} className="mt-3 block text-center">
-              <h2 className="font-serif text-gold text-[0.75rem] leading-tight">
-                {shortName}
-              </h2>
-            </Link>
-
-            {/* Prix */}
-            <p className="text-warm-white font-semibold text-sm text-center mt-1">
-              {price}&euro;
-            </p>
-
-            {/* Bouton */}
-            <button
-              onClick={() => handleAdd(product)}
-              className="mt-2 w-full text-cream font-semibold uppercase cursor-pointer transition-all duration-300"
+          <ScrollReveal key={product.id} delay={index * 60} distance={24}>
+            {/* Mobile : horizontal — Tablet+ : vertical */}
+            <div
+              className="flex gap-3 sm:flex-col sm:gap-0 rounded-lg overflow-hidden"
               style={{
-                padding: '7px 0',
-                fontSize: '0.55rem',
-                letterSpacing: '0.05em',
-                borderRadius: '6px',
-                border: isAdded ? '1px solid #2A7C7B' : '1px solid rgba(196, 30, 58, 0.5)',
-                background: isAdded
-                  ? 'linear-gradient(135deg, #2A7C7B 0%, #1f5f5e 100%)'
-                  : 'linear-gradient(135deg, #C41E3A 0%, #D4A017 50%, #1B6B3A 100%)',
+                background: 'rgba(15, 26, 15, 0.5)',
+                border: '1px solid rgba(200, 162, 77, 0.1)',
               }}
             >
-              {isAdded ? 'Ajout\u00e9 !' : 'Ajouter'}
-            </button>
-          </div>
+              {/* Image */}
+              <Link href={`/produits/${product.slug}`} className="shrink-0">
+                <div
+                  className="relative w-36 h-36 sm:w-full overflow-hidden"
+                  style={{ aspectRatio: '1' }}
+                >
+                  <Image
+                    src={getProductImage(product.slug, product.image_url)}
+                    alt={product.name}
+                    fill
+                    className="object-contain p-2 sm:p-3 transition-transform duration-500 hover:scale-105"
+                    sizes="(min-width: 1024px) 260px, (min-width: 640px) 44vw, 144px"
+                  />
+                </div>
+              </Link>
+
+              {/* Infos — flex-1 pour largeur constante sur mobile */}
+              <div className="flex-1 flex flex-col justify-center py-2 pr-3 sm:px-3 sm:py-3 min-w-0">
+                <Link href={`/produits/${product.slug}`}>
+                  <h2
+                    className="font-serif text-gold leading-tight sm:text-center"
+                    style={{ fontSize: '0.8rem' }}
+                  >
+                    {shortName}
+                  </h2>
+                </Link>
+
+                {product.tagline && (
+                  <p
+                    className="text-cream-muted italic sm:text-center mt-0.5"
+                    style={{ fontSize: '0.6rem' }}
+                  >
+                    {product.tagline}
+                  </p>
+                )}
+
+                <p
+                  className="text-warm-white font-semibold sm:text-center mt-1"
+                  style={{ fontSize: '0.75rem' }}
+                >
+                  {price}&euro;
+                </p>
+
+                <button
+                  onClick={() => handleAdd(product)}
+                  className="mt-2 self-start sm:self-auto sm:w-full cursor-pointer font-semibold uppercase transition-all duration-300"
+                  style={{
+                    padding: '3px 8px',
+                    fontSize: '0.5rem',
+                    letterSpacing: '0.08em',
+                    borderRadius: '4px',
+                    border: isAdded
+                      ? '1px solid rgba(42, 124, 123, 0.6)'
+                      : '1px solid rgba(200, 162, 77, 0.5)',
+                    background: isAdded
+                      ? 'rgba(42, 124, 123, 0.25)'
+                      : 'rgba(200, 162, 77, 0.15)',
+                    color: isAdded ? '#3A9B9A' : '#C8A24D',
+                  }}
+                >
+                  {isAdded ? 'Ajouté !' : 'Ajouter au panier'}
+                </button>
+              </div>
+            </div>
+          </ScrollReveal>
         );
       })}
     </div>

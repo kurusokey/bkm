@@ -17,13 +17,13 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ease-out ${
+      className={`fixed top-0 w-full z-[90] transition-all duration-500 ease-out ${
         scrolled || isMenuOpen
           ? 'bg-ink/95 backdrop-blur-md border-b border-gold-muted/20'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <nav className={`max-w-7xl mx-auto px-6 transition-all duration-500 ${scrolled ? 'py-3' : 'py-5'}`}>
+      <nav className={`max-w-7xl mx-auto px-6 transition-all duration-500 ${scrolled ? 'py-5' : 'py-8'}`}>
         <div className="flex justify-between items-center">
           {/* Logo (hidden) */}
           <Link href="/" className="w-0 h-0 overflow-hidden absolute" aria-label="Accueil" />
@@ -41,7 +41,7 @@ export default function Header() {
               href="/boutique"
               className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
             >
-              Ròm aranjé
+              Nos punchs
             </Link>
             <Link
               href="/a-propos"
@@ -97,7 +97,7 @@ export default function Header() {
               className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(false)}
             >
-              Ròm aranjé
+              Nos punchs
             </Link>
             <Link
               href="/a-propos"

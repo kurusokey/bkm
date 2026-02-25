@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 export default function AgeVerification() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,15 +37,36 @@ export default function AgeVerification() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(160deg, #0A1628 0%, #0C2E4A 50%, #0A1628 100%)',
+        background: 'transparent',
         overflow: 'hidden',
       }}
     >
+      {/* Photo Rocher du Diamant en fond */}
+      <Image
+        src="/images/rocher-diamant.jpg"
+        alt=""
+        fill
+        priority
+        className="object-cover"
+        sizes="100vw"
+        style={{ zIndex: 0 }}
+      />
+      {/* Overlay sombre pour lisibilité */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(160deg, rgba(10,22,40,0.80) 0%, rgba(12,46,74,0.75) 50%, rgba(10,22,40,0.80) 100%)',
+          zIndex: 1,
+        }}
+      />
+
       {/* Navigation grid lines */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
+          zIndex: 2,
           backgroundImage:
             'repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(126,180,210,0.08) 79px, rgba(126,180,210,0.08) 80px),' +
             'repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(126,180,210,0.08) 79px, rgba(126,180,210,0.08) 80px)',
@@ -57,6 +79,7 @@ export default function AgeVerification() {
         style={{
           position: 'absolute',
           inset: 0,
+          zIndex: 2,
           backgroundImage:
             'repeating-linear-gradient(0deg, transparent, transparent 159px, rgba(126,180,210,0.12) 159px, rgba(126,180,210,0.12) 160px),' +
             'repeating-linear-gradient(90deg, transparent, transparent 159px, rgba(126,180,210,0.12) 159px, rgba(126,180,210,0.12) 160px)',
@@ -74,6 +97,7 @@ export default function AgeVerification() {
           width: '260px',
           height: '280px',
           opacity: 0.12,
+          zIndex: 3,
         }}
       >
         {/* Basse-Terre (left wing) */}
@@ -133,6 +157,7 @@ export default function AgeVerification() {
           width: '180px',
           height: '340px',
           opacity: 0.12,
+          zIndex: 3,
         }}
       >
         <path
@@ -172,6 +197,7 @@ export default function AgeVerification() {
           width: '140px',
           height: '140px',
           opacity: 0.1,
+          zIndex: 3,
         }}
       >
         {/* Outer circle */}
@@ -238,6 +264,7 @@ export default function AgeVerification() {
           fontSize: '10px',
           fontFamily: 'monospace',
           letterSpacing: '1px',
+          zIndex: 3,
         }}
       >
         14°40&apos;N
@@ -251,6 +278,7 @@ export default function AgeVerification() {
           fontSize: '10px',
           fontFamily: 'monospace',
           letterSpacing: '1px',
+          zIndex: 3,
         }}
       >
         61°00&apos;W
