@@ -1,13 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useState, useEffect } from 'react';
 
 export default function Header() {
   const { totalItems } = useCart();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
@@ -36,19 +41,19 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
+              className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isActive('/') ? 'text-gold' : 'text-cream/80 hover:text-gold'}`}
             >
               Accueil
             </Link>
             <Link
               href="/boutique"
-              className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
+              className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isActive('/boutique') ? 'text-gold' : 'text-cream/80 hover:text-gold'}`}
             >
               Nos punchs
             </Link>
             <Link
               href="/a-propos"
-              className="text-xs text-cream/80 uppercase tracking-[0.2em] hover:text-gold transition-colors duration-500"
+              className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isActive('/a-propos') ? 'text-gold' : 'text-cream/80 hover:text-gold'}`}
             >
               Istwa an nou
             </Link>
@@ -105,28 +110,28 @@ export default function Header() {
           <div className="md:hidden mt-4 pb-4 border-t border-gold-muted/20 pt-4 space-y-4 animate-fade-in">
             <Link
               href="/"
-              className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
+              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/') ? 'text-gold' : 'text-cream hover:text-gold'}`}
               onClick={() => setIsMenuOpen(false)}
             >
               Accueil
             </Link>
             <Link
               href="/boutique"
-              className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
+              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/boutique') ? 'text-gold' : 'text-cream hover:text-gold'}`}
               onClick={() => setIsMenuOpen(false)}
             >
               Nos punchs
             </Link>
             <Link
               href="/a-propos"
-              className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
+              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/a-propos') ? 'text-gold' : 'text-cream hover:text-gold'}`}
               onClick={() => setIsMenuOpen(false)}
             >
               Istwa an nou
             </Link>
             <Link
               href="/panier"
-              className="block text-sm text-cream uppercase tracking-widest hover:text-gold transition-colors duration-300"
+              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/panier') ? 'text-gold' : 'text-cream hover:text-gold'}`}
               onClick={() => setIsMenuOpen(false)}
             >
               Pani&eacute; ({totalItems})
