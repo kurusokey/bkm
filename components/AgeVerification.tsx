@@ -56,7 +56,7 @@ export default function AgeVerification() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(160deg, rgba(10,22,40,0.80) 0%, rgba(12,46,74,0.75) 50%, rgba(10,22,40,0.80) 100%)',
+          background: 'linear-gradient(160deg, rgba(10,22,40,0.55) 0%, rgba(12,46,74,0.50) 50%, rgba(10,22,40,0.55) 100%)',
           zIndex: 1,
         }}
       />
