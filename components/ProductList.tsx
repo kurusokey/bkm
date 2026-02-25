@@ -42,15 +42,15 @@ export default function ProductList({ products }: ProductListProps) {
               {/* Image */}
               <Link href={`/produits/${product.slug}`} className="shrink-0">
                 <div
-                  className="relative w-36 h-36 sm:w-full overflow-hidden"
-                  style={{ aspectRatio: '1' }}
+                  className="relative w-56 h-56 sm:w-full sm:h-auto overflow-hidden"
+                  style={{ aspectRatio: '3/4' }}
                 >
                   <Image
                     src={getProductImage(product.slug, product.image_url)}
                     alt={product.name}
                     fill
-                    className="object-contain p-2 sm:p-3 transition-transform duration-500 hover:scale-105"
-                    sizes="(min-width: 1024px) 260px, (min-width: 640px) 44vw, 144px"
+                    className="object-contain p-1 transition-transform duration-500 hover:scale-105"
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 44vw, 224px"
                   />
                 </div>
               </Link>
