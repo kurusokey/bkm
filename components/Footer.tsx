@@ -12,126 +12,76 @@ export default function Footer() {
   return (
     <footer className="bg-charcoal border-t border-gold-muted/10">
 
-      {/* Newsletter — bande pleine largeur */}
-      <div className="border-b border-gold-muted/10 py-10 px-6">
-        <div className="mx-auto w-full" style={{ maxWidth: '36rem' }}>
+      {/* Newsletter — section généreuse et aérée */}
+      <div className="px-6 py-16 text-center">
+        <div className="mx-auto" style={{ maxWidth: '480px' }}>
           <Newsletter />
         </div>
       </div>
 
-      {/* Corps — 4 colonnes */}
-      <div
-        className="mx-auto px-6 py-14 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12"
-        style={{ maxWidth: '72rem' }}
-      >
-
-        {/* Colonne 1 — Identité */}
-        <div className="col-span-2 lg:col-span-1 flex flex-col">
-          <p className="font-serif text-gold text-sm tracking-wider mb-3">
-            Bô Kay Mwen
-          </p>
-          <div
-            className="mb-5"
-            style={{
-              width: '48px',
-              height: '1px',
-              background: 'linear-gradient(90deg, var(--gold), transparent)',
-            }}
-          />
-          <p className="text-cream-muted/60 text-xs leading-relaxed mb-2">
-            Punchs artisanaux des Antilles.
-          </p>
-          <p className="text-cream-muted/60 text-xs leading-relaxed mb-2">
-            100&nbsp;% local, 100&nbsp;% fait maison.
-          </p>
-          <p className="text-cream-muted/35 text-xs leading-relaxed mt-3">
-            Fruits tropicaux, épices locales,<br />
-            recettes transmises avec passion.
-          </p>
-        </div>
-
-        {/* Colonne 2 — Explorer */}
-        <div className="flex flex-col">
-          <p className="font-serif text-gold/60 text-[0.65rem] tracking-[0.22em] uppercase mb-5">
-            Explorer
-          </p>
-          <nav className="flex flex-col gap-3">
-            <Link href="/" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Accueil
-            </Link>
-            <Link href="/boutique" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Nos punchs
-            </Link>
-            <Link href="/a-propos" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Istwa an nou
-            </Link>
-            <Link href="/contact" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Contact
-            </Link>
-          </nav>
-        </div>
-
-        {/* Colonne 3 — Légal */}
-        <div className="flex flex-col">
-          <p className="font-serif text-gold/60 text-[0.65rem] tracking-[0.22em] uppercase mb-5">
-            Légal
-          </p>
-          <nav className="flex flex-col gap-3">
-            <Link href="/mentions-legales" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Mentions légales
-            </Link>
-            <Link href="/cgv" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              CGV
-            </Link>
-            <Link href="/confidentialite" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Confidentialité
-            </Link>
-          </nav>
-        </div>
-
-        {/* Colonne 4 — Contact */}
-        <div className="flex flex-col">
-          <p className="font-serif text-gold/60 text-[0.65rem] tracking-[0.22em] uppercase mb-5">
-            Contact
-          </p>
-          <div className="flex flex-col gap-3">
-            <Link href="/contact" className="text-xs text-cream-muted/55 hover:text-gold transition-colors">
-              Nous écrire
-            </Link>
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-cream-muted/55 hover:text-gold transition-colors"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://www.facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-cream-muted/55 hover:text-gold transition-colors"
-            >
-              Facebook
-            </a>
-          </div>
-        </div>
-
+      {/* Séparateur décoratif */}
+      <div className="flex items-center justify-center gap-4 px-6">
+        <div className="h-px flex-1" style={{ maxWidth: '120px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.3))' }} />
+        <span className="text-gold/30 text-xs">✦</span>
+        <div className="h-px flex-1" style={{ maxWidth: '120px', background: 'linear-gradient(90deg, rgba(200,162,77,0.3), transparent)' }} />
       </div>
 
-      {/* Barre de copyright */}
-      <div className="border-t border-gold-muted/10 py-5 px-6">
-        <div
-          className="mx-auto flex flex-col sm:flex-row items-center justify-between gap-2"
-          style={{ maxWidth: '72rem' }}
-        >
-          <p className="text-cream-muted/40 text-xs tracking-wider">
-            &copy; 2026 Bô Kay Mwen — Tous droits réservés.
-          </p>
-          <p className="text-cream-muted/30 text-xs">
-            L&apos;abus d&apos;alcool est dangereux pour la santé.
-          </p>
-        </div>
+      {/* Identité */}
+      <div className="px-6 py-10 text-center">
+        <p className="font-serif text-gold text-sm tracking-wider mb-2">
+          Bô Kay Mwen
+        </p>
+        <p className="text-cream-muted/45 text-xs tracking-wide">
+          Punchs artisanaux · 100&nbsp;% local · 100&nbsp;% fait maison
+        </p>
+      </div>
+
+      {/* Navigation principale */}
+      <div className="px-6 pb-6 text-center">
+        <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+          <Link href="/" className="text-xs text-cream-muted/60 hover:text-gold transition-colors tracking-wide">
+            Accueil
+          </Link>
+          <span className="text-cream-muted/20 text-xs">·</span>
+          <Link href="/boutique" className="text-xs text-cream-muted/60 hover:text-gold transition-colors tracking-wide">
+            Nos punchs
+          </Link>
+          <span className="text-cream-muted/20 text-xs">·</span>
+          <Link href="/a-propos" className="text-xs text-cream-muted/60 hover:text-gold transition-colors tracking-wide">
+            Notre histoire
+          </Link>
+          <span className="text-cream-muted/20 text-xs">·</span>
+          <Link href="/contact" className="text-xs text-cream-muted/60 hover:text-gold transition-colors tracking-wide">
+            Contact
+          </Link>
+        </nav>
+      </div>
+
+      {/* Liens légaux */}
+      <div className="px-6 pb-10 text-center">
+        <nav className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <Link href="/mentions-legales" className="text-[0.65rem] text-cream-muted/35 hover:text-cream-muted/70 transition-colors">
+            Mentions légales
+          </Link>
+          <span className="text-cream-muted/20 text-[0.65rem]">·</span>
+          <Link href="/cgv" className="text-[0.65rem] text-cream-muted/35 hover:text-cream-muted/70 transition-colors">
+            CGV
+          </Link>
+          <span className="text-cream-muted/20 text-[0.65rem]">·</span>
+          <Link href="/confidentialite" className="text-[0.65rem] text-cream-muted/35 hover:text-cream-muted/70 transition-colors">
+            Confidentialité
+          </Link>
+        </nav>
+      </div>
+
+      {/* Copyright */}
+      <div className="border-t border-gold-muted/10 py-5 px-6 text-center">
+        <p className="text-cream-muted/30 text-xs tracking-wider mb-1">
+          &copy; 2026 Bô Kay Mwen — Tous droits réservés.
+        </p>
+        <p className="text-cream-muted/20 text-[0.6rem] tracking-wide">
+          L&apos;abus d&apos;alcool est dangereux pour la santé.
+        </p>
       </div>
 
     </footer>
