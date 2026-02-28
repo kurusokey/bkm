@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
-import { Inter, Cinzel } from 'next/font/google';
+import { Inter, Cinzel, Cinzel_Decorative } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AgeVerification from '@/components/AgeVerification';
 import CookieBanner from '@/components/CookieBanner';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700'] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700'], display: 'swap' });
+const cinzelDecorative = Cinzel_Decorative({ subsets: ['latin'], variable: '--font-cinzel-decorative', weight: ['400', '700'], display: 'swap' });
 
 const BASE_URL = 'https://blackbeard-umber.vercel.app';
 
@@ -50,16 +54,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className={`${inter.variable} ${cinzel.variable} bg-ink text-cream`}>
+      <body className={`${inter.variable} ${cinzel.variable} ${cinzelDecorative.variable} bg-ink text-cream`}>
         <CartProvider>
           <AgeVerification />
           <CookieBanner />
+          <GoogleAnalytics />
           <Header />
           <main className="min-h-screen">
             {children}
           </main>
           <Footer />
         </CartProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

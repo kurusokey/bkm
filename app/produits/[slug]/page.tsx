@@ -5,6 +5,8 @@ import JsonLd from '@/components/JsonLd';
 import ProductClient from '@/components/ProductClient';
 import { Product } from '@/types';
 
+export const revalidate = 3600; // ISR : revalidation toutes les heures
+
 const BASE_URL = 'https://blackbeard-umber.vercel.app';
 
 export async function generateStaticParams() {
