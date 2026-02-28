@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AgeVerification from '@/components/AgeVerification';
+import CookieBanner from '@/components/CookieBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700'] });
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${cinzel.variable} bg-ink text-cream`}>
         <CartProvider>
           <AgeVerification />
+          <CookieBanner />
           <Header />
           <main className="min-h-screen">
             {children}

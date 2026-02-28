@@ -8,22 +8,26 @@ export default function AgeVerification() {
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
-    const isVerified = localStorage.getItem('age_verified');
-    if (!isVerified) {
-      setIsOpen(true);
+    const stored = localStorage.getItem('age_verified');
+    if (stored) {
+      const { verified, expires } = JSON.parse(stored);
+      if (verified && Date.now() < expires) return;
+      localStorage.removeItem('age_verified');
     }
+    setIsOpen(true);
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('age_verified', 'true');
+    const expires = Date.now() + 30 * 24 * 60 * 60 * 1000; // 30 jours
+    localStorage.setItem('age_verified', JSON.stringify({ verified: true, expires }));
     setIsOpen(false);
   };
 
   const handleDecline = () => {
     setShowWarning(true);
     setTimeout(() => {
-      window.location.href = 'https://www.google.com';
-    }, 2000);
+      window.location.href = '/acces-refuse';
+    }, 1500);
   };
 
   if (!isOpen) return null;

@@ -58,6 +58,23 @@ export default function ConfidentialitePage() {
           <div className="gold-line-wide mx-auto mb-10" />
         </ScrollReveal>
 
+        {/* Base légale du traitement */}
+        <ScrollReveal>
+          <section className="mb-10">
+            <h2 className="font-serif text-gold text-lg mb-4">Base légale du traitement</h2>
+            <div className="text-cream-muted text-sm leading-relaxed space-y-3">
+              <p>Nos traitements de données reposent sur les bases légales suivantes :</p>
+              <ul className="list-disc list-inside space-y-1">
+                <li><strong className="text-cream">Exécution du contrat</strong> : traitement des commandes, livraison, facturation</li>
+                <li><strong className="text-cream">Consentement</strong> : newsletter, cookies analytiques et marketing</li>
+                <li><strong className="text-cream">Obligation légale</strong> : conservation des données comptables (10 ans)</li>
+                <li><strong className="text-cream">Intérêt légitime</strong> : sécurité du site, prévention de la fraude</li>
+              </ul>
+            </div>
+          </section>
+          <div className="gold-line-wide mx-auto mb-10" />
+        </ScrollReveal>
+
         {/* Durée de conservation */}
         <ScrollReveal>
           <section className="mb-10">
@@ -123,6 +140,34 @@ export default function ConfidentialitePage() {
               <p>
                 Vous pouvez configurer votre navigateur pour refuser les cookies. Cela pourrait
                 toutefois affecter certaines fonctionnalités du site.
+              </p>
+            </div>
+          </section>
+          <div className="gold-line-wide mx-auto mb-10" />
+        </ScrollReveal>
+
+        {/* Transferts hors UE */}
+        <ScrollReveal>
+          <section className="mb-10">
+            <h2 className="font-serif text-gold text-lg mb-4">Transferts hors Union Européenne</h2>
+            <div className="text-cream-muted text-sm leading-relaxed space-y-3">
+              <p>
+                Certains de nos prestataires techniques sont établis hors de l&apos;Union Européenne,
+                ce qui peut entraîner un transfert de données vers des pays tiers :
+              </p>
+              <ul className="list-disc list-inside space-y-1">
+                <li>
+                  <strong className="text-cream">Vercel Inc.</strong> (États-Unis) — hébergement du site.
+                  Transfert encadré par les Clauses Contractuelles Types de la Commission Européenne.
+                </li>
+                <li>
+                  <strong className="text-cream">Supabase Inc.</strong> (États-Unis) — base de données.
+                  Transfert encadré par les Clauses Contractuelles Types de la Commission Européenne.
+                </li>
+              </ul>
+              <p>
+                Ces transferts sont effectués dans le respect du RGPD et offrent un niveau de
+                protection adéquat de vos données personnelles.
               </p>
             </div>
           </section>

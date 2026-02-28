@@ -149,6 +149,49 @@ export default function CGVPage() {
           <div className="gold-line-wide mx-auto mb-10" />
         </ScrollReveal>
 
+        {/* Données personnelles */}
+        <ScrollReveal>
+          <section className="mb-10">
+            <h2 className="font-serif text-gold text-lg mb-4">Données personnelles</h2>
+            <div className="text-cream-muted text-sm leading-relaxed space-y-3">
+              <p>
+                Les données personnelles collectées lors de la commande (nom, adresse, email,
+                téléphone) sont utilisées exclusivement pour le traitement et le suivi de la
+                commande, ainsi que pour l&apos;envoi de communications commerciales avec votre
+                consentement préalable.
+              </p>
+              <p>
+                Ces données sont conservées conformément à notre{' '}
+                <a href="/confidentialite" className="text-gold hover:underline">
+                  Politique de confidentialité
+                </a>
+                . Vous disposez d&apos;un droit d&apos;accès, de rectification et de suppression de vos
+                données en nous contactant à : <span className="text-cream">[À COMPLÉTER]</span>.
+              </p>
+            </div>
+          </section>
+          <div className="gold-line-wide mx-auto mb-10" />
+        </ScrollReveal>
+
+        {/* Loi applicable et juridiction */}
+        <ScrollReveal>
+          <section className="mb-10">
+            <h2 className="font-serif text-gold text-lg mb-4">Loi applicable et juridiction</h2>
+            <div className="text-cream-muted text-sm leading-relaxed space-y-3">
+              <p>
+                Les présentes CGV sont soumises au droit français. En cas de litige, et après
+                tentative de résolution amiable, les tribunaux français seront seuls compétents.
+              </p>
+              <p>
+                Conformément aux articles L.612-1 et suivants du Code de la consommation, le
+                client peut recourir gratuitement à un médiateur de la consommation pour tout
+                litige non résolu. Médiateur compétent : <span className="text-cream">[À COMPLÉTER]</span>.
+              </p>
+            </div>
+          </section>
+          <div className="gold-line-wide mx-auto mb-10" />
+        </ScrollReveal>
+
         {/* Vente d'alcool */}
         <ScrollReveal>
           <section className="mb-10">

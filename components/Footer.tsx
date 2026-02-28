@@ -116,18 +116,39 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Bandeau légal alcool */}
+      <div className="border-t border-gold/10 bg-ink/40">
+        <div
+          className="mx-auto px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left"
+          style={{ maxWidth: '900px' }}
+        >
+          <p className="text-cream-muted/55 text-xs leading-relaxed">
+            🔞 <strong className="text-cream-muted/70">La vente d&apos;alcool est interdite aux personnes de moins de 18 ans.</strong>
+            <br className="sm:hidden" />
+            {' '}Licence de vente à emporter n° <span className="text-cream-muted/70">[À COMPLÉTER]</span>
+          </p>
+          <p className="text-cream-muted/45 text-xs leading-relaxed sm:text-right">
+            L&apos;abus d&apos;alcool est dangereux pour la santé.
+            <br />
+            À consommer avec modération.
+          </p>
+        </div>
+      </div>
+
       {/* Barre de copyright */}
       <div className="border-t border-gold/10">
         <div
-          className="mx-auto px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-2"
+          className="mx-auto px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-2"
           style={{ maxWidth: '900px' }}
         >
           <p className="text-cream-muted/35 text-xs tracking-wider">
             &copy; 2026 Bô Kay Mwen — Tous droits réservés.
           </p>
-          <p className="text-cream-muted/25 text-xs">
-            L&apos;abus d&apos;alcool est dangereux pour la santé.
-          </p>
+          <nav className="flex items-center gap-4">
+            <Link href="/mentions-legales" className="text-[0.65rem] text-cream-muted/30 hover:text-cream-muted/60 transition-colors">Mentions légales</Link>
+            <Link href="/cgv" className="text-[0.65rem] text-cream-muted/30 hover:text-cream-muted/60 transition-colors">CGV</Link>
+            <Link href="/confidentialite" className="text-[0.65rem] text-cream-muted/30 hover:text-cream-muted/60 transition-colors">Confidentialité</Link>
+          </nav>
         </div>
       </div>
 
