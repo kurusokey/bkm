@@ -2,14 +2,21 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import ScrollReveal from '@/components/ScrollReveal';
 import { getProductImage } from '@/lib/productImages';
 
-export default function ProductClient({ product }: { product: Product }) {
+interface ProductClientProps {
+  product: Product;
+  relatedProducts?: Product[];
+}
+
+export default function ProductClient({ product, relatedProducts = [] }: ProductClientProps) {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
+  const [addedRelatedId, setAddedRelatedId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
@@ -19,6 +26,12 @@ export default function ProductClient({ product }: { product: Product }) {
       setAdded(false);
       setQuantity(1);
     }, 2000);
+  };
+
+  const handleAddRelated = (p: Product) => {
+    addToCart(p);
+    setAddedRelatedId(p.id);
+    setTimeout(() => setAddedRelatedId(null), 1500);
   };
 
   const price = (product.price_cents / 100).toFixed(2);
@@ -47,27 +60,37 @@ export default function ProductClient({ product }: { product: Product }) {
 
       {/* Contenu scrollable */}
       <div className="relative" style={{ zIndex: 1 }}>
-        {/* Zone haute — breadcrumb */}
+        {/* Breadcrumb */}
         <div
           className="flex flex-col justify-end"
           style={{ height: '20vh', minHeight: '140px', paddingBottom: '16px' }}
         >
           <div className="mx-auto w-full px-6" style={{ maxWidth: '960px' }}>
-            <a
-              href="/boutique"
-              className="text-shadow-sm"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                fontSize: '0.8rem',
-                color: '#C8A24D',
-                textDecoration: 'none',
-                letterSpacing: '0.1em',
-              }}
-            >
-              &larr; Retour à la boutique
-            </a>
+            <nav aria-label="fil d'ariane">
+              <ol className="flex flex-wrap items-center gap-1 text-shadow-sm" style={{ fontSize: '0.75rem' }}>
+                <li>
+                  <Link
+                    href="/"
+                    style={{ color: 'rgba(200,162,77,0.5)', textDecoration: 'none' }}
+                    className="hover:text-gold transition-colors"
+                  >
+                    Accueil
+                  </Link>
+                </li>
+                <li style={{ color: 'rgba(200,162,77,0.3)' }}>/</li>
+                <li>
+                  <Link
+                    href="/boutique"
+                    style={{ color: 'rgba(200,162,77,0.5)', textDecoration: 'none' }}
+                    className="hover:text-gold transition-colors"
+                  >
+                    Boutique
+                  </Link>
+                </li>
+                <li style={{ color: 'rgba(200,162,77,0.3)' }}>/</li>
+                <li style={{ color: '#C8A24D' }}>{displayName}</li>
+              </ol>
+            </nav>
           </div>
         </div>
 
@@ -121,6 +144,13 @@ export default function ProductClient({ product }: { product: Product }) {
                   {displayName}
                 </h1>
 
+                {/* Tagline */}
+                {product.tagline && (
+                  <p className="text-cream-muted/60 italic text-sm text-shadow-sm mb-3">
+                    {product.tagline}
+                  </p>
+                )}
+
                 {/* Description */}
                 <p className="text-cream leading-relaxed text-sm text-shadow-sm">
                   {product.description}
@@ -153,23 +183,34 @@ export default function ProductClient({ product }: { product: Product }) {
                 <div className="gold-line-wide" style={{ margin: '24px 0' }} />
 
                 {/* Caractéristiques */}
-                <div className="space-y-4 text-sm">
+                <div className="grid grid-cols-2 gap-3 text-sm">
                   {product.alcohol_degree && (
-                    <p className="text-cream text-shadow-sm">
-                      <span className="text-cream-muted">Degré :</span> {product.alcohol_degree}&deg;
-                    </p>
+                    <div
+                      className="flex flex-col items-center justify-center text-center py-3 rounded-lg"
+                      style={{ background: 'rgba(200,162,77,0.07)', border: '1px solid rgba(200,162,77,0.12)' }}
+                    >
+                      <span className="text-cream-muted text-xs uppercase tracking-widest mb-1 font-serif text-shadow-sm">Degré</span>
+                      <span className="text-gold font-semibold text-base text-shadow-sm">{product.alcohol_degree}°</span>
+                    </div>
                   )}
-                  {product.volume_ml && (
-                    <p className="text-cream text-shadow-sm">
-                      <span className="text-cream-muted">Volume :</span> {product.volume_ml / 10}cl
-                    </p>
-                  )}
-                  {product.stock_quantity === 0 && (
-                    <p className="text-shadow-sm">
-                      <span className="text-crimson-light">Rupture de stock</span>
-                    </p>
+                  {(product.volume ?? product.volume_ml) && (
+                    <div
+                      className="flex flex-col items-center justify-center text-center py-3 rounded-lg"
+                      style={{ background: 'rgba(200,162,77,0.07)', border: '1px solid rgba(200,162,77,0.12)' }}
+                    >
+                      <span className="text-cream-muted text-xs uppercase tracking-widest mb-1 font-serif text-shadow-sm">Volume</span>
+                      <span className="text-gold font-semibold text-base text-shadow-sm">
+                        {product.volume ?? `${(product.volume_ml! / 10)}cl`}
+                      </span>
+                    </div>
                   )}
                 </div>
+
+                {product.stock_quantity === 0 && (
+                  <p className="text-shadow-sm mt-3">
+                    <span className="text-crimson-light text-sm">Rupture de stock</span>
+                  </p>
+                )}
 
                 {/* Conseils de dégustation */}
                 {product.tasting_tips && (
@@ -234,10 +275,113 @@ export default function ProductClient({ product }: { product: Product }) {
           </div>
         </div>
 
+        {/* Section "Vous aimerez aussi" */}
+        {relatedProducts.length > 0 && (
+          <div
+            className="w-full py-14"
+            style={{
+              background: 'rgba(30,22,10,0.55)',
+              backdropFilter: 'blur(2px)',
+            }}
+          >
+            <div className="mx-auto" style={{ maxWidth: '960px', padding: '0 32px' }}>
+              <div className="text-center mb-8">
+                <div className="gold-line-wide mx-auto mb-4" />
+                <p
+                  className="font-serif text-gold/60 uppercase tracking-[0.3em] text-shadow-sm"
+                  style={{ fontSize: '0.65rem' }}
+                >
+                  Vous aimerez aussi
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {relatedProducts.map((related, i) => {
+                  const relatedPrice = (related.price_cents / 100).toFixed(2);
+                  const relatedName =
+                    related.category === 'coffret'
+                      ? related.name
+                      : related.name.replace(/^Punch\s+/i, '');
+                  const isAddedRelated = addedRelatedId === related.id;
+
+                  return (
+                    <ScrollReveal key={related.id} delay={i * 80} distance={20}>
+                      <div
+                        className="group flex flex-row sm:flex-col gap-3 rounded-lg overflow-hidden"
+                        style={{
+                          background: 'rgba(15,26,15,0.45)',
+                          border: '1px solid rgba(200,162,77,0.10)',
+                        }}
+                      >
+                        <Link
+                          href={`/produits/${related.slug}`}
+                          className="shrink-0 sm:shrink relative w-24 h-24 sm:w-full sm:h-auto"
+                          style={{ aspectRatio: '1/1' }}
+                        >
+                          <div
+                            className="relative w-24 h-24 sm:w-full overflow-hidden"
+                            style={{ aspectRatio: '1/1' }}
+                          >
+                            <Image
+                              src={getProductImage(related.slug, related.image_url)}
+                              alt={related.name}
+                              fill
+                              className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                              sizes="(min-width: 640px) 33vw, 96px"
+                            />
+                          </div>
+                        </Link>
+
+                        <div className="flex-1 flex flex-col justify-center py-2 px-3 sm:px-4 sm:py-3">
+                          <Link href={`/produits/${related.slug}`}>
+                            <h3
+                              className="font-serif text-gold leading-tight sm:text-center"
+                              style={{ fontSize: '0.85rem' }}
+                            >
+                              {relatedName}
+                            </h3>
+                          </Link>
+                          <p
+                            className="text-warm-white font-semibold sm:text-center mt-1"
+                            style={{ fontSize: '0.85rem' }}
+                          >
+                            {relatedPrice}&euro;
+                          </p>
+                          <button
+                            onClick={() => handleAddRelated(related)}
+                            disabled={related.stock_quantity === 0}
+                            className="mt-2 sm:w-full font-semibold uppercase transition-all duration-300 disabled:opacity-40 self-start sm:self-auto"
+                            style={{
+                              padding: '4px 10px',
+                              fontSize: '0.6rem',
+                              letterSpacing: '0.08em',
+                              borderRadius: '4px',
+                              border: isAddedRelated
+                                ? '1px solid rgba(42,124,123,0.6)'
+                                : '1px solid rgba(200,162,77,0.4)',
+                              background: isAddedRelated
+                                ? 'rgba(42,124,123,0.2)'
+                                : 'rgba(200,162,77,0.10)',
+                              color: isAddedRelated ? '#3A9B9A' : '#C8A24D',
+                              cursor: related.stock_quantity > 0 ? 'pointer' : 'not-allowed',
+                            }}
+                          >
+                            {isAddedRelated ? 'Ajouté !' : 'Ajouter'}
+                          </button>
+                        </div>
+                      </div>
+                    </ScrollReveal>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Zone basse */}
         <div
           className="flex flex-col items-center justify-center"
-          style={{ height: '20vh', minHeight: '120px' }}
+          style={{ height: '16vh', minHeight: '100px' }}
         >
           <p className="text-cream/20 text-xs text-center px-6 text-shadow-sm">
             L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getAllProducts, getProductBySlug } from '@/lib/products';
 import JsonLd from '@/components/JsonLd';
 import ProductClient from '@/components/ProductClient';
+import { Product } from '@/types';
 
 const BASE_URL = 'https://blackbeard-umber.vercel.app';
 
@@ -64,10 +65,31 @@ export default async function ProductPage(
     },
   };
 
+  // Produits similaires : même catégorie ou saveurs communes, max 3
+  const allProducts = getAllProducts();
+  const related: Product[] = allProducts
+    .filter((p) => p.slug !== product.slug)
+    .filter((p) => {
+      if (product.category === 'coffret') return p.category === 'coffret';
+      if (p.category === 'coffret') return false;
+      const currentFlavors = (product.flavor ?? '').toLowerCase().split(',').map((f) => f.trim());
+      const pFlavors = (p.flavor ?? '').toLowerCase().split(',').map((f) => f.trim());
+      return currentFlavors.some((f) => pFlavors.includes(f));
+    })
+    .slice(0, 3);
+
+  // Si pas assez de similaires par saveur, compléter avec d'autres punchs
+  const relatedProducts =
+    related.length >= 2
+      ? related
+      : allProducts
+          .filter((p) => p.slug !== product.slug && p.category !== 'coffret')
+          .slice(0, 3);
+
   return (
     <>
       <JsonLd data={productSchema} />
-      <ProductClient product={product} />
+      <ProductClient product={product} relatedProducts={relatedProducts} />
     </>
   );
 }
