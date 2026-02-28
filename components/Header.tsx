@@ -20,65 +20,56 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { href: '/', label: 'Accueil' },
+    { href: '/boutique', label: 'Nos punchs' },
+    { href: '/a-propos', label: 'Notre histoire' },
+    { href: '/contact', label: 'Contact' },
+  ];
+
   return (
     <header
-      className={`fixed top-0 w-full z-[90] transition-all duration-500 ease-out overflow-visible ${
+      className={`fixed top-0 w-full z-[90] transition-all duration-500 ease-out ${
         scrolled || isMenuOpen
           ? 'bg-ink/95 backdrop-blur-md border-b border-gold-muted/20'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
       <nav
-        className={`max-w-7xl mx-auto px-6 transition-all duration-500 ${scrolled ? 'pb-5' : 'pb-8'}`}
-        style={{ paddingTop: scrolled ? 'calc(env(safe-area-inset-top, 0px) + 24px)' : 'calc(env(safe-area-inset-top, 0px) + 32px)' }}
+        className={`max-w-7xl mx-auto px-6 transition-all duration-500 ${scrolled ? 'pb-4' : 'pb-6'}`}
+        style={{ paddingTop: scrolled ? 'calc(env(safe-area-inset-top, 0px) + 20px)' : 'calc(env(safe-area-inset-top, 0px) + 28px)' }}
       >
         <div className="flex justify-between items-center">
-          {/* Logo (hidden) */}
-          <Link href="/" className="w-0 h-0 overflow-hidden absolute" aria-label="Accueil" />
-          <div />
+          {/* Logo */}
+          <Link
+            href="/"
+            className="font-display text-gold tracking-widest transition-opacity duration-300 hover:opacity-70"
+            style={{ fontSize: 'clamp(0.7rem, 1.5vw, 0.85rem)' }}
+          >
+            Bô Kay Mwen
+          </Link>
 
           {/* Navigation Desktop */}
           <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="/"
-              className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isActive('/') ? 'text-gold' : 'text-cream/80 hover:text-gold'}`}
-            >
-              Accueil
-            </Link>
-            <Link
-              href="/boutique"
-              className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isActive('/boutique') ? 'text-gold' : 'text-cream/80 hover:text-gold'}`}
-            >
-              Nos punchs
-            </Link>
-            <Link
-              href="/a-propos"
-              className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${isActive('/a-propos') ? 'text-gold' : 'text-cream/80 hover:text-gold'}`}
-            >
-              Istwa an nou
-            </Link>
-
-            {/* Panier */}
-            <Link
-              href="/panier"
-              className="relative text-cream/80 hover:text-gold transition-colors duration-500"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-gold text-ink text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-                  {totalItems}
-                </span>
-              )}
-            </Link>
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`text-xs uppercase tracking-[0.2em] transition-colors duration-500 ${
+                  isActive(href) ? 'text-gold' : 'text-cream/80 hover:text-gold'
+                }`}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile: Panier + Burger */}
-          <div className="md:hidden flex items-center gap-5">
+          {/* Panier + Burger */}
+          <div className="flex items-center gap-5">
             <Link
               href="/panier"
               className="relative text-cream/80 hover:text-gold transition-colors duration-500"
+              aria-label={`Panier (${totalItems} article${totalItems > 1 ? 's' : ''})`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -89,10 +80,13 @@ export default function Header() {
                 </span>
               )}
             </Link>
+
+            {/* Burger mobile only */}
             <button
-              className="text-cream hover:text-gold transition-colors duration-300"
+              className="md:hidden text-cream hover:text-gold transition-colors duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label={isMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+              aria-expanded={isMenuOpen}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -106,38 +100,26 @@ export default function Header() {
         </div>
 
         {/* Menu Mobile */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-gold-muted/20 pt-4 space-y-4 animate-fade-in">
-            <Link
-              href="/"
-              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/') ? 'text-gold' : 'text-cream hover:text-gold'}`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Accueil
-            </Link>
-            <Link
-              href="/boutique"
-              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/boutique') ? 'text-gold' : 'text-cream hover:text-gold'}`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Nos punchs
-            </Link>
-            <Link
-              href="/a-propos"
-              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/a-propos') ? 'text-gold' : 'text-cream hover:text-gold'}`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Istwa an nou
-            </Link>
-            <Link
-              href="/panier"
-              className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${isActive('/panier') ? 'text-gold' : 'text-cream hover:text-gold'}`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Pani&eacute; ({totalItems})
-            </Link>
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-400 ease-out ${
+            isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="mt-4 pb-4 border-t border-gold-muted/20 pt-4 space-y-4">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`block text-sm uppercase tracking-widest transition-colors duration-300 ${
+                  isActive(href) ? 'text-gold' : 'text-cream hover:text-gold'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );
