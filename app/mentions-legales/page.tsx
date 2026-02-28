@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Mentions légales — Bô Kay Mwen',
+  title: 'Mentions légales',
   description: 'Mentions légales du site Bô Kay Mwen : éditeur, hébergeur, propriété intellectuelle et réglementation sur l\'alcool.',
+  alternates: { canonical: 'https://blackbeard-umber.vercel.app/mentions-legales' },
+  robots: { index: false, follow: false },
 };
 
 export default function MentionsLegalesPage() {

@@ -2,15 +2,38 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import ProductList from '@/components/ProductList';
+import JsonLd from '@/components/JsonLd';
 import { getAllProducts } from '@/lib/products';
 
+const BASE_URL = 'https://blackbeard-umber.vercel.app';
+
 export const metadata: Metadata = {
-  title: 'Boutique — Bô Kay Mwen',
-  description: 'Découvrez notre gamme de punchs artisanaux des Caraïbes : ananas-passion, coco, goyave, pili-pili et bien plus. 100% local, 100% fait maison.',
+  title: 'Boutique — Nos Punchs Artisanaux',
+  description: 'Découvrez notre gamme de punchs artisanaux des Caraïbes : ananas-passion, coco, goyave, pili-pili et bien plus. 100 % local, 100 % fait maison.',
+  alternates: { canonical: `${BASE_URL}/boutique` },
+  openGraph: {
+    url: `${BASE_URL}/boutique`,
+    title: 'Boutique — Nos Punchs Artisanaux | Bô Kay Mwen',
+    description: 'Ananas-passion, coco, goyave, pili-pili… Découvrez tous nos punchs artisanaux des Caraïbes.',
+  },
 };
 
 export default function BoutiquePage() {
   const products = getAllProducts();
+
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Punchs Artisanaux Bô Kay Mwen',
+    url: `${BASE_URL}/boutique`,
+    numberOfItems: products.length,
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: p.name,
+      url: `${BASE_URL}/produits/${p.slug}`,
+    })),
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -34,6 +57,7 @@ export default function BoutiquePage() {
       </div>
 
       {/* Contenu scrollable par-dessus le fond */}
+      <JsonLd data={itemListSchema} />
       <div className="relative" style={{ zIndex: 1 }}>
         {/* Hero — on voit le champ */}
         <div

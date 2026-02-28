@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'CGV — Bô Kay Mwen',
-  description: 'Conditions générales de vente de Bô Kay Mwen : commande, livraison, droit de rétractation et réglementation sur la vente d\'alcool.',
+  title: 'Conditions générales de vente',
+  description: 'CGV de Bô Kay Mwen : commande, livraison, droit de rétractation et réglementation sur la vente d\'alcool.',
+  alternates: { canonical: 'https://blackbeard-umber.vercel.app/cgv' },
+  robots: { index: false, follow: false },
 };
 
 export default function CGVPage() {

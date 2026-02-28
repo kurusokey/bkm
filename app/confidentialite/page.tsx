@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Confidentialité — Bô Kay Mwen',
+  title: 'Politique de confidentialité',
   description: 'Politique de confidentialité de Bô Kay Mwen : données collectées, droits RGPD, cookies et contact DPO.',
+  alternates: { canonical: 'https://blackbeard-umber.vercel.app/confidentialite' },
+  robots: { index: false, follow: false },
 };
 
 export default function ConfidentialitePage() {

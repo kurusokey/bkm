@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
-  title: 'Contact — Bô Kay Mwen',
+  title: 'Contact',
   description: 'Contactez Bô Kay Mwen : questions, commandes, partenariats. Nous serons ravis d\'échanger avec vous.',
+  alternates: { canonical: 'https://blackbeard-umber.vercel.app/contact' },
+  openGraph: { url: 'https://blackbeard-umber.vercel.app/contact' },
 };
 
 export default function ContactPage() {

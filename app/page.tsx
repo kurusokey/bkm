@@ -1,10 +1,42 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
+import JsonLd from '@/components/JsonLd';
+
+export const metadata: Metadata = {
+  title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
+  description: 'Punchs artisanaux macérés avec des fruits tropicaux des Caraïbes. Ananas-passion, coco, goyave, pili-pili — 100 % local, 100 % fait maison.',
+  alternates: { canonical: 'https://blackbeard-umber.vercel.app' },
+  openGraph: {
+    url: 'https://blackbeard-umber.vercel.app',
+    title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
+    description: 'Punchs artisanaux macérés avec des fruits tropicaux des Caraïbes.',
+  },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Bô Kay Mwen',
+  url: 'https://blackbeard-umber.vercel.app',
+  logo: 'https://blackbeard-umber.vercel.app/og-image.jpg',
+  description: 'Punchs artisanaux des Caraïbes — 100 % local, 100 % fait maison.',
+  sameAs: [],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Bô Kay Mwen',
+  url: 'https://blackbeard-umber.vercel.app',
+};
 
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <JsonLd data={organizationSchema} />
+      <JsonLd data={websiteSchema} />
       {/* ========== HERO — FULL SCREEN ========== */}
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         {/* Background image with Ken Burns effect */}

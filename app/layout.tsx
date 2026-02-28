@@ -10,9 +10,37 @@ import CookieBanner from '@/components/CookieBanner';
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700'] });
 
+const BASE_URL = 'https://blackbeard-umber.vercel.app';
+
 export const metadata: Metadata = {
-  title: 'Bô Kay Mwen — Punchs Artisanaux',
-  description: 'Découvrez nos punchs artisanaux, macérés avec des ingrédients naturels des Caraïbes.',
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
+    template: '%s | Bô Kay Mwen',
+  },
+  description: 'Découvrez nos punchs artisanaux macérés avec des fruits tropicaux des Caraïbes. Ananas-passion, coco, goyave, pili-pili — 100 % local, 100 % fait maison.',
+  keywords: ['punch artisanal', 'punch antillais', 'punch créole', 'punch martinique', 'punch guadeloupe', 'punch ananas', 'punch coco', 'punch passion', 'rhum arrangé', 'boisson caribéenne'],
+  authors: [{ name: 'Bô Kay Mwen' }],
+  creator: 'Bô Kay Mwen',
+  openGraph: {
+    type: 'website',
+    locale: 'fr_FR',
+    siteName: 'Bô Kay Mwen',
+    title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
+    description: 'Punchs artisanaux macérés avec des fruits tropicaux. 100 % local, 100 % fait maison.',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: 'Bô Kay Mwen — Punchs Artisanaux' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
+    description: 'Punchs artisanaux macérés avec des fruits tropicaux. 100 % local, 100 % fait maison.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
 };
 
 export default function RootLayout({
