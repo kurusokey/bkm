@@ -18,6 +18,21 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
   const [added, setAdded] = useState(false);
   const [addedRelatedId, setAddedRelatedId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [shared, setShared] = useState(false);
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const text = `${product.name} — Punch artisanal Bô Kay Mwen`;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: text, url });
+      } catch {}
+    } else {
+      await navigator.clipboard.writeText(url).catch(() => {});
+    }
+    setShared(true);
+    setTimeout(() => setShared(false), 2000);
+  };
 
   const handleAddToCart = () => {
     addToCart(product, quantity);
@@ -269,6 +284,28 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
                   {added
                     ? `${quantity > 1 ? quantity + ' bouteilles ajoutées' : 'Ajouté au panier'}`
                     : `Ajouter au panier${quantity > 1 ? ' (' + quantity + ')' : ''}`}
+                </button>
+
+                {/* Bouton de partage */}
+                <button
+                  onClick={handleShare}
+                  className="flex items-center justify-center gap-2 w-full py-3 text-xs uppercase tracking-[0.15em] text-cream-muted/50 hover:text-gold transition-colors duration-300 font-serif"
+                >
+                  {shared ? (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Lien copié !
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                      </svg>
+                      Partager ce produit
+                    </>
+                  )}
                 </button>
               </div>
             </ScrollReveal>

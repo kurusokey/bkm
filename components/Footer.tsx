@@ -63,6 +63,9 @@ export default function Footer() {
             <Link href="/boutique" className="text-sm text-cream-muted/70 hover:text-gold transition-colors duration-300">
               Nos punchs
             </Link>
+            <Link href="/coffrets" className="text-sm text-cream-muted/70 hover:text-gold transition-colors duration-300">
+              Coffrets cadeaux
+            </Link>
             <Link href="/a-propos" className="text-sm text-cream-muted/70 hover:text-gold transition-colors duration-300">
               Notre histoire
             </Link>

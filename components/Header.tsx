@@ -23,6 +23,7 @@ export default function Header() {
   const navLinks = [
     { href: '/', label: 'Accueil' },
     { href: '/boutique', label: 'Nos punchs' },
+    { href: '/coffrets', label: 'Coffrets' },
     { href: '/a-propos', label: 'Notre histoire' },
     { href: '/contact', label: 'Contact' },
   ];
