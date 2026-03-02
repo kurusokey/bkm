@@ -96,7 +96,7 @@ export default function ContactPage() {
                 <div style={{ padding: '1.75rem 1.75rem 2rem' }}>
                   <p
                     className="font-serif uppercase tracking-[0.38em] mb-2"
-                    style={{ fontSize: '0.58rem', color: 'rgba(200,162,77,0.4)' }}
+                    style={{ fontSize: '0.58rem', color: '#C8A24D' }}
                   >
                     Parlons-nous
                   </p>

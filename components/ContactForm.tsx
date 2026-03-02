@@ -49,7 +49,7 @@ export default function ContactForm() {
   const inputCls = 'w-full px-4 py-3 rounded-lg text-sm text-cream placeholder:text-cream-muted/40 focus:outline-none transition-colors disabled:opacity-50';
   const inputStyle = {
     background: 'rgba(6,14,7,0.55)',
-    border: '1px solid rgba(200,162,77,0.18)',
+    border: '1px solid rgba(200,162,77,0.65)',
     color: 'rgba(232,224,208,0.9)',
   };
 
@@ -153,6 +153,8 @@ export default function ContactForm() {
       >
         {status === 'loading' ? 'Envoi…' : 'Envoyer le message'}
       </button>
+
+      <div style={{ height: '1rem' }} />
 
       <p className="text-cream-muted/30 text-[10px] text-center leading-relaxed">
         Vos données sont utilisées uniquement pour traiter votre demande. Voir notre{' '}
