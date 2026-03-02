@@ -44,7 +44,7 @@ export default function ProductList({ products }: ProductListProps) {
   return (
     <div>
       {/* Filtres */}
-      <div className="flex flex-wrap justify-center gap-2 mb-8">
+      <div className="flex flex-wrap justify-center gap-2" style={{ marginBottom: '32px' }}>
         {FILTERS.map(({ key, label }) => (
           <button
             key={key}
