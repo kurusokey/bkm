@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import Newsletter from '@/components/Newsletter';
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   },
 };
 
-const ENGAGEMENTS = [
+const PILIERS = [
   {
     icon: (
       <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
@@ -24,7 +23,6 @@ const ENGAGEMENTS = [
       </svg>
     ),
     title: 'Macération lente',
-    desc: 'Chaque punch repose plusieurs semaines pour extraire toute l\'essence des fruits.',
   },
   {
     icon: (
@@ -36,7 +34,6 @@ const ENGAGEMENTS = [
       </svg>
     ),
     title: '100 % Naturel',
-    desc: 'Aucun conservateur, aucun colorant artificiel. Seulement des ingrédients locaux.',
   },
   {
     icon: (
@@ -47,26 +44,14 @@ const ENGAGEMENTS = [
       </svg>
     ),
     title: 'Fait main',
-    desc: 'Chaque bouteille est préparée, contrôlée et mise en main à la main avec soin.',
   },
 ];
 
-const TEMOIGNAGES = [
-  {
-    quote: 'Le punch coco-gingembre m\'a rappelé exactement les saveurs de mes étés en Martinique. Exceptionnel.',
-    name: 'Marie-Claire B.',
-    location: 'Paris',
-  },
-  {
-    quote: 'J\'ai offert le Coffret Découverte pour les fêtes. Toute la famille a été bluffée. On recommande !',
-    name: 'Frédéric M.',
-    location: 'Lyon',
-  },
-  {
-    quote: 'Le punch pili-pili est une révélation — épicé mais équilibré. Une bouteille vide en deux jours.',
-    name: 'Sandrine K.',
-    location: 'Guadeloupe',
-  },
+const ETAPES = [
+  { step: '01', title: 'Sélection des fruits',    desc: 'Cueillis à pleine maturité, sourcés auprès d\'agriculteurs locaux des Antilles.' },
+  { step: '02', title: 'Macération lente',         desc: 'Plusieurs semaines dans notre rhum agricole — le temps que les arômes s\'entrelacent.' },
+  { step: '03', title: 'Filtration & équilibre',  desc: 'Un filtrage délicat pour affiner la texture sans dénaturer les arômes naturels.' },
+  { step: '04', title: 'Mise en bouteille',        desc: 'Remplie, bouchée et étiquetée à la main. Avec tout le soleil des Antilles dedans.' },
 ];
 
 export default function SavoirFairePage() {
@@ -74,14 +59,13 @@ export default function SavoirFairePage() {
     <div className="min-h-screen" style={{ background: '#060e07' }}>
 
       {/* ══════════════════════════════════════════
-          HERO — Distillerie des Antilles, plein écran
+          HERO
       ══════════════════════════════════════════ */}
       <section className="relative h-screen min-h-[560px] flex items-end justify-center overflow-hidden">
         <Image
           src="/images/distillerie-antilles.jpg"
           alt="Distillerie artisanale des Antilles françaises"
-          fill
-          priority
+          fill priority
           className="object-cover animate-slow-zoom"
           sizes="100vw"
           style={{ objectPosition: 'center 30%' }}
@@ -89,12 +73,10 @@ export default function SavoirFairePage() {
         <div
           className="absolute inset-0"
           style={{
-            background:
-              'linear-gradient(180deg, rgba(4,12,6,0.2) 0%, rgba(4,12,6,0.35) 50%, rgba(6,14,7,0.95) 100%)',
+            background: 'linear-gradient(180deg, rgba(4,12,6,0.2) 0%, rgba(4,12,6,0.35) 50%, rgba(6,14,7,0.95) 100%)',
           }}
         />
-
-        <div className="relative z-10 text-center px-6 pb-20 max-w-xl mx-auto">
+        <div className="relative z-10 text-center px-6 pb-20 max-w-2xl mx-auto">
           <ScrollReveal delay={200} direction="up" distance={30} duration={1000}>
             <p
               className="font-serif uppercase tracking-[0.45em] mb-5"
@@ -103,17 +85,14 @@ export default function SavoirFairePage() {
               Artisanat &bull; Patience &bull; Terroir
             </p>
             <h1
-              className="font-serif text-gold text-shadow-lg leading-tight mb-5"
-              style={{ fontSize: 'clamp(2.2rem, 5vw, 3.6rem)' }}
+              className="font-serif text-gold text-shadow-lg mb-5"
+              style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', whiteSpace: 'nowrap' }}
             >
               Notre savoir-faire
             </h1>
             <div
               className="mx-auto mb-6"
-              style={{
-                width: '50px', height: '1px',
-                background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.5), transparent)',
-              }}
+              style={{ width: '50px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.5), transparent)' }}
             />
             <p
               className="font-serif italic"
@@ -128,34 +107,24 @@ export default function SavoirFairePage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          1. CE QUI NOUS DÉFINIT
+          ② 3 PILIERS — compacts, centrés
       ══════════════════════════════════════════ */}
       <section
-        className="py-24 px-6"
+        className="px-6 py-20"
         style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)' }}
       >
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal direction="up" distance={30}>
-            <div className="text-center mb-16">
-              <p className="text-xs uppercase tracking-[0.3em] text-gold/50 font-serif mb-3">
-                Notre promesse
-              </p>
-              <h2 className="font-serif text-gold text-2xl md:text-3xl tracking-wide mb-4">
-                Ce qui nous définit
-              </h2>
-              <div className="gold-line mx-auto" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-            {ENGAGEMENTS.map(({ icon, title, desc }, i) => (
-              <ScrollReveal key={title} delay={i * 150} direction="up" distance={30}>
-                <div className="text-center flex flex-col items-center gap-5">
+        <div className="max-w-2xl mx-auto">
+          <div className="grid grid-cols-3 gap-8">
+            {PILIERS.map(({ icon, title }, i) => (
+              <ScrollReveal key={title} delay={i * 120} direction="up" distance={20}>
+                <div className="flex flex-col items-center justify-center gap-4 text-center">
                   {icon}
-                  <h3 className="font-serif text-gold tracking-wide" style={{ fontSize: '1rem' }}>
+                  <p
+                    className="font-serif text-gold tracking-wide"
+                    style={{ fontSize: '0.8rem' }}
+                  >
                     {title}
-                  </h3>
-                  <p className="text-cream-muted/70 text-sm leading-relaxed">{desc}</p>
+                  </p>
                 </div>
               </ScrollReveal>
             ))}
@@ -164,19 +133,65 @@ export default function SavoirFairePage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          2. DE LA TERRE À LA BOUTEILLE
+          ③ L'ART DE LA MACÉRATION — image immersive
+      ══════════════════════════════════════════ */}
+      <section className="relative overflow-hidden" style={{ minHeight: '90vh' }}>
+        <Image
+          src="/images/fermentation-antilles.jpg"
+          alt="Cuves de fermentation — rhum agricole des Antilles"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          style={{ objectPosition: 'center 40%' }}
+        />
+        {/* Voile plus chaud pour trancher avec l'image verte */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(135deg, rgba(20,8,4,0.82) 0%, rgba(10,18,6,0.65) 100%)' }}
+        />
+
+        <div className="relative z-10 flex items-center min-h-[90vh] px-6 py-24">
+          <div className="max-w-xl mx-auto w-full">
+            <ScrollReveal direction="up" distance={30}>
+              <p className="text-xs uppercase tracking-[0.3em] font-serif mb-4"
+                style={{ color: 'rgba(200,162,77,0.7)' }}>
+                Notre savoir-faire
+              </p>
+              <h2
+                className="font-serif text-gold leading-tight mb-6"
+                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', whiteSpace: 'nowrap' }}
+              >
+                L&apos;art de la macération créole
+              </h2>
+              <div className="gold-line mb-8" />
+              <p style={{ color: 'rgba(240,232,215,0.90)', fontSize: '0.9rem', lineHeight: '2', marginBottom: '1.25rem' }}>
+                Chaque punch commence par une sélection rigoureuse des fruits — cueillis à maturité, sourcés auprès d&apos;agriculteurs locaux des Antilles qui partagent notre passion pour une agriculture respectueuse.
+              </p>
+              <p style={{ color: 'rgba(240,232,215,0.90)', fontSize: '0.9rem', lineHeight: '2' }}>
+                Ils infusent ensuite dans notre rhum agricole pendant plusieurs semaines, le temps que la magie opère et que les arômes s&apos;entrelacent. Rien d&apos;artificiel — seulement la patience et le terroir.
+              </p>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════
+          ④ DE LA TERRE À LA BOUTEILLE — épuré
       ══════════════════════════════════════════ */}
       <section
         className="py-24 px-6"
-        style={{ background: 'linear-gradient(180deg, #0D1A0D 0%, #0B0E11 100%)' }}
+        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)' }}
       >
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <ScrollReveal direction="up" distance={30}>
-            <div className="text-center mb-16">
+            <div className="text-center mb-14">
               <p className="text-xs uppercase tracking-[0.3em] text-gold/50 font-serif mb-3">
                 Notre processus
               </p>
-              <h2 className="font-serif text-gold text-2xl md:text-3xl tracking-wide mb-4">
+              <h2
+                className="font-serif text-gold text-2xl md:text-3xl tracking-wide mb-4"
+                style={{ whiteSpace: 'nowrap' }}
+              >
                 De la terre à la bouteille
               </h2>
               <div className="gold-line mx-auto" />
@@ -186,46 +201,25 @@ export default function SavoirFairePage() {
           <div className="relative">
             <div
               className="absolute left-[19px] top-4 bottom-4 w-[1px] hidden sm:block"
-              style={{ background: 'linear-gradient(180deg, rgba(200,162,77,0.5), rgba(200,162,77,0.05))' }}
+              style={{ background: 'linear-gradient(180deg, rgba(200,162,77,0.35), transparent)' }}
             />
-            <div className="space-y-10">
-              {[
-                {
-                  step: '01',
-                  title: 'Sélection des fruits',
-                  desc: "Nous choisissons des fruits cueillis à pleine maturité, sourcés auprès d'agriculteurs locaux des Antilles. Ananas, goyave, mangue, litchis — chaque ingrédient est sélectionné pour sa qualité et son arôme.",
-                },
-                {
-                  step: '02',
-                  title: 'Macération lente',
-                  desc: "Les fruits sont mis à macérer dans notre rhum agricole pendant plusieurs semaines. C'est là que la magie opère — les arômes s'entrelacent, la couleur se forme, le caractère se révèle.",
-                },
-                {
-                  step: '03',
-                  title: 'Filtration & équilibre',
-                  desc: "Un filtrage délicat permet d'affiner la texture du punch sans en dénaturer les arômes naturels. On goûte, on ajuste, on vérifie que chaque lot correspond à notre standard de qualité.",
-                },
-                {
-                  step: '04',
-                  title: 'Mise en bouteille artisanale',
-                  desc: "Chaque bouteille est remplie, bouchée et étiquetée à la main. Un dernier contrôle avant qu'elle prenne la route vers votre table — avec tout le soleil des Antilles dedans.",
-                },
-              ].map(({ step, title, desc }, i) => (
-                <ScrollReveal key={step} delay={i * 100} direction="up" distance={30}>
+            <div className="space-y-8">
+              {ETAPES.map(({ step, title, desc }, i) => (
+                <ScrollReveal key={step} delay={i * 80} direction="up" distance={20}>
                   <div className="flex gap-6 items-start">
-                    <div className="shrink-0 relative">
+                    <div className="shrink-0">
                       <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center font-serif text-gold text-xs z-10 relative"
-                        style={{ background: '#0B0E11', border: '1px solid rgba(200,162,77,0.4)' }}
+                        className="w-10 h-10 rounded-full flex items-center justify-center font-serif text-gold text-xs"
+                        style={{ background: 'rgba(200,162,77,0.06)', border: '1px solid rgba(200,162,77,0.35)' }}
                       >
                         {step}
                       </div>
                     </div>
-                    <div className="flex-1 pb-2">
-                      <h3 className="font-serif text-gold tracking-wide mb-2" style={{ fontSize: '1rem' }}>
+                    <div className="flex-1 pt-2">
+                      <h3 className="font-serif text-gold tracking-wide mb-1" style={{ fontSize: '0.95rem' }}>
                         {title}
                       </h3>
-                      <p className="text-cream-muted/75 text-sm leading-relaxed">{desc}</p>
+                      <p className="text-cream-muted/65 text-sm leading-relaxed">{desc}</p>
                     </div>
                   </div>
                 </ScrollReveal>
@@ -236,172 +230,26 @@ export default function SavoirFairePage() {
       </section>
 
       {/* ══════════════════════════════════════════
-          3. L'ART DE LA MACÉRATION — image immersive
-      ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden" style={{ minHeight: '85vh' }}>
-        <Image
-          src="/images/fermentation-antilles.jpg"
-          alt="Cuves de fermentation — rhum agricole des Antilles"
-          fill
-          className="object-cover"
-          sizes="100vw"
-          style={{ objectPosition: 'center 40%' }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: 'rgba(4,12,6,0.62)' }}
-        />
-
-        <div className="relative z-10 flex items-center min-h-[85vh] px-6 py-20">
-          <div className="max-w-2xl mx-auto w-full">
-            <ScrollReveal direction="up" distance={30}>
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-gold/55 font-serif mb-4">
-                  Notre savoir-faire
-                </p>
-                <h2
-                  className="font-serif text-gold leading-snug mb-6"
-                  style={{ fontSize: 'clamp(1.6rem, 3vw, 2.4rem)' }}
-                >
-                  L&apos;art de la<br />macération créole
-                </h2>
-                <div className="gold-line mb-8" />
-                <p className="text-cream-muted/85 text-sm leading-relaxed mb-5">
-                  Chaque punch commence par une sélection rigoureuse des fruits — cueillis à maturité, sourcés auprès d&apos;agriculteurs locaux des Antilles qui partagent notre passion pour une agriculture respectueuse.
-                </p>
-                <p className="text-cream-muted/85 text-sm leading-relaxed mb-8">
-                  Ils infusent ensuite dans notre rhum agricole pendant plusieurs semaines, le temps que la magie opère et que les arômes s&apos;entrelacent. Rien d&apos;artificiel — seulement la patience et le terroir.
-                </p>
-                <Link href="/a-propos" className="btn-luxury">
-                  Istwa an nou &rarr;
-                </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          4. NOS VALEURS
-      ══════════════════════════════════════════ */}
-      <section
-        className="py-24 px-6"
-        style={{ background: '#060e07' }}
-      >
-        <div className="max-w-4xl mx-auto">
-          <ScrollReveal direction="up" distance={30}>
-            <div className="text-center mb-14">
-              <p className="text-xs uppercase tracking-[0.3em] text-gold/50 font-serif mb-3">
-                Ce qui nous guide
-              </p>
-              <h2 className="font-serif text-gold text-2xl md:text-3xl tracking-wide mb-4">
-                Nos valeurs
-              </h2>
-              <div className="gold-line mx-auto" />
-            </div>
-          </ScrollReveal>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-            {[
-              { label: 'Authenticité', desc: "Des recettes transmises avec passion, fidèles aux traditions créoles des Antilles.", color: '#C8A24D' },
-              { label: 'Terroir', desc: "100 % d'ingrédients locaux, cultivés par des agriculteurs des Caraïbes qui partagent nos valeurs.", color: '#2A7C7B' },
-              { label: 'Artisanat', desc: "Fait main, bouteille par bouteille, avec le soin qu'on réserve aux choses qui comptent vraiment.", color: '#8B2F3A' },
-            ].map(({ label, desc, color }, i) => (
-              <ScrollReveal key={label} delay={i * 120} direction="up" distance={30}>
-                <div className="text-center">
-                  <div className="w-8 h-[2px] mx-auto mb-5" style={{ background: color }} />
-                  <h3 className="font-serif tracking-wide mb-3" style={{ fontSize: '1rem', color }}>
-                    {label}
-                  </h3>
-                  <p className="text-cream-muted/70 text-sm leading-relaxed">{desc}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          5. ILS ONT GOÛTÉ
-      ══════════════════════════════════════════ */}
-      <section
-        className="py-24 px-6"
-        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)' }}
-      >
-        <div className="max-w-3xl mx-auto">
-          <ScrollReveal direction="up" distance={30}>
-            <div className="text-center mb-16">
-              <p className="text-xs uppercase tracking-[0.3em] text-gold/50 font-serif mb-3">
-                Ils nous font confiance
-              </p>
-              <h2 className="font-serif text-gold text-2xl tracking-wide mb-4">
-                Ils ont goûté
-              </h2>
-              <div className="gold-line mx-auto" />
-            </div>
-          </ScrollReveal>
-
-          <div className="flex flex-col" style={{ gap: '48px' }}>
-            {TEMOIGNAGES.map(({ quote, name, location }, i) => (
-              <ScrollReveal key={name} delay={i * 150} direction="up" distance={25}>
-                <div className="text-center">
-                  <p
-                    className="font-serif text-gold/20 leading-none mb-4 select-none"
-                    style={{ fontSize: '4rem' }}
-                  >
-                    &ldquo;
-                  </p>
-                  <p
-                    className="font-serif italic leading-relaxed mb-5 mx-auto"
-                    style={{
-                      fontSize: '0.95rem',
-                      color: 'rgba(232,224,208,0.75)',
-                      maxWidth: '520px',
-                      lineHeight: '1.9',
-                    }}
-                  >
-                    {quote}
-                  </p>
-                  <div
-                    className="mx-auto mb-4"
-                    style={{ width: '24px', height: '1px', background: 'rgba(200,162,77,0.3)' }}
-                  />
-                  <p className="font-serif text-gold/70" style={{ fontSize: '0.8rem' }}>
-                    {name}
-                  </p>
-                  <p style={{ fontSize: '0.7rem', color: 'rgba(232,224,208,0.35)' }}>
-                    {location}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
           NEWSLETTER
       ══════════════════════════════════════════ */}
       <section
-        className="flex flex-col items-center px-6"
-        style={{ background: '#060e07', padding: '80px 24px' }}
+        className="flex flex-col items-center"
+        style={{ background: '#060e07', padding: '60px 24px 80px' }}
       >
-        <ScrollReveal direction="up" distance={30}>
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '420px',
-              background: 'rgba(6,14,7,0.6)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(200,162,77,0.12)',
-              borderRadius: '20px',
-              padding: '2.5rem 2rem',
-            }}
-          >
-            <Newsletter />
-          </div>
-        </ScrollReveal>
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '420px',
+            background: 'rgba(6,14,7,0.6)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: '1px solid rgba(200,162,77,0.12)',
+            borderRadius: '20px',
+            padding: '2.5rem 2rem',
+          }}
+        >
+          <Newsletter />
+        </div>
       </section>
 
       {/* Mention légale */}
