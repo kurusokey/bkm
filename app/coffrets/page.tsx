@@ -7,7 +7,8 @@ import { getProductImage } from '@/lib/productImages';
 
 export const metadata: Metadata = {
   title: 'Coffrets Cadeaux — Offrez les Caraïbes',
-  description: 'Coffrets cadeaux Bô Kay Mwen : l\'idée cadeau idéale pour offrir un voyage gustatif aux Antilles. Coffret Découverte et Coffret Prestige.',
+  description:
+    "Coffrets cadeaux Bô Kay Mwen : l'idée cadeau idéale pour offrir un voyage gustatif aux Antilles. Coffret Découverte et Coffret Prestige.",
   alternates: { canonical: 'https://blackbeard-umber.vercel.app/coffrets' },
   openGraph: {
     url: 'https://blackbeard-umber.vercel.app/coffrets',
@@ -15,145 +16,360 @@ export const metadata: Metadata = {
   },
 };
 
+// ─── Scènes botaniques ────────────────────────────────────────────────────────
+
+const SCENE: Record<string, { bg: string; plantLeft: string; plantRight: string }> = {
+  'coffret-decouverte': {
+    bg:         '/images/balata-jardin-1.jpg',
+    plantLeft:  '/images/balata-heliconia.jpg',
+    plantRight: '/images/balata-fougeres.jpg',
+  },
+  'coffret-prestige': {
+    bg:         '/images/balata-jardin-2.jpg',
+    plantLeft:  '/images/balata-anthurium.jpg',
+    plantRight: '/images/balata-heliconia.jpg',
+  },
+};
+
+const FALLBACK = SCENE['coffret-decouverte'];
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default function CoffretsPage() {
   const coffrets = getAllProducts().filter((p) => p.category === 'coffret');
 
   return (
-    <div className="min-h-screen bg-ink">
+    <div style={{ background: '#060e07' }}>
 
-      {/* Hero */}
-      <section className="pt-40 pb-20 px-6 text-center">
-        <ScrollReveal direction="up" distance={30}>
-          <p className="text-xs uppercase tracking-[0.3em] text-gold/50 font-serif mb-3">
-            Idée cadeau
-          </p>
-          <h1 className="font-serif text-gold text-3xl md:text-4xl tracking-wide mb-5 leading-snug">
-            Offrez les Caraïbes
-          </h1>
-          <div
-            className="mx-auto w-[80px] h-[1px] mb-8"
-            style={{ background: 'linear-gradient(90deg, transparent, #C8A24D, transparent)' }}
-          />
-          <p className="text-cream-muted/70 text-sm leading-relaxed max-w-md mx-auto">
-            Réunis dans un coffret élégant, nos punchs artisanaux font le cadeau idéal pour
-            toutes les occasions — anniversaire, fêtes, remerciements.
-          </p>
-        </ScrollReveal>
-      </section>
-
-      {/* Coffrets */}
-      <section className="px-6 pb-20">
-        <div className="max-w-4xl mx-auto space-y-12">
-          {coffrets.map((coffret, i) => {
-            const price = (coffret.price_cents / 100).toFixed(2);
-            return (
-              <ScrollReveal key={coffret.id} direction={i % 2 === 0 ? 'left' : 'right'} distance={40} delay={i * 100}>
-                <div
-                  className="grid md:grid-cols-2 gap-10 items-center rounded-2xl p-8"
-                  style={{ background: 'rgba(200,162,77,0.04)', border: '1px solid rgba(200,162,77,0.12)' }}
-                >
-                  {/* Image */}
-                  <div className={`relative ${i % 2 !== 0 ? 'md:order-2' : ''}`}>
-                    <div className="relative h-72 md:h-80 rounded-xl overflow-hidden">
-                      <Image
-                        src={getProductImage(coffret.slug, coffret.image_url)}
-                        alt={coffret.name}
-                        fill
-                        className="object-contain p-6"
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Contenu */}
-                  <div className={i % 2 !== 0 ? 'md:order-1' : ''}>
-                    <span
-                      className="inline-block text-[10px] uppercase tracking-[0.2em] font-serif px-2 py-0.5 rounded-full mb-4"
-                      style={{ background: 'rgba(200,162,77,0.12)', color: '#C8A24D' }}
-                    >
-                      Coffret cadeau
-                    </span>
-                    <h2 className="font-serif text-gold text-xl tracking-wide mb-2">
-                      {coffret.name}
-                    </h2>
-                    {coffret.tagline && (
-                      <p className="text-cream-muted/60 italic text-sm mb-4">{coffret.tagline}</p>
-                    )}
-                    <p className="text-cream-muted/80 text-sm leading-relaxed mb-5">
-                      {coffret.description}
-                    </p>
-
-                    {coffret.pack_contents && coffret.pack_contents.length > 0 && (
-                      <div className="mb-5">
-                        <p className="text-xs uppercase tracking-[0.15em] text-gold/50 font-serif mb-2">
-                          Contenu
-                        </p>
-                        <ul className="space-y-1">
-                          {coffret.pack_contents.map((item) => (
-                            <li key={item} className="text-cream-muted/70 text-sm">
-                              — {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    <div className="flex items-center justify-between mt-6">
-                      <div>
-                        <p className="text-xs text-cream-muted/50 font-serif uppercase tracking-wider mb-1">
-                          {coffret.volume}
-                        </p>
-                        <p className="text-2xl font-semibold text-warm-white">
-                          {price}&nbsp;&euro;
-                        </p>
-                      </div>
-                      <Link href={`/produits/${coffret.slug}`} className="btn-luxury-filled">
-                        Commander
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Section valeur ajoutée */}
+      {/* ══════════════════════════
+          HERO — court et direct
+      ══════════════════════════ */}
       <section
-        className="py-16 px-6"
-        style={{ background: 'linear-gradient(180deg, #0D1A0D 0%, #0B0E11 100%)' }}
+        className="relative flex items-end justify-center overflow-hidden"
+        style={{ height: '65vh', minHeight: '420px' }}
       >
-        <div className="max-w-3xl mx-auto">
-          <ScrollReveal direction="up" distance={30}>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-              {[
-                { icon: '🎁', label: 'Emballage cadeau', desc: 'Coffret élégant prêt à offrir' },
-                { icon: '🚚', label: 'Livraison soignée', desc: 'Emballage protégé pour la livraison' },
-                { icon: '✉️', label: 'Message personnalisé', desc: 'Ajoutez une note lors de la commande' },
-              ].map(({ icon, label, desc }) => (
-                <div key={label}>
-                  <div className="text-3xl mb-3">{icon}</div>
-                  <p className="font-serif text-gold text-sm tracking-wide mb-1">{label}</p>
-                  <p className="text-cream-muted/55 text-xs">{desc}</p>
-                </div>
-              ))}
-            </div>
+        <Image
+          src="/images/palmiers-martinique.jpg"
+          alt="Caraïbes"
+          fill priority
+          className="object-cover animate-slow-zoom"
+          sizes="100vw"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(4,12,6,0.45) 0%, rgba(4,12,6,0.2) 40%, rgba(6,14,7,1) 100%)',
+          }}
+        />
+
+        <div className="relative z-10 text-center px-6 pb-16 max-w-lg mx-auto">
+          <ScrollReveal delay={200} direction="up" distance={30} duration={1000}>
+            <p
+              className="font-serif uppercase tracking-[0.45em] mb-5"
+              style={{ fontSize: '0.6rem', color: 'rgba(200,162,77,0.5)' }}
+            >
+              Martinique &bull; Guadeloupe &bull; Caraïbes
+            </p>
+            <h1
+              className="font-serif text-gold text-shadow-lg leading-tight mb-5"
+              style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}
+            >
+              Offrez les Caraïbes
+            </h1>
+            <div
+              className="mx-auto"
+              style={{
+                width: '50px', height: '1px',
+                background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.45), transparent)',
+              }}
+            />
           </ScrollReveal>
         </div>
       </section>
 
-      {/* CTA boutique */}
-      <section className="py-14 px-6 text-center bg-ink">
-        <ScrollReveal direction="up" distance={20}>
-          <p className="text-cream-muted/50 text-sm mb-6">
-            Vous souhaitez également découvrir nos punchs à l&apos;unité ?
-          </p>
-          <Link href="/boutique" className="btn-luxury">
-            Voir tous nos punchs
-          </Link>
-        </ScrollReveal>
+      {/* ══════════════════════════════════════════════════════════
+          COFFRETS — Dans le jardin, immédiatement
+      ══════════════════════════════════════════════════════════ */}
+      {coffrets.map((coffret, i) => {
+        const price  = (coffret.price_cents / 100).toFixed(2);
+        const scene  = SCENE[coffret.slug] ?? FALLBACK;
+        const isEven = i % 2 === 0;
+
+        return (
+          <div key={coffret.id}>
+
+            {/* ── Respiration entre les deux coffrets ── */}
+            {i > 0 && (
+              <div
+                style={{
+                  height: '90px',
+                  background:
+                    'linear-gradient(180deg, rgba(4,12,6,0.96) 0%, #060e07 50%, rgba(4,12,6,0.96) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <div
+                  style={{
+                    width: '32px', height: '1px',
+                    background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.25), transparent)',
+                  }}
+                />
+              </div>
+            )}
+
+          <section
+            className="relative overflow-hidden flex items-center"
+            style={{ minHeight: '100vh' }}
+          >
+            {/* Fond : jardin botanique */}
+            <Image
+              src={scene.bg}
+              alt={coffret.name}
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+
+            {/* Voile — légèrement plus sombre pour lisibilité */}
+            <div
+              className="absolute inset-0 z-[1]"
+              style={{ background: 'rgba(4,12,6,0.58)' }}
+            />
+
+            {/* Halo central doux */}
+            <div
+              className="absolute inset-0 z-[2]"
+              style={{
+                background:
+                  'radial-gradient(ellipse 50% 55% at 50% 50%, rgba(200,162,77,0.04) 0%, transparent 70%)',
+              }}
+            />
+
+            {/* Plante avant-plan GAUCHE — subtile, juste un liseré */}
+            <div
+              className="absolute left-0 top-0 bottom-0 z-[4] hidden md:block"
+              style={{
+                width: '18%',
+                maskImage:        'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
+                WebkitMaskImage:  'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
+              }}
+            >
+              <Image src={isEven ? scene.plantLeft : scene.plantRight} alt="" fill className="object-cover" sizes="18vw" />
+              <div className="absolute inset-0" style={{ background: 'rgba(4,12,6,0.30)' }} />
+            </div>
+
+            {/* Plante avant-plan DROITE — subtile, juste un liseré */}
+            <div
+              className="absolute right-0 top-0 bottom-0 z-[4] hidden md:block"
+              style={{
+                width: '18%',
+                maskImage:        'linear-gradient(270deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
+                WebkitMaskImage:  'linear-gradient(270deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
+              }}
+            >
+              <Image src={isEven ? scene.plantRight : scene.plantLeft} alt="" fill className="object-cover" sizes="18vw" />
+              <div className="absolute inset-0" style={{ background: 'rgba(4,12,6,0.30)' }} />
+            </div>
+
+            {/* Contenu — centré verticalement et horizontalement */}
+            <div className="relative z-[5] w-full flex items-center justify-center px-6 py-12" style={{ minHeight: '100vh' }}>
+              <div style={{ width: '100%', maxWidth: '400px' }}>
+                <ScrollReveal direction="up" distance={30} delay={60}>
+
+                    {/* Encart — glassmorphism transparent sur le jardin */}
+                    <div
+                      style={{
+                        background: 'rgba(6,14,7,0.28)',
+                        backdropFilter: 'blur(24px)',
+                        WebkitBackdropFilter: 'blur(24px)',
+                        border: '1px solid rgba(200,162,77,0.18)',
+                        borderRadius: '20px',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      {/* Zone image — en haut de l'encart */}
+                      <div
+                        className="relative flex items-center justify-center"
+                        style={{
+                          height: '280px',
+                          background:
+                            'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
+                        }}
+                      >
+                        <Image
+                          src={getProductImage(coffret.slug, coffret.image_url)}
+                          alt={coffret.name}
+                          fill
+                          className="object-contain p-8"
+                          sizes="(max-width: 640px) 90vw, 384px"
+                          style={{
+                            filter: 'drop-shadow(0 12px 30px rgba(0,0,0,0.7))',
+                          }}
+                        />
+                      </div>
+
+                      {/* Séparateur subtil */}
+                      <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.14), transparent)' }} />
+
+                      {/* Infos produit */}
+                      <div style={{ padding: '1.75rem 1.75rem 2rem' }}>
+                      <p
+                        className="font-serif uppercase tracking-[0.38em] mb-4"
+                        style={{ fontSize: '0.58rem', color: 'rgba(200,162,77,0.4)' }}
+                      >
+                        Coffret cadeau
+                      </p>
+
+                      <h2
+                        className="font-serif text-gold leading-snug mb-2"
+                        style={{ fontSize: 'clamp(1.15rem, 2.5vw, 1.5rem)' }}
+                      >
+                        {coffret.name}
+                      </h2>
+
+                      {coffret.tagline && (
+                        <p className="italic text-cream-muted/55 mb-4" style={{ fontSize: '0.8rem' }}>
+                          {coffret.tagline}
+                        </p>
+                      )}
+
+                      <div
+                        className="mb-5"
+                        style={{
+                          height: '1px',
+                          background: 'linear-gradient(90deg, rgba(200,162,77,0.15), transparent)',
+                        }}
+                      />
+
+                      <p className="text-cream-muted/75 leading-relaxed mb-5" style={{ fontSize: '0.82rem' }}>
+                        {coffret.description}
+                      </p>
+
+                      {coffret.pack_contents && coffret.pack_contents.length > 0 && (
+                        <div className="mb-6">
+                          <p
+                            className="font-serif uppercase tracking-[0.2em] mb-2.5"
+                            style={{ fontSize: '0.57rem', color: 'rgba(200,162,77,0.38)' }}
+                          >
+                            Contenu
+                          </p>
+                          <ul className="space-y-1.5">
+                            {coffret.pack_contents.map((item) => (
+                              <li
+                                key={item}
+                                className="flex items-start gap-2 text-cream-muted/65"
+                                style={{ fontSize: '0.8rem' }}
+                              >
+                                <span style={{ color: 'rgba(42,124,59,0.65)', flexShrink: 0, lineHeight: '1.6', fontSize: '0.55rem' }}>✦</span>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <div
+                        className="pt-4 flex items-center justify-between"
+                        style={{ borderTop: '1px solid rgba(200,162,77,0.1)' }}
+                      >
+                        <div>
+                          <p
+                            className="font-serif uppercase tracking-wider mb-0.5"
+                            style={{ fontSize: '0.57rem', color: 'rgba(200,162,77,0.32)' }}
+                          >
+                            {coffret.volume}
+                          </p>
+                          <p className="text-xl font-semibold text-warm-white">
+                            {price}&nbsp;&euro;
+                          </p>
+                        </div>
+                        <Link
+                          href={`/produits/${coffret.slug}`}
+                          className="btn-luxury-filled"
+                          style={{ fontSize: '0.7rem' }}
+                        >
+                          Offrir ce coffret
+                        </Link>
+                      </div>
+                      </div>{/* fin infos produit */}
+                    </div>{/* fin encart */}
+
+                </ScrollReveal>
+              </div>
+            </div>
+          </section>
+          </div>
+        );
+      })}
+
+      {/* ══════════════════════════════════════════════════════════
+          OUTRO — Galerie + invitation
+          Pour ceux qui s'attardent
+      ══════════════════════════════════════════════════════════ */}
+      <section style={{ background: '#060e07' }}>
+
+        {/* Deux tableaux botaniques */}
+        <div className="grid grid-cols-2" style={{ height: '260px' }}>
+          {[
+            { src: '/images/balata-anthurium.jpg', lieu: 'Martinique' },
+            { src: '/images/balata-fougeres.jpg',  lieu: 'Caraïbes'  },
+          ].map(({ src, lieu }) => (
+            <div key={lieu} className="relative overflow-hidden">
+              <Image src={src} alt={lieu} fill className="object-cover" sizes="50vw" />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(6,14,7,0.9) 100%)' }}
+              />
+              <p
+                className="absolute bottom-4 left-0 right-0 text-center font-serif"
+                style={{ fontSize: '0.65rem', letterSpacing: '0.2em', color: 'rgba(200,162,77,0.65)' }}
+              >
+                {lieu}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Citation et CTA — centré, collé au footer */}
+        <div className="text-center px-6 py-16">
+          <ScrollReveal direction="up" distance={20}>
+            <p
+              className="font-serif italic leading-[2.4] mb-8"
+              style={{ fontSize: '0.88rem', color: 'rgba(200,162,77,0.5)' }}
+            >
+              De Martinique en Guadeloupe,<br />
+              de Guadeloupe en Caraïbe —<br />
+              chaque gorgée est un voyage.
+            </p>
+            <div
+              className="mx-auto mb-7"
+              style={{ width: '32px', height: '1px', background: 'rgba(42,124,59,0.4)' }}
+            />
+            <p
+              className="text-cream-muted/40 mb-6"
+              style={{ fontSize: '0.75rem' }}
+            >
+              Découvrez aussi nos punchs à l&apos;unité
+            </p>
+            <Link href="/boutique" className="btn-luxury">
+              Voir tous nos punchs
+            </Link>
+          </ScrollReveal>
+        </div>
       </section>
+
+      {/* Mention légale */}
+      <div
+        className="text-center py-4 px-6"
+        style={{ background: '#060e07', borderTop: '1px solid rgba(200,162,77,0.06)' }}
+      >
+        <p style={{ fontSize: '0.68rem', color: 'rgba(232,224,208,0.14)' }}>
+          L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
+        </p>
+      </div>
 
     </div>
   );
