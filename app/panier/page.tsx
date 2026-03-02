@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import ScrollReveal from '@/components/ScrollReveal';
 
-/* ── Bakoua SVG ── */
+/* ── Bakoua SVG — conservé pour l'état vide ── */
 function BakouaSvg({ size = 60 }: { size?: number }) {
   return (
     <svg width={size} height={size * 0.7} viewBox="0 0 80 55" fill="none" aria-hidden="true">
@@ -21,6 +21,34 @@ function BakouaSvg({ size = 60 }: { size?: number }) {
     </svg>
   );
 }
+
+/* ── Styles partagés ── */
+const cardStyle: React.CSSProperties = {
+  background: 'rgba(6,14,7,0.28)',
+  backdropFilter: 'blur(24px)',
+  WebkitBackdropFilter: 'blur(24px)',
+  border: '1px solid rgba(200,162,77,0.18)',
+  borderRadius: '20px',
+  overflow: 'hidden',
+};
+
+const logoZoneStyle: React.CSSProperties = {
+  height: '180px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
+};
+
+const separatorStyle: React.CSSProperties = {
+  height: '1px',
+  background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.14), transparent)',
+};
+
+const lineSoftStyle: React.CSSProperties = {
+  height: '1px',
+  background: 'linear-gradient(90deg, rgba(200,162,77,0.15), transparent)',
+};
 
 export default function PanierPage() {
   const { cart, removeFromCart, updateQuantity, totalPrice, totalItems, clearCart } = useCart();
@@ -41,13 +69,8 @@ export default function PanierPage() {
           })),
         }),
       });
-
       const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Erreur lors de la commande');
-      }
-
+      if (!res.ok) throw new Error(data.error || 'Erreur lors de la commande');
       window.location.href = data.url;
     } catch (err) {
       setIsLoading(false);
@@ -56,42 +79,98 @@ export default function PanierPage() {
     }
   };
 
+  /* ════════ FOND COMMUN ════════ */
+  const Background = () => (
+    <div className="fixed inset-0" style={{ zIndex: 0 }}>
+      <Image
+        src="/images/marche-creole.jpg"
+        alt=""
+        fill
+        priority
+        className="object-cover"
+        sizes="100vw"
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: 'rgba(4,12,6,0.72)' }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 50% 55% at 50% 50%, rgba(200,162,77,0.04) 0%, transparent 70%)',
+        }}
+      />
+    </div>
+  );
+
   /* ════════ ÉTAT VIDE ════════ */
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #1A1208 0%, #0B0E11 100%)' }}>
-        {/* Bande image marché en haut */}
-        <div className="relative" style={{ height: '35vh', minHeight: '220px' }}>
-          <Image src="/images/marche-creole.jpg" alt="" fill className="object-cover" sizes="100vw" priority />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(26,18,8,0.3) 0%, rgba(26,18,8,0.95) 100%)' }} />
-        </div>
+      <div style={{ background: '#060e07', minHeight: '100vh' }}>
+        <Background />
+        <div
+          className="relative"
+          style={{
+            zIndex: 1,
+            minHeight: '100vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '120px 24px 48px',
+          }}
+        >
+          <div style={{ width: '100%', maxWidth: '400px' }}>
+            <ScrollReveal direction="up" distance={30} delay={60}>
+              <div style={cardStyle}>
 
-        {/* Contenu centré */}
-        <div className="flex justify-center w-full" style={{ marginTop: '-60px', position: 'relative', zIndex: 2 }}>
-          <div className="w-full text-center px-6 pb-20" style={{ maxWidth: '28rem' }}>
+                {/* Zone logo */}
+                <div style={logoZoneStyle}>
+                  <Image
+                    src="/images/bkm_logo_header.png"
+                    alt="Bô Kay Mwen"
+                    width={150}
+                    height={150}
+                    style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
+                  />
+                </div>
 
-            <ScrollReveal delay={200} direction="up" distance={20} duration={1000}>
-              <div className="flex justify-center mb-8" style={{ opacity: 0.45 }}>
-                <BakouaSvg size={90} />
+                <div style={separatorStyle} />
+
+                {/* Contenu */}
+                <div style={{ padding: '1.75rem 1.75rem 2rem', textAlign: 'center' }}>
+                  <p
+                    className="font-serif uppercase tracking-[0.38em] mb-5"
+                    style={{ fontSize: '0.58rem', color: 'rgba(200,162,77,0.4)' }}
+                  >
+                    Votre Panier
+                  </p>
+
+                  <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem', opacity: 0.35 }}>
+                    <BakouaSvg size={70} />
+                  </div>
+
+                  <h1
+                    className="font-serif text-gold tracking-wide"
+                    style={{ fontSize: '1.2rem', marginBottom: '0.4rem' }}
+                  >
+                    Ton panier est vide
+                  </h1>
+                  <p
+                    className="font-serif italic"
+                    style={{ fontSize: '0.8rem', color: 'rgba(232,224,208,0.4)', marginBottom: '1.5rem' }}
+                  >
+                    Ba mwen an ti ponch
+                  </p>
+
+                  <div style={{ ...lineSoftStyle, marginBottom: '1.5rem' }} />
+
+                  <Link href="/boutique" className="btn-luxury-filled">
+                    An nou allé
+                  </Link>
+                </div>
+
               </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={400} direction="up" distance={30} duration={1000}>
-              <h1 className="font-serif text-2xl text-gold text-shadow-lg mb-3 tracking-wide">
-                Ton panier est vide
-              </h1>
-              <p className="text-cream-muted/60 text-sm font-serif tracking-wider mb-8">
-                Ba mwen an ti ponch
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={600} direction="up" distance={20} duration={1000}>
-              <p className="text-cream-muted mb-10 leading-relaxed">
-                D&eacute;couvre nos punchs artisanaux.
-              </p>
-              <Link href="/boutique" className="btn-luxury-filled">
-                An nou all&eacute;
-              </Link>
             </ScrollReveal>
           </div>
         </div>
@@ -101,176 +180,202 @@ export default function PanierPage() {
 
   /* ════════ ÉTAT REMPLI ════════ */
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #1A1208 0%, #0B0E11 60%, #0B0E11 100%)' }}>
+    <div style={{ background: '#060e07', minHeight: '100vh' }}>
+      <Background />
 
-      {/* ── Bandeau photo marché en haut ── */}
-      <div className="relative" style={{ height: '30vh', minHeight: '200px' }}>
-        <Image src="/images/marche-creole.jpg" alt="" fill className="object-cover" sizes="100vw" priority />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(26,18,8,0.2) 0%, rgba(26,18,8,0.95) 100%)' }} />
+      <div
+        className="relative"
+        style={{ zIndex: 1, minHeight: '100vh', padding: '120px 24px 48px' }}
+      >
+        <div style={{ width: '100%', maxWidth: '480px', margin: '0 auto' }}>
+          <ScrollReveal direction="up" distance={30} delay={60}>
+            <div style={cardStyle}>
 
-        {/* Titre posé sur la photo */}
-        <div className="absolute bottom-0 left-0 right-0 text-center pb-6" style={{ zIndex: 2 }}>
-          <ScrollReveal delay={200} direction="up" distance={20} duration={1000}>
-            <div className="flex justify-center mb-3">
-              <BakouaSvg size={50} />
-            </div>
-            <p className="text-xs uppercase tracking-[0.3em] text-cream/60 mb-2 font-serif">
-              Au march&eacute;
-            </p>
-            <h1 className="font-serif text-2xl text-gold text-shadow-lg tracking-wide">
-              Votre Panier
-            </h1>
-          </ScrollReveal>
-        </div>
-      </div>
+              {/* Zone logo */}
+              <div style={logoZoneStyle}>
+                <Image
+                  src="/images/bkm_logo_header.png"
+                  alt="Bô Kay Mwen"
+                  width={150}
+                  height={150}
+                  style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
+                />
+              </div>
 
-      {/* ── L'étal : nappe madras + produits ── */}
-      <div className="flex justify-center w-full">
-        <div className="w-full px-4 pb-12" style={{ maxWidth: '56rem' }}>
+              <div style={separatorStyle} />
 
-          {/* Surface de l'étal — nappe madras */}
-          <div
-            className="madras-cloth rounded-t-lg"
-            style={{ padding: '20px 16px 8px', marginTop: '-10px', position: 'relative', zIndex: 3 }}
-          >
-            <p className="text-cream/40 text-xs font-serif tracking-wider text-center mb-4">
-              {totalItems} article{totalItems > 1 ? 's' : ''} sur l&apos;&eacute;tal
-            </p>
-          </div>
+              {/* Contenu */}
+              <div style={{ padding: '1.75rem 1.75rem 2rem' }}>
 
-          {/* Planche en bois — contient les produits */}
-          <div className="wood-surface rounded-b-lg" style={{ padding: '8px 12px 20px' }}>
+                {/* En-tête */}
+                <p
+                  className="font-serif uppercase tracking-[0.38em] mb-1"
+                  style={{ fontSize: '0.58rem', color: 'rgba(200,162,77,0.4)' }}
+                >
+                  Votre Panier
+                </p>
+                <p style={{ fontSize: '0.72rem', color: 'rgba(232,224,208,0.38)', marginBottom: '1.25rem' }}>
+                  {totalItems} article{totalItems > 1 ? 's' : ''}
+                </p>
 
-            {/* Produits sur l'étal */}
-            <div className="space-y-3 mb-6">
-              {cart.map((item, index) => {
-                const price = (item.price_cents / 100).toFixed(2);
-                const total = ((item.price_cents * item.quantity) / 100).toFixed(2);
+                <div style={{ ...lineSoftStyle, marginBottom: '1.25rem' }} />
 
-                return (
-                  <ScrollReveal key={item.id} delay={Math.min(index * 100, 400)} direction="up" distance={15} duration={800}>
-                    <div
-                      className="rounded-lg p-4 flex gap-4"
-                      style={{
-                        background: 'rgba(245,240,232,0.06)',
-                        borderBottom: '1px solid rgba(200,162,77,0.12)',
-                      }}
-                    >
-                      {/* Bouteille */}
+                {/* Articles */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                  {cart.map((item, i) => {
+                    const price = (item.price_cents / 100).toFixed(2);
+                    const total = ((item.price_cents * item.quantity) / 100).toFixed(2);
+                    return (
                       <div
-                        className="w-16 h-16 rounded-lg flex items-center justify-center shrink-0"
-                        style={{ background: 'rgba(42,31,14,0.5)', border: '1px solid rgba(200,162,77,0.15)' }}
+                        key={item.id}
+                        style={{
+                          paddingBottom: '1rem',
+                          marginBottom: '1rem',
+                          borderBottom: i < cart.length - 1 ? '1px solid rgba(200,162,77,0.08)' : 'none',
+                        }}
                       >
-                        <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#8B7434" strokeWidth="1.5">
-                          <rect x="6" y="3" width="12" height="18" rx="4" />
-                          <rect x="8" y="1" width="8" height="4" rx="2" />
-                        </svg>
-                      </div>
-
-                      {/* Détails produit */}
-                      <div className="flex-grow min-w-0">
-                        <h3 className="font-serif text-gold text-base tracking-wide">{item.name}</h3>
-                        <p className="text-cream-muted/60 text-sm">{price} &euro;</p>
-
-                        <div className="flex items-center gap-4 mt-2">
-                          <div className="flex items-center gap-2">
-                            <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-7 h-7 flex items-center justify-center rounded text-cream/80 text-sm transition-colors duration-300"
-                              style={{ background: 'rgba(42,31,14,0.6)', border: '1px solid rgba(200,162,77,0.2)' }}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.75rem' }}>
+                          <div style={{ flex: 1 }}>
+                            <h3
+                              className="font-serif text-gold"
+                              style={{ fontSize: '0.9rem', marginBottom: '0.2rem' }}
                             >
-                              &minus;
-                            </button>
-                            <span className="text-cream font-semibold w-6 text-center text-sm">{item.quantity}</span>
-                            <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-7 h-7 flex items-center justify-center rounded text-cream/80 text-sm transition-colors duration-300"
-                              style={{ background: 'rgba(42,31,14,0.6)', border: '1px solid rgba(200,162,77,0.2)' }}
-                            >
-                              +
-                            </button>
+                              {item.name}
+                            </h3>
+                            <p style={{ fontSize: '0.75rem', color: 'rgba(232,224,208,0.45)', marginBottom: '0.5rem' }}>
+                              {price}&nbsp;&euro; / unité
+                            </p>
+
+                            {/* Contrôles quantité */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                              <button
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                style={{
+                                  width: '26px', height: '26px',
+                                  border: '1px solid rgba(200,162,77,0.28)',
+                                  background: 'rgba(6,14,7,0.55)',
+                                  borderRadius: '4px',
+                                  color: 'rgba(232,224,208,0.8)',
+                                  fontSize: '1rem',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                &minus;
+                              </button>
+                              <span style={{ width: '20px', textAlign: 'center', color: 'rgba(232,224,208,0.9)', fontSize: '0.85rem' }}>
+                                {item.quantity}
+                              </span>
+                              <button
+                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                style={{
+                                  width: '26px', height: '26px',
+                                  border: '1px solid rgba(200,162,77,0.28)',
+                                  background: 'rgba(6,14,7,0.55)',
+                                  borderRadius: '4px',
+                                  color: 'rgba(232,224,208,0.8)',
+                                  fontSize: '1rem',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  cursor: 'pointer',
+                                }}
+                              >
+                                +
+                              </button>
+                              <button
+                                onClick={() => removeFromCart(item.id)}
+                                style={{
+                                  marginLeft: 'auto',
+                                  fontSize: '0.68rem',
+                                  color: 'rgba(200,162,77,0.35)',
+                                  cursor: 'pointer',
+                                  background: 'none',
+                                  border: 'none',
+                                  padding: 0,
+                                }}
+                              >
+                                Retirer
+                              </button>
+                            </div>
                           </div>
-                          <button
-                            onClick={() => removeFromCart(item.id)}
-                            className="text-crimson-light/70 hover:text-crimson-light text-xs ml-auto transition-colors duration-300"
+
+                          {/* Prix total ligne */}
+                          <p
+                            className="font-semibold text-gold"
+                            style={{ fontSize: '1rem', flexShrink: 0, paddingTop: '2px' }}
                           >
-                            Retirer
-                          </button>
+                            {total}&nbsp;&euro;
+                          </p>
                         </div>
                       </div>
-
-                      {/* Prix total */}
-                      <div className="text-right shrink-0 flex items-center">
-                        <p className="font-semibold text-gold text-lg">{total} &euro;</p>
-                      </div>
-                    </div>
-                  </ScrollReveal>
-                );
-              })}
-            </div>
-
-            {/* Vider le panier */}
-            <div className="text-center mb-6">
-              <button
-                onClick={clearCart}
-                className="text-cream-muted/40 hover:text-crimson-light text-xs transition-colors duration-300"
-              >
-                Vider l&apos;&eacute;tal
-              </button>
-            </div>
-
-            {/* ── L'ardoise — récapitulatif ── */}
-            <ScrollReveal delay={300} direction="up" distance={15} duration={800}>
-              <div className="market-slate rounded-lg" style={{ padding: '20px' }}>
-
-                {/* Titre ardoise */}
-                <div className="text-center mb-4">
-                  <p className="font-serif text-gold/80 text-sm tracking-wider uppercase">L&apos;addition</p>
+                    );
+                  })}
                 </div>
 
-                <div className="space-y-3 text-sm mb-5">
-                  <div className="flex justify-between">
-                    <span className="text-cream/60">Sous-total</span>
-                    <span className="text-cream/80">{(totalPrice / 100).toFixed(2)} &euro;</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-cream/60">Livraison</span>
-                    <span className="text-teal">Gratuite</span>
-                  </div>
+                {/* Vider le panier */}
+                <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+                  <button
+                    onClick={clearCart}
+                    style={{
+                      fontSize: '0.68rem',
+                      color: 'rgba(200,162,77,0.28)',
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Vider le panier
+                  </button>
+                </div>
 
-                  {/* Trait à la craie */}
-                  <div className="flex justify-center py-1">
-                    <div style={{ width: '100%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.3), transparent)' }} />
-                  </div>
+                {/* Séparateur avant récap */}
+                <div
+                  style={{
+                    height: '1px',
+                    marginBottom: '1.25rem',
+                    background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.25), transparent)',
+                  }}
+                />
 
-                  <div className="flex justify-between text-lg">
-                    <span className="text-cream font-semibold">Total</span>
-                    <span className="text-gold font-bold">{(totalPrice / 100).toFixed(2)} &euro;</span>
+                {/* Récapitulatif */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'rgba(232,224,208,0.45)' }}>Sous-total</span>
+                    <span style={{ fontSize: '0.8rem', color: 'rgba(232,224,208,0.65)' }}>{(totalPrice / 100).toFixed(2)}&nbsp;&euro;</span>
                   </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ fontSize: '0.8rem', color: 'rgba(232,224,208,0.45)' }}>Livraison</span>
+                    <span style={{ fontSize: '0.8rem', color: 'rgba(42,124,123,0.85)' }}>Gratuite</span>
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    height: '1px',
+                    marginBottom: '1.25rem',
+                    background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.2), transparent)',
+                  }}
+                />
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                  <span className="font-serif" style={{ fontSize: '1rem', color: 'rgba(232,224,208,0.9)' }}>Total</span>
+                  <span className="font-bold text-gold" style={{ fontSize: '1.15rem' }}>{(totalPrice / 100).toFixed(2)}&nbsp;&euro;</span>
                 </div>
 
                 <button
                   onClick={handleCheckout}
                   disabled={isLoading}
-                  className="btn-luxury-filled w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-luxury-filled w-full disabled:opacity-50"
                 >
                   {isLoading ? 'Redirection...' : 'Passer la commande'}
                 </button>
 
-                <p className="mt-4 text-cream/20 text-xs text-center">
-                  L&apos;abus d&apos;alcool est dangereux pour la sant&eacute;.
+                <p style={{ fontSize: '0.62rem', color: 'rgba(232,224,208,0.12)', textAlign: 'center', marginTop: '1rem' }}>
+                  L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
                 </p>
+
               </div>
-            </ScrollReveal>
-
-          </div>
-
-          {/* Bord de la nappe madras qui dépasse sous la planche */}
-          <div
-            className="madras-cloth rounded-b-lg"
-            style={{ height: '12px' }}
-          />
-
+            </div>
+          </ScrollReveal>
         </div>
       </div>
     </div>
