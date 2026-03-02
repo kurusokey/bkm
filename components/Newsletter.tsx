@@ -39,7 +39,7 @@ export default function Newsletter() {
   return (
     <div className="text-center">
       <p className="font-serif text-gold text-sm tracking-wider mb-2">
-        Resté branché
+        Reste branché
       </p>
       <p className="text-cream-muted/60 text-xs leading-relaxed mb-5">
         Nouveautés, recettes et offres exclusives directement dans ta boîte mail.
