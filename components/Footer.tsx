@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
-  { href: '/boutique',   label: 'Nos punchs'     },
-  { href: '/coffrets',   label: 'Coffrets'       },
-  { href: '/a-propos',   label: 'Notre histoire' },
-  { href: '/contact',    label: 'Contact'        },
+  { href: '/boutique',      label: 'Nos punchs'     },
+  { href: '/coffrets',      label: 'Coffrets'       },
+  { href: '/savoir-faire',  label: 'Savoir-faire'   },
+  { href: '/a-propos',      label: 'Notre histoire' },
+  { href: '/contact',       label: 'Contact'        },
 ];
 
 export default function Footer() {

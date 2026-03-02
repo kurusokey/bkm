@@ -24,6 +24,7 @@ export default function Header() {
     { href: '/', label: 'Accueil' },
     { href: '/boutique', label: 'Nos punchs' },
     { href: '/coffrets', label: 'Coffrets' },
+    { href: '/savoir-faire', label: 'Savoir-faire' },
     { href: '/a-propos', label: 'Notre histoire' },
     { href: '/contact', label: 'Contact' },
   ];
