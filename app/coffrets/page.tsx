@@ -49,8 +49,8 @@ export default function CoffretsPage() {
         style={{ height: '65vh', minHeight: '420px' }}
       >
         <Image
-          src="/images/palmiers-martinique.jpg"
-          alt="Caraïbes"
+          src="/images/balata-hero.jpg"
+          alt="Jardin de Balata, Martinique"
           fill priority
           className="object-cover animate-slow-zoom"
           sizes="100vw"
@@ -103,7 +103,7 @@ export default function CoffretsPage() {
             {i > 0 && (
               <div
                 style={{
-                  height: '90px',
+                  height: '28px',
                   background:
                     'linear-gradient(180deg, rgba(4,12,6,0.96) 0%, #060e07 50%, rgba(4,12,6,0.96) 100%)',
                   display: 'flex',
@@ -147,19 +147,6 @@ export default function CoffretsPage() {
                   'radial-gradient(ellipse 50% 55% at 50% 50%, rgba(200,162,77,0.04) 0%, transparent 70%)',
               }}
             />
-
-            {/* Plante avant-plan GAUCHE — subtile, juste un liseré */}
-            <div
-              className="absolute left-0 top-0 bottom-0 z-[4] hidden md:block"
-              style={{
-                width: '18%',
-                maskImage:        'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
-                WebkitMaskImage:  'linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 55%, transparent 100%)',
-              }}
-            >
-              <Image src={isEven ? scene.plantLeft : scene.plantRight} alt="" fill className="object-cover" sizes="18vw" />
-              <div className="absolute inset-0" style={{ background: 'rgba(4,12,6,0.30)' }} />
-            </div>
 
             {/* Plante avant-plan DROITE — subtile, juste un liseré */}
             <div
@@ -310,28 +297,6 @@ export default function CoffretsPage() {
           Pour ceux qui s'attardent
       ══════════════════════════════════════════════════════════ */}
       <section style={{ background: '#060e07' }}>
-
-        {/* Deux tableaux botaniques */}
-        <div className="grid grid-cols-2" style={{ height: '260px' }}>
-          {[
-            { src: '/images/balata-anthurium.jpg', lieu: 'Martinique' },
-            { src: '/images/balata-fougeres.jpg',  lieu: 'Caraïbes'  },
-          ].map(({ src, lieu }) => (
-            <div key={lieu} className="relative overflow-hidden">
-              <Image src={src} alt={lieu} fill className="object-cover" sizes="50vw" />
-              <div
-                className="absolute inset-0"
-                style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(6,14,7,0.9) 100%)' }}
-              />
-              <p
-                className="absolute bottom-4 left-0 right-0 text-center font-serif"
-                style={{ fontSize: '0.65rem', letterSpacing: '0.2em', color: 'rgba(200,162,77,0.65)' }}
-              >
-                {lieu}
-              </p>
-            </div>
-          ))}
-        </div>
 
         {/* Citation et CTA — centré, collé au footer */}
         <div className="text-center px-6 py-16">
