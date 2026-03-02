@@ -69,7 +69,16 @@ export default function BoutiquePage() {
           className="flex flex-col items-center justify-end"
           style={{ height: '45vh', minHeight: '300px', paddingBottom: '36px' }}
         >
-          <div className="gold-line-wide mb-4" />
+          <div className="gold-line-wide mb-6" />
+          <Image
+            src="/images/bkm_logo_header.png"
+            alt="Bô Kay Mwen"
+            width={220}
+            height={220}
+            className="mx-auto mb-4"
+            style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))' }}
+            priority
+          />
           <h1
             className="font-serif text-gold tracking-wider text-center text-shadow-lg"
             style={{ fontSize: 'clamp(1.4rem, 4vw, 2.2rem)' }}

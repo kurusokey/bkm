@@ -61,7 +61,7 @@ export default function SavoirFairePage() {
       {/* ══════════════════════════════════════════
           HERO
       ══════════════════════════════════════════ */}
-      <section className="relative h-screen min-h-[560px] flex items-end justify-center overflow-hidden">
+      <section className="relative h-screen min-h-[560px] flex items-center justify-center overflow-hidden">
         <Image
           src="/images/distillerie-clement.jpg"
           alt="Ancienne distillerie de l'Habitation Clément, Martinique"
@@ -76,7 +76,7 @@ export default function SavoirFairePage() {
             background: 'linear-gradient(180deg, rgba(4,12,6,0.2) 0%, rgba(4,12,6,0.35) 50%, rgba(6,14,7,0.95) 100%)',
           }}
         />
-        <div className="relative z-10 text-center px-6 pb-20 max-w-2xl mx-auto">
+        <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
           <ScrollReveal delay={200} direction="up" distance={30} duration={1000}>
             <p
               className="font-serif uppercase tracking-[0.45em] mb-5"
@@ -84,12 +84,22 @@ export default function SavoirFairePage() {
             >
               Artisanat &bull; Patience &bull; Terroir
             </p>
-            <h1
-              className="font-serif text-gold text-shadow-lg mb-5"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', whiteSpace: 'nowrap' }}
-            >
-              Notre savoir-faire
-            </h1>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                src="/images/bkm_logo_header.png"
+                alt="Bô Kay Mwen"
+                width={220}
+                height={220}
+                style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', marginBottom: '1.25rem' }}
+                priority
+              />
+              <h1
+                className="font-serif text-gold text-shadow-lg mb-5"
+                style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', whiteSpace: 'nowrap' }}
+              >
+                Notre savoir-faire
+              </h1>
+            </div>
             <div
               className="mx-auto mb-6"
               style={{ width: '50px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.5), transparent)' }}
@@ -162,7 +172,7 @@ export default function SavoirFairePage() {
                 className="font-serif text-gold leading-tight mb-6"
                 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', whiteSpace: 'nowrap' }}
               >
-                L&apos;art de la macération créole
+                L&apos;art de la macération
               </h2>
               <div className="gold-line mx-auto mb-8" />
               <p style={{ color: 'rgba(240,232,215,0.90)', fontSize: '0.9rem', lineHeight: '2', marginBottom: '1.25rem' }}>

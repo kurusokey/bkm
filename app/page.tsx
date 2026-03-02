@@ -57,12 +57,18 @@ export default function Home() {
             <div className="gold-line-wide mx-auto mb-8" />
           </ScrollReveal>
           <ScrollReveal delay={400} direction="up" distance={50} duration={1200}>
-            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-gold font-semibold mb-8 tracking-wide text-shadow-lg leading-[0.95]">
-              Bô Kay Mwen
-            </h1>
+            <Image
+              src="/images/bkm_logo_header.png"
+              alt="Bô Kay Mwen"
+              width={300}
+              height={300}
+              className="mx-auto"
+              style={{ filter: 'drop-shadow(0 8px 40px rgba(200,162,77,0.3))' }}
+              priority
+            />
           </ScrollReveal>
           <ScrollReveal delay={800} direction="up" distance={30} duration={1000}>
-            <p className="text-base md:text-lg lg:text-xl text-cream/90 mx-auto mb-12 text-shadow-sm font-light whitespace-nowrap">
+            <p className="text-base md:text-lg lg:text-xl mx-auto mb-12 text-shadow-sm font-light whitespace-nowrap" style={{ color: '#C8A24D' }}>
               Le goût des îles dans une bouteille.
             </p>
           </ScrollReveal>
