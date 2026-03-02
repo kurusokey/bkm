@@ -63,8 +63,8 @@ export default function SavoirFairePage() {
       ══════════════════════════════════════════ */}
       <section className="relative h-screen min-h-[560px] flex items-end justify-center overflow-hidden">
         <Image
-          src="/images/distillerie-depaz.jpg"
-          alt="Habitation Depaz — distillerie de rhum agricole, Martinique"
+          src="/images/distillerie-clement.jpg"
+          alt="Ancienne distillerie de l'Habitation Clément, Martinique"
           fill priority
           className="object-cover animate-slow-zoom"
           sizes="100vw"
@@ -110,25 +110,26 @@ export default function SavoirFairePage() {
           ② 3 PILIERS — compacts, centrés
       ══════════════════════════════════════════ */}
       <section
-        className="px-6 py-20"
-        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)' }}
+        style={{
+          background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)',
+          padding: '5rem 1.5rem',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
       >
-        <div className="max-w-2xl mx-auto">
-          <div className="grid grid-cols-3 gap-8">
-            {PILIERS.map(({ icon, title }, i) => (
-              <ScrollReveal key={title} delay={i * 120} direction="up" distance={20}>
-                <div className="flex flex-col items-center justify-center gap-4 text-center">
-                  {icon}
-                  <p
-                    className="font-serif text-gold tracking-wide"
-                    style={{ fontSize: '0.8rem' }}
-                  >
-                    {title}
-                  </p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', gap: '5rem' }}>
+          {PILIERS.map(({ icon, title }) => (
+            <div key={title} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', width: '90px' }}>
+              {icon}
+              <p
+                className="font-serif text-gold tracking-wide"
+                style={{ fontSize: '0.8rem', textAlign: 'center' }}
+              >
+                {title}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -150,20 +151,20 @@ export default function SavoirFairePage() {
           style={{ background: 'linear-gradient(135deg, rgba(20,8,4,0.82) 0%, rgba(10,18,6,0.65) 100%)' }}
         />
 
-        <div className="relative z-10 flex items-center min-h-[90vh] px-6 py-24">
-          <div className="max-w-xl mx-auto w-full">
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '90vh', padding: '6rem 1.5rem' }}>
+          <div style={{ maxWidth: '560px', width: '100%', textAlign: 'center' }}>
             <ScrollReveal direction="up" distance={30}>
-              <p className="text-xs uppercase tracking-[0.3em] font-serif mb-4"
-                style={{ color: 'rgba(200,162,77,0.7)' }}>
+              <p className="font-serif uppercase tracking-[0.3em] mb-4"
+                style={{ fontSize: '0.65rem', color: 'rgba(200,162,77,0.7)' }}>
                 Notre savoir-faire
               </p>
               <h2
                 className="font-serif text-gold leading-tight mb-6"
-                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', whiteSpace: 'nowrap' }}
+                style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', whiteSpace: 'nowrap' }}
               >
                 L&apos;art de la macération créole
               </h2>
-              <div className="gold-line mb-8" />
+              <div className="gold-line mx-auto mb-8" />
               <p style={{ color: 'rgba(240,232,215,0.90)', fontSize: '0.9rem', lineHeight: '2', marginBottom: '1.25rem' }}>
                 Chaque punch commence par une sélection rigoureuse des fruits — cueillis à maturité, sourcés auprès d&apos;agriculteurs locaux des Antilles qui partagent notre passion pour une agriculture respectueuse.
               </p>
@@ -179,18 +180,18 @@ export default function SavoirFairePage() {
           ④ DE LA TERRE À LA BOUTEILLE — épuré
       ══════════════════════════════════════════ */}
       <section
-        className="py-24 px-6"
-        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)' }}
+        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)', padding: '6rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <div className="max-w-2xl mx-auto">
+        <div style={{ width: '100%', maxWidth: '480px' }}>
           <ScrollReveal direction="up" distance={30}>
-            <div className="text-center mb-14">
-              <p className="text-xs uppercase tracking-[0.3em] text-gold/50 font-serif mb-3">
+            <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+              <p className="font-serif uppercase tracking-[0.3em] mb-3"
+                style={{ fontSize: '0.65rem', color: 'rgba(200,162,77,0.5)' }}>
                 Notre processus
               </p>
               <h2
-                className="font-serif text-gold text-2xl md:text-3xl tracking-wide mb-4"
-                style={{ whiteSpace: 'nowrap' }}
+                className="font-serif text-gold tracking-wide mb-4"
+                style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', whiteSpace: 'nowrap' }}
               >
                 De la terre à la bouteille
               </h2>
@@ -198,28 +199,36 @@ export default function SavoirFairePage() {
             </div>
           </ScrollReveal>
 
-          <div className="relative">
+          <div style={{ position: 'relative' }}>
             <div
-              className="absolute left-[19px] top-4 bottom-4 w-[1px] hidden sm:block"
-              style={{ background: 'linear-gradient(180deg, rgba(200,162,77,0.35), transparent)' }}
+              style={{
+                position: 'absolute', left: '19px', top: '1rem', bottom: '1rem', width: '1px',
+                background: 'linear-gradient(180deg, rgba(200,162,77,0.35), transparent)',
+              }}
             />
-            <div className="space-y-8">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               {ETAPES.map(({ step, title, desc }, i) => (
                 <ScrollReveal key={step} delay={i * 80} direction="up" distance={20}>
-                  <div className="flex gap-6 items-start">
-                    <div className="shrink-0">
+                  <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
+                    <div style={{ flexShrink: 0 }}>
                       <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center font-serif text-gold text-xs"
-                        style={{ background: 'rgba(200,162,77,0.06)', border: '1px solid rgba(200,162,77,0.35)' }}
+                        className="font-serif text-gold"
+                        style={{
+                          width: '40px', height: '40px', borderRadius: '50%',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          fontSize: '0.75rem',
+                          background: 'rgba(200,162,77,0.06)',
+                          border: '1px solid rgba(200,162,77,0.35)',
+                        }}
                       >
                         {step}
                       </div>
                     </div>
-                    <div className="flex-1 pt-2">
-                      <h3 className="font-serif text-gold tracking-wide mb-1" style={{ fontSize: '0.95rem' }}>
+                    <div style={{ flex: 1, paddingTop: '0.5rem' }}>
+                      <h3 className="font-serif text-gold tracking-wide" style={{ fontSize: '0.95rem', marginBottom: '0.25rem' }}>
                         {title}
                       </h3>
-                      <p className="text-cream-muted/65 text-sm leading-relaxed">{desc}</p>
+                      <p style={{ fontSize: '0.85rem', lineHeight: '1.7', color: 'rgba(232,224,208,0.55)' }}>{desc}</p>
                     </div>
                   </div>
                 </ScrollReveal>
