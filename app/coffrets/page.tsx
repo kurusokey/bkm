@@ -3,7 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import { getAllProducts } from '@/lib/products';
-import { getProductImage } from '@/lib/productImages';
 
 export const metadata: Metadata = {
   title: 'Coffrets Cadeaux — Offrez les Caraïbes',
@@ -40,53 +39,6 @@ export default function CoffretsPage() {
 
   return (
     <div style={{ background: '#060e07' }}>
-
-      {/* ══════════════════════════
-          HERO — court et direct
-      ══════════════════════════ */}
-      <section
-        className="relative flex items-end justify-center overflow-hidden"
-        style={{ height: '65vh', minHeight: '420px' }}
-      >
-        <Image
-          src="/images/balata-hero.jpg"
-          alt="Jardin de Balata, Martinique"
-          fill priority
-          className="object-cover animate-slow-zoom"
-          sizes="100vw"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(4,12,6,0.45) 0%, rgba(4,12,6,0.2) 40%, rgba(6,14,7,1) 100%)',
-          }}
-        />
-
-        <div className="relative z-10 text-center px-6 pb-16 max-w-lg mx-auto">
-          <ScrollReveal delay={200} direction="up" distance={30} duration={1000}>
-            <p
-              className="font-serif uppercase tracking-[0.45em] mb-5"
-              style={{ fontSize: '0.6rem', color: 'rgba(200,162,77,0.5)' }}
-            >
-              Martinique &bull; Guadeloupe &bull; Caraïbes
-            </p>
-            <h1
-              className="font-serif text-gold text-shadow-lg leading-tight mb-5"
-              style={{ fontSize: 'clamp(2.2rem, 5vw, 3.8rem)' }}
-            >
-              Offrez les Caraïbes
-            </h1>
-            <div
-              className="mx-auto"
-              style={{
-                width: '50px', height: '1px',
-                background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.45), transparent)',
-              }}
-            />
-          </ScrollReveal>
-        </div>
-      </section>
 
       {/* ══════════════════════════════════════════════════════════
           COFFRETS — Dans le jardin, immédiatement
@@ -187,13 +139,12 @@ export default function CoffretsPage() {
                         }}
                       >
                         <Image
-                          src={getProductImage(coffret.slug, coffret.image_url)}
-                          alt={coffret.name}
-                          fill
-                          className="object-contain p-8"
-                          sizes="(max-width: 640px) 90vw, 384px"
+                          src="/images/bkm_logo_header.png"
+                          alt="Bô Kay Mwen"
+                          width={220}
+                          height={220}
                           style={{
-                            filter: 'drop-shadow(0 12px 30px rgba(0,0,0,0.7))',
+                            filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))',
                           }}
                         />
                       </div>
