@@ -63,8 +63,8 @@ export default function SavoirFairePage() {
       ══════════════════════════════════════════ */}
       <section className="relative h-screen min-h-[560px] flex items-end justify-center overflow-hidden">
         <Image
-          src="/images/distillerie-antilles.jpg"
-          alt="Distillerie artisanale des Antilles françaises"
+          src="/images/distillerie-depaz.jpg"
+          alt="Habitation Depaz — distillerie de rhum agricole, Martinique"
           fill priority
           className="object-cover animate-slow-zoom"
           sizes="100vw"
