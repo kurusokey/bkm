@@ -46,7 +46,12 @@ export default function ContactForm() {
     }
   };
 
-  const inputCls = 'w-full px-4 py-3 rounded-lg text-sm bg-ink border border-gold-muted/20 text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-gold/50 transition-colors disabled:opacity-50';
+  const inputCls = 'w-full px-4 py-3 rounded-lg text-sm text-cream placeholder:text-cream-muted/40 focus:outline-none transition-colors disabled:opacity-50';
+  const inputStyle = {
+    background: 'rgba(6,14,7,0.55)',
+    border: '1px solid rgba(200,162,77,0.18)',
+    color: 'rgba(232,224,208,0.9)',
+  };
 
   if (status === 'success') {
     return (
@@ -74,7 +79,7 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="block text-xs uppercase tracking-[0.15em] text-cream-muted/60 font-serif mb-2">
+          <label className="block text-xs uppercase tracking-[0.15em] font-serif mb-2" style={{ color: '#C8A24D' }}>
             Nom *
           </label>
           <input
@@ -85,10 +90,11 @@ export default function ContactForm() {
             placeholder="Votre nom"
             disabled={status === 'loading'}
             className={inputCls}
+            style={inputStyle}
           />
         </div>
         <div>
-          <label className="block text-xs uppercase tracking-[0.15em] text-cream-muted/60 font-serif mb-2">
+          <label className="block text-xs uppercase tracking-[0.15em] font-serif mb-2" style={{ color: '#C8A24D' }}>
             Email *
           </label>
           <input
@@ -99,12 +105,13 @@ export default function ContactForm() {
             placeholder="votre@email.com"
             disabled={status === 'loading'}
             className={inputCls}
+            style={inputStyle}
           />
         </div>
       </div>
 
-      <div>
-        <label className="block text-xs uppercase tracking-[0.15em] text-cream-muted/60 font-serif mb-2">
+      <div style={{ marginTop: '1.5rem' }}>
+        <label className="block text-xs uppercase tracking-[0.15em] font-serif mb-2" style={{ color: '#C8A24D' }}>
           Sujet
         </label>
         <select
@@ -112,15 +119,15 @@ export default function ContactForm() {
           onChange={set('subject')}
           disabled={status === 'loading'}
           className={inputCls}
-          style={{ appearance: 'none' }}
+          style={{ ...inputStyle, appearance: 'none' }}
         >
           <option value="">Sélectionnez un sujet</option>
           {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
         </select>
       </div>
 
-      <div>
-        <label className="block text-xs uppercase tracking-[0.15em] text-cream-muted/60 font-serif mb-2">
+      <div style={{ marginTop: '1.5rem' }}>
+        <label className="block text-xs uppercase tracking-[0.15em] font-serif mb-2" style={{ color: '#C8A24D' }}>
           Message *
         </label>
         <textarea
@@ -131,6 +138,7 @@ export default function ContactForm() {
           rows={5}
           disabled={status === 'loading'}
           className={`${inputCls} resize-none`}
+          style={inputStyle}
         />
       </div>
 
