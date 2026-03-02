@@ -43,13 +43,7 @@ export default function Header() {
       >
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link
-            href="/"
-            className="font-display text-gold tracking-widest transition-opacity duration-300 hover:opacity-70"
-            style={{ fontSize: 'clamp(0.7rem, 1.5vw, 0.85rem)' }}
-          >
-            Bô Kay Mwen
-          </Link>
+          <Link href="/" aria-label="Accueil" className="w-6" />
 
           {/* Navigation Desktop */}
           <div className="hidden md:flex items-center gap-8">
