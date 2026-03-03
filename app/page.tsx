@@ -43,7 +43,7 @@ export default function Home() {
       {/* ======== HERO — FULL SCREEN ======== */}
       <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/hero-rum.jpg"
+          src="/images/punch-all.jpg"
           alt=""
           fill
           priority
