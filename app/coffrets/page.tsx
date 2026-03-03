@@ -132,7 +132,7 @@ export default function CoffretsPage() {
                     >
                       {/* Zone image — en haut de l'encart */}
                       <div
-                        className="relative flex items-center justify-center"
+                        className="relative"
                         style={{
                           height: '280px',
                           background:
@@ -140,13 +140,12 @@ export default function CoffretsPage() {
                         }}
                       >
                         <Image
-                          src="/images/bkm_logo_header.png"
-                          alt="Bô Kay Mwen"
-                          width={220}
-                          height={220}
-                          style={{
-                            filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))',
-                          }}
+                          src={`/images/products/${coffret.slug}.jpg`}
+                          alt={coffret.name}
+                          fill
+                          className="object-contain p-6"
+                          sizes="400px"
+                          style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
                         />
                       </div>
 
