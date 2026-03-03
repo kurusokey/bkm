@@ -103,21 +103,19 @@ export default function ProductList({ products }: ProductListProps) {
                 >
                   {/* Image */}
                   <Link href={`/produits/${product.slug}`} className="shrink-0 relative">
-                    {/* Badge stock */}
-                    <span
-                      className="absolute top-2 left-2 text-[10px] uppercase tracking-[0.1em] font-serif px-2 py-0.5 rounded-full z-10"
-                      style={{
-                        background: inStock
-                          ? 'rgba(42,124,123,0.25)'
-                          : 'rgba(139,47,58,0.25)',
-                        border: inStock
-                          ? '1px solid rgba(42,124,123,0.5)'
-                          : '1px solid rgba(139,47,58,0.5)',
-                        color: inStock ? '#3A9B9A' : '#C05C68',
-                      }}
-                    >
-                      {inStock ? 'En stock' : 'Rupture'}
-                    </span>
+                    {/* Badge rupture uniquement */}
+                    {!inStock && (
+                      <span
+                        className="absolute top-2 left-2 text-[10px] uppercase tracking-[0.1em] font-serif px-2 py-0.5 rounded-full z-10"
+                        style={{
+                          background: 'rgba(139,47,58,0.25)',
+                          border: '1px solid rgba(139,47,58,0.5)',
+                          color: '#C05C68',
+                        }}
+                      >
+                        Rupture
+                      </span>
+                    )}
 
                     <div
                       className="relative w-56 h-56 sm:w-full sm:h-auto overflow-hidden"
