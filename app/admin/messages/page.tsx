@@ -19,9 +19,9 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  unread: "bg-gold/20 text-gold",
-  read: "bg-teal/20 text-teal-light",
-  archived: "bg-cream/10 text-cream-muted",
+  unread: "rgba(200,162,77,0.80)",
+  read: "rgba(42,124,123,0.75)",
+  archived: "rgba(232,224,208,0.28)",
 };
 
 export default function MessagesPage() {
@@ -66,45 +66,77 @@ export default function MessagesPage() {
   ).length;
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="font-serif text-2xl text-gold tracking-wider">
+    <div className="p-8 min-h-screen" style={{ background: "#060e07" }}>
+      {/* En-tête */}
+      <div className="mb-8">
+        <p
+          className="font-serif uppercase tracking-[0.35em] mb-1"
+          style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}
+        >
+          ✦ Contact
+        </p>
+        <div className="flex items-end justify-between">
+          <h1
+            className="font-serif text-gold"
+            style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}
+          >
             Messages
           </h1>
           {unread > 0 && (
-            <p className="text-gold text-sm mt-1">
+            <span
+              className="px-2.5 py-0.5 text-xs font-medium"
+              style={{
+                borderRadius: "6px",
+                background: "rgba(200,162,77,0.12)",
+                color: "rgba(200,162,77,0.80)",
+                border: "1px solid rgba(200,162,77,0.22)",
+              }}
+            >
               {unread} non lu{unread !== 1 ? "s" : ""}
-            </p>
+            </span>
           )}
         </div>
+        <div
+          className="mt-3"
+          style={{
+            width: 40,
+            height: 1,
+            background: "linear-gradient(90deg, rgba(200,162,77,0.40), transparent)",
+          }}
+        />
       </div>
 
-      <div className="flex gap-6 h-full">
+      <div className="flex gap-5">
         {/* Liste */}
         <div
-          className="flex-1 rounded-xl border border-gold/20 overflow-hidden"
-          style={{ background: "rgba(255,255,255,0.04)" }}
+          className="flex-1"
+          style={{
+            background: "rgba(6,14,7,0.32)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(200,162,77,0.10)",
+            borderRadius: "16px",
+            overflow: "hidden",
+          }}
         >
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gold/10">
-                  <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                    De
-                  </th>
-                  <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                    Sujet
-                  </th>
-                  <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                    Statut
-                  </th>
-                  <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                    Actions
-                  </th>
+                <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.07)" }}>
+                  {["De", "Sujet", "Date", "Statut", "Actions"].map((h) => (
+                    <th
+                      key={h}
+                      className="px-6 py-4 text-left font-serif uppercase"
+                      style={{
+                        fontSize: "0.5rem",
+                        letterSpacing: "0.22em",
+                        color: "rgba(200,162,77,0.32)",
+                        fontWeight: 400,
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
@@ -112,7 +144,8 @@ export default function MessagesPage() {
                   <tr>
                     <td
                       colSpan={5}
-                      className="px-6 py-8 text-center text-cream-muted"
+                      className="px-6 py-10 text-center"
+                      style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                     >
                       Chargement…
                     </td>
@@ -122,15 +155,17 @@ export default function MessagesPage() {
                   <tr>
                     <td
                       colSpan={5}
-                      className="px-6 py-8 text-center text-cream-muted"
+                      className="px-6 py-10 text-center"
+                      style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                     >
                       Aucun message
                     </td>
                   </tr>
                 )}
                 {!loading &&
-                  messages.map((msg) => {
+                  messages.map((msg, i) => {
                     const status = msg.status ?? "unread";
+                    const isUnread = status === "unread";
                     return (
                       <tr
                         key={msg.id}
@@ -138,39 +173,71 @@ export default function MessagesPage() {
                           setSelected(msg);
                           if (status === "unread") setStatus(msg, "read");
                         }}
-                        className={`border-b border-gold/5 cursor-pointer transition-colors ${
-                          selected?.id === msg.id
-                            ? "bg-gold/10"
-                            : "hover:bg-white/5"
-                        }`}
+                        className="cursor-pointer transition-colors"
+                        style={{
+                          borderBottom:
+                            i < messages.length - 1
+                              ? "1px solid rgba(200,162,77,0.05)"
+                              : "none",
+                          background:
+                            selected?.id === msg.id
+                              ? "rgba(200,162,77,0.06)"
+                              : "transparent",
+                        }}
                       >
                         <td className="px-6 py-4">
                           <p
-                            className={`${status === "unread" ? "text-cream font-medium" : "text-cream-muted"}`}
+                            style={{
+                              color: isUnread
+                                ? "rgba(232,224,208,0.88)"
+                                : "rgba(232,224,208,0.42)",
+                              fontSize: "0.82rem",
+                              fontWeight: isUnread ? 500 : 400,
+                            }}
                           >
                             {msg.name}
                           </p>
-                          <p className="text-cream-muted text-xs">
+                          <p
+                            style={{
+                              color: "rgba(232,224,208,0.28)",
+                              fontSize: "0.7rem",
+                            }}
+                          >
                             {msg.email}
                           </p>
                         </td>
                         <td
-                          className={`px-6 py-4 ${status === "unread" ? "text-cream" : "text-cream-muted"} max-w-48 truncate`}
+                          className="px-6 py-4 max-w-48 truncate"
+                          style={{
+                            color: isUnread
+                              ? "rgba(232,224,208,0.75)"
+                              : "rgba(232,224,208,0.35)",
+                            fontSize: "0.8rem",
+                          }}
                         >
                           {msg.subject ?? "(sans sujet)"}
                         </td>
-                        <td className="px-6 py-4 text-cream-muted whitespace-nowrap">
+                        <td
+                          className="px-6 py-4 whitespace-nowrap"
+                          style={{ color: "rgba(232,224,208,0.30)", fontSize: "0.78rem" }}
+                        >
                           {new Date(msg.created_at).toLocaleDateString("fr-FR")}
                         </td>
                         <td className="px-6 py-4">
                           <span
-                            className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[status] ?? "bg-cream/10 text-cream-muted"}`}
+                            className="inline-block px-2.5 py-0.5 text-xs font-medium"
+                            style={{
+                              borderRadius: "6px",
+                              background: `${STATUS_COLORS[status] ?? "rgba(200,162,77,0.15)"}22`,
+                              color: STATUS_COLORS[status] ?? "rgba(232,224,208,0.50)",
+                              border: `1px solid ${STATUS_COLORS[status] ?? "rgba(200,162,77,0.15)"}44`,
+                            }}
                           >
                             {STATUS_LABELS[status] ?? status}
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="flex gap-2">
+                          <span className="flex gap-3">
                             {status !== "read" && (
                               <button
                                 type="button"
@@ -179,7 +246,11 @@ export default function MessagesPage() {
                                   e.stopPropagation();
                                   setStatus(msg, "read");
                                 }}
-                                className="text-xs text-cream-muted hover:text-gold transition-colors"
+                                className="transition-colors"
+                                style={{
+                                  fontSize: "0.7rem",
+                                  color: "rgba(232,224,208,0.30)",
+                                }}
                               >
                                 Lu
                               </button>
@@ -192,7 +263,11 @@ export default function MessagesPage() {
                                   e.stopPropagation();
                                   setStatus(msg, "archived");
                                 }}
-                                className="text-xs text-cream-muted hover:text-gold transition-colors"
+                                className="transition-colors"
+                                style={{
+                                  fontSize: "0.7rem",
+                                  color: "rgba(232,224,208,0.30)",
+                                }}
                               >
                                 Archiver
                               </button>
@@ -210,44 +285,95 @@ export default function MessagesPage() {
         {/* Prévisualisation */}
         {selected && (
           <div
-            className="w-80 rounded-xl border border-gold/20 p-6 flex flex-col gap-3 shrink-0"
-            style={{ background: "rgba(255,255,255,0.04)" }}
+            className="w-80 flex flex-col gap-4 shrink-0"
+            style={{
+              background: "rgba(6,14,7,0.38)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              border: "1px solid rgba(200,162,77,0.12)",
+              borderRadius: "16px",
+              padding: "1.5rem",
+            }}
           >
             <div className="flex items-start justify-between">
-              <h3 className="text-cream font-medium text-base">
+              <p
+                className="font-serif"
+                style={{
+                  color: "rgba(232,224,208,0.82)",
+                  fontSize: "0.9rem",
+                  lineHeight: 1.4,
+                  flex: 1,
+                  paddingRight: "0.5rem",
+                }}
+              >
                 {selected.subject ?? "(sans sujet)"}
-              </h3>
+              </p>
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="text-cream-muted hover:text-cream text-xl"
+                className="transition-colors shrink-0"
+                style={{ color: "rgba(232,224,208,0.25)", fontSize: "1.2rem", lineHeight: 1 }}
               >
                 ×
               </button>
             </div>
+
             <div>
-              <p className="text-cream text-sm font-medium">{selected.name}</p>
-              <p className="text-cream-muted text-xs">{selected.email}</p>
-              <p className="text-cream-muted text-xs mt-0.5">
+              <p style={{ color: "rgba(232,224,208,0.72)", fontSize: "0.82rem", fontWeight: 500 }}>
+                {selected.name}
+              </p>
+              <p style={{ color: "rgba(232,224,208,0.30)", fontSize: "0.72rem" }}>
+                {selected.email}
+              </p>
+              <p style={{ color: "rgba(232,224,208,0.22)", fontSize: "0.68rem", marginTop: "2px" }}>
                 {new Date(selected.created_at).toLocaleString("fr-FR")}
               </p>
             </div>
-            <div className="border-t border-gold/10 pt-3">
-              <p className="text-cream text-sm leading-relaxed whitespace-pre-wrap">
-                {selected.message}
-              </p>
-            </div>
-            <div className="flex gap-2 mt-auto">
+
+            <div
+              style={{
+                height: 1,
+                background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.10), transparent)",
+              }}
+            />
+
+            <p
+              className="leading-relaxed whitespace-pre-wrap flex-1"
+              style={{ color: "rgba(232,224,208,0.68)", fontSize: "0.82rem" }}
+            >
+              {selected.message}
+            </p>
+
+            <div
+              style={{
+                height: 1,
+                background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.08), transparent)",
+              }}
+            />
+
+            <div className="flex gap-2">
               <a
                 href={`mailto:${selected.email}?subject=Re: ${encodeURIComponent(selected.subject ?? "")}`}
-                className="flex-1 py-2 rounded-lg border border-gold/30 text-cream text-xs text-center hover:border-gold transition-colors"
+                className="flex-1 py-2 text-xs text-center transition-colors"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid rgba(200,162,77,0.20)",
+                  color: "rgba(200,162,77,0.65)",
+                  letterSpacing: "0.05em",
+                }}
               >
                 Répondre
               </a>
               <button
                 type="button"
                 onClick={() => setStatus(selected, "archived")}
-                className="flex-1 py-2 rounded-lg border border-gold/30 text-cream-muted text-xs hover:text-cream hover:border-gold transition-colors"
+                className="flex-1 py-2 text-xs transition-colors"
+                style={{
+                  borderRadius: "8px",
+                  border: "1px solid rgba(200,162,77,0.10)",
+                  color: "rgba(232,224,208,0.28)",
+                  letterSpacing: "0.05em",
+                }}
               >
                 Archiver
               </button>

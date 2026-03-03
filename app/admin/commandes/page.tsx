@@ -37,10 +37,10 @@ const STATUS_LABELS: Record<string, string> = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  paid: "bg-teal/20 text-teal-light",
-  shipped: "bg-gold/20 text-gold",
-  delivered: "bg-green-500/20 text-green-400",
-  cancelled: "bg-crimson/20 text-crimson-light",
+  paid: "rgba(42,124,123,0.75)",
+  shipped: "rgba(200,162,77,0.80)",
+  delivered: "rgba(74,222,128,0.75)",
+  cancelled: "rgba(200,80,80,0.75)",
 };
 
 export default function CommandesPage() {
@@ -81,14 +81,36 @@ export default function CommandesPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="font-serif text-2xl text-gold tracking-wider">
-          Commandes
-        </h1>
-        <span className="text-cream-muted text-sm">
-          {orders.length} commande{orders.length !== 1 ? "s" : ""}
-        </span>
+    <div className="p-8 min-h-screen" style={{ background: "#060e07" }}>
+      {/* En-tête */}
+      <div className="mb-8">
+        <p
+          className="font-serif uppercase tracking-[0.35em] mb-1"
+          style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}
+        >
+          ✦ Gestion
+        </p>
+        <div className="flex items-end justify-between">
+          <h1
+            className="font-serif text-gold"
+            style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}
+          >
+            Commandes
+          </h1>
+          <span
+            style={{ fontSize: "0.7rem", color: "rgba(232,224,208,0.28)" }}
+          >
+            {orders.length} commande{orders.length !== 1 ? "s" : ""}
+          </span>
+        </div>
+        <div
+          className="mt-3"
+          style={{
+            width: 40,
+            height: 1,
+            background: "linear-gradient(90deg, rgba(200,162,77,0.40), transparent)",
+          }}
+        />
       </div>
 
       {/* Filtres */}
@@ -98,11 +120,24 @@ export default function CommandesPage() {
             type="button"
             key={s.value}
             onClick={() => setFilter(s.value)}
-            className={`px-4 py-1.5 rounded-lg text-sm transition-colors ${
-              filter === s.value
-                ? "bg-gold text-ink font-medium"
-                : "border border-gold/20 text-cream-muted hover:text-cream hover:border-gold/40"
-            }`}
+            className="px-4 py-1.5 text-sm transition-all"
+            style={{
+              borderRadius: "8px",
+              background:
+                filter === s.value
+                  ? "rgba(200,162,77,0.15)"
+                  : "transparent",
+              border:
+                filter === s.value
+                  ? "1px solid rgba(200,162,77,0.40)"
+                  : "1px solid rgba(200,162,77,0.12)",
+              color:
+                filter === s.value
+                  ? "rgba(200,162,77,0.90)"
+                  : "rgba(232,224,208,0.35)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.05em",
+            }}
           >
             {s.label}
           </button>
@@ -111,31 +146,33 @@ export default function CommandesPage() {
 
       {/* Tableau */}
       <div
-        className="rounded-xl border border-gold/20 overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.04)" }}
+        style={{
+          background: "rgba(6,14,7,0.32)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(200,162,77,0.10)",
+          borderRadius: "16px",
+          overflow: "hidden",
+        }}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gold/10">
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Date
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Client
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Articles
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Montant
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Statut
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Action
-                </th>
+              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.07)" }}>
+                {["Date", "Client", "Articles", "Montant", "Statut", "Action"].map((h) => (
+                  <th
+                    key={h}
+                    className="px-6 py-4 text-left font-serif uppercase"
+                    style={{
+                      fontSize: "0.5rem",
+                      letterSpacing: "0.22em",
+                      color: "rgba(200,162,77,0.32)",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -143,7 +180,8 @@ export default function CommandesPage() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
                     Chargement…
                   </td>
@@ -153,42 +191,63 @@ export default function CommandesPage() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
                     Aucune commande
                   </td>
                 </tr>
               )}
               {!loading &&
-                orders.map((order) => (
+                orders.map((order, i) => (
                   <tr
                     key={order.id}
-                    className="border-b border-gold/5 hover:bg-white/5 transition-colors"
+                    style={{
+                      borderBottom:
+                        i < orders.length - 1
+                          ? "1px solid rgba(200,162,77,0.05)"
+                          : "none",
+                    }}
                   >
-                    <td className="px-6 py-4 text-cream-muted whitespace-nowrap">
+                    <td
+                      className="px-6 py-4 whitespace-nowrap"
+                      style={{ color: "rgba(232,224,208,0.38)", fontSize: "0.8rem" }}
+                    >
                       {new Date(order.created_at).toLocaleDateString("fr-FR")}
                     </td>
                     <td className="px-6 py-4">
-                      <p className="text-cream">{order.customer_name ?? "—"}</p>
-                      <p className="text-cream-muted text-xs">
+                      <p style={{ color: "rgba(232,224,208,0.80)", fontSize: "0.82rem" }}>
+                        {order.customer_name ?? "—"}
+                      </p>
+                      <p style={{ color: "rgba(232,224,208,0.30)", fontSize: "0.7rem" }}>
                         {order.customer_email}
                       </p>
                     </td>
-                    <td className="px-6 py-4 text-cream-muted max-w-48">
+                    <td
+                      className="px-6 py-4 max-w-48"
+                      style={{ color: "rgba(232,224,208,0.38)", fontSize: "0.78rem" }}
+                    >
                       {Array.isArray(order.items)
                         ? order.items
-                            .map(
-                              (it: OrderItem) => `${it.name} ×${it.quantity}`,
-                            )
+                            .map((it: OrderItem) => `${it.name} ×${it.quantity}`)
                             .join(", ")
                         : "—"}
                     </td>
-                    <td className="px-6 py-4 text-cream font-medium">
+                    <td
+                      className="px-6 py-4 font-medium"
+                      style={{ color: "rgba(232,224,208,0.88)", fontSize: "0.82rem" }}
+                    >
                       {fmt(order.total_amount_cents)}
                     </td>
                     <td className="px-6 py-4">
                       <span
-                        className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[order.status] ?? "bg-cream/10 text-cream-muted"}`}
+                        className="inline-block px-2.5 py-0.5 text-xs font-medium"
+                        style={{
+                          borderRadius: "6px",
+                          background: `${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}22`,
+                          color: STATUS_COLORS[order.status] ?? "rgba(232,224,208,0.50)",
+                          border: `1px solid ${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}44`,
+                        }}
                       >
                         {STATUS_LABELS[order.status] ?? order.status}
                       </span>
@@ -198,14 +257,18 @@ export default function CommandesPage() {
                         value={order.status}
                         disabled={updating === order.id}
                         onChange={(e) => changeStatus(order.id, e.target.value)}
-                        className="bg-transparent border border-gold/30 text-cream text-xs rounded px-2 py-1 focus:outline-none focus:border-gold disabled:opacity-50"
+                        className="focus:outline-none transition-colors disabled:opacity-40"
+                        style={{
+                          background: "rgba(6,14,7,0.70)",
+                          border: "1px solid rgba(200,162,77,0.18)",
+                          borderRadius: "7px",
+                          color: "rgba(232,224,208,0.70)",
+                          fontSize: "0.72rem",
+                          padding: "4px 8px",
+                        }}
                       >
                         {STATUSES.filter((s) => s.value).map((s) => (
-                          <option
-                            key={s.value}
-                            value={s.value}
-                            className="bg-charcoal"
-                          >
+                          <option key={s.value} value={s.value} className="bg-charcoal">
                             {s.label}
                           </option>
                         ))}

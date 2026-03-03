@@ -1,14 +1,62 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const NAV = [
-  { href: "/admin", label: "Vue d'ensemble", icon: "⬡" },
-  { href: "/admin/commandes", label: "Commandes", icon: "📦" },
-  { href: "/admin/produits", label: "Produits", icon: "🍹" },
-  { href: "/admin/newsletter", label: "Newsletter", icon: "✉" },
-  { href: "/admin/messages", label: "Messages", icon: "💬" },
+  {
+    href: "/admin",
+    label: "Vue d'ensemble",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <rect x="1" y="1" width="5.5" height="5.5" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
+        <rect x="8.5" y="1" width="5.5" height="5.5" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
+        <rect x="1" y="8.5" width="5.5" height="5.5" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
+        <rect x="8.5" y="8.5" width="5.5" height="5.5" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
+      </svg>
+    ),
+  },
+  {
+    href: "/admin/commandes",
+    label: "Commandes",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M1.5 2h1.8l2 7.5h5.9l1.7-5H4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="6.5" cy="12.5" r="1" stroke="currentColor" strokeWidth="1.2" />
+        <circle cx="11" cy="12.5" r="1" stroke="currentColor" strokeWidth="1.2" />
+      </svg>
+    ),
+  },
+  {
+    href: "/admin/produits",
+    label: "Produits",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M7.5 1.5C6.7 1.5 6 2 6 3v1.2C5 4.5 4.5 5.2 4.5 6v6.5c0 .6.4 1 1 1h4c.6 0 1-.4 1-1V6c0-.8-.5-1.5-1.5-1.8V3c0-1-.7-1.5-1.5-1.5z" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M6 6.5h3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    href: "/admin/newsletter",
+    label: "Newsletter",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <rect x="1" y="3" width="13" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.2" />
+        <path d="M1 5.5l6.5 3.5 6.5-3.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    href: "/admin/messages",
+    label: "Messages",
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M1 2.5h13c.3 0 .5.2.5.5v7c0 .3-.2.5-.5.5H4l-3.5 3V3c0-.3.2-.5.5-.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
 ];
 
 export default function AdminSidebar() {
@@ -23,19 +71,52 @@ export default function AdminSidebar() {
 
   return (
     <aside
-      className="w-56 flex flex-col border-r border-gold/10 shrink-0"
-      style={{ background: "rgba(255,255,255,0.02)" }}
+      className="w-60 flex flex-col shrink-0"
+      style={{
+        background: "rgba(4,10,5,0.70)",
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
+        borderRight: "1px solid rgba(200,162,77,0.10)",
+      }}
     >
-      {/* Logo */}
-      <div className="px-6 py-6 border-b border-gold/10">
-        <p className="font-serif text-gold text-sm tracking-widest">
+      {/* Logo BKM */}
+      <div
+        className="flex flex-col items-center pt-8 pb-6 px-6"
+        style={{ borderBottom: "1px solid rgba(200,162,77,0.07)" }}
+      >
+        <div
+          className="relative flex items-center justify-center mb-3"
+          style={{
+            width: 72,
+            height: 72,
+            background:
+              "radial-gradient(ellipse 85% 85% at 50% 50%, rgba(200,162,77,0.09) 0%, transparent 75%)",
+          }}
+        >
+          <Image
+            src="/images/bkm_logo_header.png"
+            alt="Bô Kay Mwen"
+            width={58}
+            height={58}
+            style={{ filter: "drop-shadow(0 4px 14px rgba(200,162,77,0.22))" }}
+          />
+        </div>
+        <p
+          className="font-serif text-center tracking-[0.28em]"
+          style={{ fontSize: "0.62rem", color: "rgba(200,162,77,0.80)" }}
+        >
           BÔ KAY MWEN
         </p>
-        <p className="text-cream-muted text-xs tracking-wider mt-0.5">Admin</p>
+        <p
+          className="text-center mt-1 tracking-[0.22em]"
+          style={{ fontSize: "0.5rem", color: "rgba(200,162,77,0.30)" }}
+        >
+          ADMINISTRATION
+        </p>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-4 space-y-0.5">
+      <nav className="flex-1 px-3 py-5 space-y-0.5">
         {NAV.map((item) => {
           const active =
             item.href === "/admin"
@@ -45,27 +126,55 @@ export default function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors ${
-                active
-                  ? "text-gold bg-gold/10"
-                  : "text-cream-muted hover:text-cream hover:bg-white/5"
-              }`}
+              className="flex items-center gap-3 py-2.5 rounded-lg text-sm transition-all"
+              style={{
+                paddingLeft: "12px",
+                paddingRight: "12px",
+                borderLeft: active
+                  ? "2px solid rgba(200,162,77,0.55)"
+                  : "2px solid transparent",
+                background: active ? "rgba(200,162,77,0.07)" : "transparent",
+                color: active
+                  ? "rgba(200,162,77,0.90)"
+                  : "rgba(232,224,208,0.40)",
+              }}
             >
-              <span className="text-base w-5 text-center">{item.icon}</span>
+              <span className="shrink-0" style={{ opacity: active ? 1 : 0.65 }}>
+                {item.icon}
+              </span>
               {item.label}
             </Link>
           );
         })}
       </nav>
 
-      {/* Logout */}
-      <div className="px-3 pb-6">
+      {/* Séparateur */}
+      <div
+        style={{
+          height: "1px",
+          margin: "0 16px",
+          background:
+            "linear-gradient(90deg, transparent, rgba(200,162,77,0.08), transparent)",
+        }}
+      />
+
+      {/* Déconnexion */}
+      <div className="px-3 py-5">
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-cream-muted hover:text-cream hover:bg-white/5 transition-colors"
+          className="w-full flex items-center gap-3 py-2.5 rounded-lg text-sm transition-all hover:bg-gold/5"
+          style={{
+            paddingLeft: "12px",
+            paddingRight: "12px",
+            color: "rgba(200,162,77,0.30)",
+            borderLeft: "2px solid transparent",
+          }}
         >
-          <span className="text-base w-5 text-center">↩</span>
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="shrink-0" aria-hidden="true">
+            <path d="M9.5 7.5H2m0 0l2.5-2.5M2 7.5l2.5 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M5.5 4V3C5.5 2.17 6.17 1.5 7 1.5h5.5c.83 0 1.5.67 1.5 1.5v9c0 .83-.67 1.5-1.5 1.5H7c-.83 0-1.5-.67-1.5-1.5v-1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          </svg>
           Déconnexion
         </button>
       </div>

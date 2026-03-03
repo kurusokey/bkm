@@ -28,6 +28,22 @@ const EMPTY_PRODUCT: Partial<Product> = {
   image_url: null,
 };
 
+const labelCls = "block font-serif uppercase mb-1.5";
+const labelStyle = {
+  fontSize: "0.52rem",
+  letterSpacing: "0.22em",
+  color: "rgba(200,162,77,0.40)",
+};
+const inputStyle = {
+  background: "rgba(6,14,7,0.60)",
+  border: "1px solid rgba(200,162,77,0.18)",
+  borderRadius: "9px",
+  color: "rgba(232,224,208,0.85)",
+  fontSize: "0.82rem",
+  width: "100%",
+  padding: "10px 12px",
+};
+
 export default function ProduitsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -119,47 +135,76 @@ export default function ProduitsPage() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="font-serif text-2xl text-gold tracking-wider">
-          Produits
-        </h1>
-        <button
-          type="button"
-          onClick={openCreate}
-          className="px-4 py-2 rounded-lg text-ink text-sm font-medium"
-          style={{ background: "#C8A24D" }}
+    <div className="p-8 min-h-screen" style={{ background: "#060e07" }}>
+      {/* En-tête */}
+      <div className="mb-8">
+        <p
+          className="font-serif uppercase tracking-[0.35em] mb-1"
+          style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}
         >
-          + Nouveau produit
-        </button>
+          ✦ Catalogue
+        </p>
+        <div className="flex items-end justify-between">
+          <h1
+            className="font-serif text-gold"
+            style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}
+          >
+            Produits
+          </h1>
+          <button
+            type="button"
+            onClick={openCreate}
+            className="px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80"
+            style={{
+              background: "rgba(200,162,77,0.90)",
+              borderRadius: "9px",
+              color: "#060e07",
+              fontSize: "0.75rem",
+              letterSpacing: "0.05em",
+            }}
+          >
+            + Nouveau produit
+          </button>
+        </div>
+        <div
+          className="mt-3"
+          style={{
+            width: 40,
+            height: 1,
+            background: "linear-gradient(90deg, rgba(200,162,77,0.40), transparent)",
+          }}
+        />
       </div>
 
+      {/* Tableau */}
       <div
-        className="rounded-xl border border-gold/20 overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.04)" }}
+        style={{
+          background: "rgba(6,14,7,0.32)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(200,162,77,0.10)",
+          borderRadius: "16px",
+          overflow: "hidden",
+        }}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gold/10">
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Produit
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Prix
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Stock
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Catégorie
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Actif
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Actions
-                </th>
+              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.07)" }}>
+                {["Produit", "Prix", "Stock", "Catégorie", "Actif", "Actions"].map((h) => (
+                  <th
+                    key={h}
+                    className="px-6 py-4 text-left font-serif uppercase"
+                    style={{
+                      fontSize: "0.5rem",
+                      letterSpacing: "0.22em",
+                      color: "rgba(200,162,77,0.32)",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -167,7 +212,8 @@ export default function ProduitsPage() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
                     Chargement…
                   </td>
@@ -177,24 +223,36 @@ export default function ProduitsPage() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
-                    Aucun produit — la table products n&apos;est peut-être pas
-                    encore créée dans Supabase.
+                    Aucun produit — la table products n&apos;est peut-être pas encore créée dans Supabase.
                   </td>
                 </tr>
               )}
               {!loading &&
-                products.map((p) => (
+                products.map((p, i) => (
                   <tr
                     key={p.id}
-                    className="border-b border-gold/5 hover:bg-white/5 transition-colors"
+                    style={{
+                      borderBottom:
+                        i < products.length - 1
+                          ? "1px solid rgba(200,162,77,0.05)"
+                          : "none",
+                    }}
                   >
                     <td className="px-6 py-4">
-                      <p className="text-cream font-medium">{p.name}</p>
-                      <p className="text-cream-muted text-xs">{p.tagline}</p>
+                      <p style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.82rem", fontWeight: 500 }}>
+                        {p.name}
+                      </p>
+                      <p style={{ color: "rgba(232,224,208,0.28)", fontSize: "0.7rem" }}>
+                        {p.tagline}
+                      </p>
                     </td>
-                    <td className="px-6 py-4 text-cream">
+                    <td
+                      className="px-6 py-4"
+                      style={{ color: "rgba(232,224,208,0.80)", fontSize: "0.82rem" }}
+                    >
                       {fmt(p.price_cents)}
                     </td>
                     <td className="px-6 py-4">
@@ -202,26 +260,51 @@ export default function ProduitsPage() {
                         <button
                           type="button"
                           onClick={() => updateStock(p, -1)}
-                          className="w-6 h-6 rounded border border-gold/30 text-cream-muted hover:text-cream text-xs flex items-center justify-center"
+                          className="flex items-center justify-center transition-colors"
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: "6px",
+                            border: "1px solid rgba(200,162,77,0.18)",
+                            color: "rgba(232,224,208,0.40)",
+                            fontSize: "0.9rem",
+                          }}
                         >
                           −
                         </button>
                         <span
-                          className={`text-sm font-medium min-w-8 text-center ${p.stock_quantity <= 2 ? "text-crimson-light" : "text-cream"}`}
+                          className="text-sm font-medium min-w-8 text-center"
+                          style={{
+                            color:
+                              p.stock_quantity <= 2
+                                ? "rgba(200,80,80,0.80)"
+                                : "rgba(232,224,208,0.80)",
+                          }}
                         >
                           {p.stock_quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => updateStock(p, 1)}
-                          className="w-6 h-6 rounded border border-gold/30 text-cream-muted hover:text-cream text-xs flex items-center justify-center"
+                          className="flex items-center justify-center transition-colors"
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: "6px",
+                            border: "1px solid rgba(200,162,77,0.18)",
+                            color: "rgba(232,224,208,0.40)",
+                            fontSize: "0.9rem",
+                          }}
                         >
                           +
                         </button>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-cream-muted text-xs capitalize">
+                      <span
+                        className="capitalize"
+                        style={{ color: "rgba(232,224,208,0.35)", fontSize: "0.75rem" }}
+                      >
                         {p.category ?? "punch"}
                       </span>
                     </td>
@@ -229,13 +312,23 @@ export default function ProduitsPage() {
                       <button
                         type="button"
                         onClick={() => toggleActive(p)}
-                        aria-label={
-                          p.is_active ? "Désactiver le produit" : "Activer le produit"
-                        }
-                        className={`w-10 h-5 rounded-full transition-colors relative ${p.is_active ? "bg-gold" : "bg-cream/20"}`}
+                        aria-label={p.is_active ? "Désactiver le produit" : "Activer le produit"}
+                        className="relative transition-colors"
+                        style={{
+                          width: 36,
+                          height: 20,
+                          borderRadius: "10px",
+                          background: p.is_active
+                            ? "rgba(200,162,77,0.70)"
+                            : "rgba(232,224,208,0.12)",
+                        }}
                       >
                         <span
-                          className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all ${p.is_active ? "right-0.5" : "left-0.5"}`}
+                          className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all"
+                          style={{
+                            right: p.is_active ? "2px" : undefined,
+                            left: p.is_active ? undefined : "2px",
+                          }}
                         />
                       </button>
                     </td>
@@ -243,7 +336,12 @@ export default function ProduitsPage() {
                       <button
                         type="button"
                         onClick={() => openEdit(p)}
-                        className="text-cream-muted hover:text-gold text-xs transition-colors"
+                        className="transition-colors"
+                        style={{
+                          fontSize: "0.72rem",
+                          color: "rgba(200,162,77,0.45)",
+                          letterSpacing: "0.05em",
+                        }}
                       >
                         Modifier
                       </button>
@@ -259,24 +357,35 @@ export default function ProduitsPage() {
       {modal && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: "rgba(0,0,0,0.7)" }}
+          style={{ background: "rgba(4,10,5,0.80)", backdropFilter: "blur(4px)" }}
         >
           <div
-            className="w-full max-w-lg rounded-xl border border-gold/20 overflow-hidden"
+            className="w-full max-w-lg"
             style={{
-              background: "#0d1a0e",
+              background: "rgba(6,14,7,0.92)",
+              backdropFilter: "blur(28px)",
+              WebkitBackdropFilter: "blur(28px)",
+              border: "1px solid rgba(200,162,77,0.14)",
+              borderRadius: "20px",
               maxHeight: "90vh",
               overflowY: "auto",
             }}
           >
-            <div className="px-6 py-4 border-b border-gold/10 flex items-center justify-between">
-              <h2 className="text-cream font-medium">
+            {/* Header modal */}
+            <div
+              className="px-6 py-4 flex items-center justify-between"
+              style={{ borderBottom: "1px solid rgba(200,162,77,0.08)" }}
+            >
+              <p
+                className="font-serif uppercase tracking-[0.2em]"
+                style={{ fontSize: "0.6rem", color: "rgba(200,162,77,0.50)" }}
+              >
                 {modal === "create" ? "Nouveau produit" : "Modifier le produit"}
-              </h2>
+              </p>
               <button
                 type="button"
                 onClick={() => setModal(null)}
-                className="text-cream-muted hover:text-cream text-xl"
+                style={{ color: "rgba(232,224,208,0.25)", fontSize: "1.2rem" }}
               >
                 ×
               </button>
@@ -314,10 +423,7 @@ export default function ProduitsPage() {
                 onChange={(v) => setEditing((p) => ({ ...p, tagline: v }))}
               />
               <div>
-                <label
-                  htmlFor="edit-description"
-                  className="block text-cream-muted text-xs uppercase tracking-wider mb-1"
-                >
+                <label htmlFor="edit-description" className={labelCls} style={labelStyle}>
                   Description
                 </label>
                 <textarea
@@ -327,7 +433,8 @@ export default function ProduitsPage() {
                     setEditing((p) => ({ ...p, description: e.target.value }))
                   }
                   rows={3}
-                  className="w-full bg-transparent border border-gold/30 rounded-lg px-3 py-2 text-cream text-sm focus:outline-none focus:border-gold"
+                  className="focus:outline-none resize-none"
+                  style={inputStyle}
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -398,10 +505,7 @@ export default function ProduitsPage() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="edit-category"
-                  className="block text-cream-muted text-xs uppercase tracking-wider mb-1"
-                >
+                <label htmlFor="edit-category" className={labelCls} style={labelStyle}>
                   Catégorie
                 </label>
                 <select
@@ -413,19 +517,17 @@ export default function ProduitsPage() {
                       category: e.target.value as "punch" | "coffret",
                     }))
                   }
-                  className="w-full bg-transparent border border-gold/30 rounded-lg px-3 py-2 text-cream text-sm focus:outline-none focus:border-gold"
+                  className="focus:outline-none"
+                  style={inputStyle}
                 >
-                  <option value="punch" className="bg-charcoal">
-                    Punch
-                  </option>
-                  <option value="coffret" className="bg-charcoal">
-                    Coffret
-                  </option>
+                  <option value="punch" className="bg-charcoal">Punch</option>
+                  <option value="coffret" className="bg-charcoal">Coffret</option>
                 </select>
               </div>
               <div className="flex gap-6">
-                <label className="flex items-center gap-2 text-cream text-sm cursor-pointer">
+                <label htmlFor="edit-active" className="flex items-center gap-2 cursor-pointer" style={{ fontSize: "0.8rem", color: "rgba(232,224,208,0.65)" }}>
                   <input
+                    id="edit-active"
                     type="checkbox"
                     checked={editing.is_active ?? true}
                     onChange={(e) =>
@@ -435,8 +537,9 @@ export default function ProduitsPage() {
                   />
                   Actif
                 </label>
-                <label className="flex items-center gap-2 text-cream text-sm cursor-pointer">
+                <label htmlFor="edit-featured" className="flex items-center gap-2 cursor-pointer" style={{ fontSize: "0.8rem", color: "rgba(232,224,208,0.65)" }}>
                   <input
+                    id="edit-featured"
                     type="checkbox"
                     checked={editing.is_featured ?? false}
                     onChange={(e) =>
@@ -451,21 +554,45 @@ export default function ProduitsPage() {
                 </label>
               </div>
 
-              {error && <p className="text-red-400 text-sm">{error}</p>}
+              {error && (
+                <p style={{ color: "rgba(220,80,80,0.85)", fontSize: "0.8rem" }}>
+                  {error}
+                </p>
+              )}
 
-              <div className="flex gap-3 pt-2">
+              <div
+                style={{
+                  height: 1,
+                  background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.10), transparent)",
+                  margin: "0.5rem 0",
+                }}
+              />
+
+              <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => setModal(null)}
-                  className="flex-1 py-2 rounded-lg border border-gold/30 text-cream-muted text-sm hover:text-cream transition-colors"
+                  className="flex-1 py-2.5 transition-colors"
+                  style={{
+                    borderRadius: "9px",
+                    border: "1px solid rgba(200,162,77,0.14)",
+                    color: "rgba(232,224,208,0.35)",
+                    fontSize: "0.78rem",
+                  }}
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex-1 py-2 rounded-lg text-ink text-sm font-medium disabled:opacity-50"
-                  style={{ background: "#C8A24D" }}
+                  className="flex-1 py-2.5 font-medium transition-opacity disabled:opacity-50"
+                  style={{
+                    borderRadius: "9px",
+                    background: "rgba(200,162,77,0.88)",
+                    color: "#060e07",
+                    fontSize: "0.78rem",
+                    letterSpacing: "0.05em",
+                  }}
                 >
                   {saving ? "Sauvegarde…" : "Sauvegarder"}
                 </button>
@@ -499,7 +626,12 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="block text-cream-muted text-xs uppercase tracking-wider mb-1"
+        className="block font-serif uppercase mb-1.5"
+        style={{
+          fontSize: "0.52rem",
+          letterSpacing: "0.22em",
+          color: "rgba(200,162,77,0.40)",
+        }}
       >
         {label}
       </label>
@@ -510,7 +642,16 @@ function Field({
         onChange={(e) => onChange(e.target.value)}
         required={required}
         disabled={disabled}
-        className="w-full bg-transparent border border-gold/30 rounded-lg px-3 py-2 text-cream text-sm focus:outline-none focus:border-gold disabled:opacity-40 transition-colors"
+        className="focus:outline-none transition-colors disabled:opacity-40"
+        style={{
+          background: "rgba(6,14,7,0.60)",
+          border: "1px solid rgba(200,162,77,0.18)",
+          borderRadius: "9px",
+          color: "rgba(232,224,208,0.85)",
+          fontSize: "0.82rem",
+          width: "100%",
+          padding: "10px 12px",
+        }}
       />
     </div>
   );

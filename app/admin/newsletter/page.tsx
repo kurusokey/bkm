@@ -45,54 +45,99 @@ export default function NewsletterPage() {
   );
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="font-serif text-2xl text-gold tracking-wider">
+    <div className="p-8 min-h-screen" style={{ background: "#060e07" }}>
+      {/* En-tête */}
+      <div className="mb-8">
+        <p
+          className="font-serif uppercase tracking-[0.35em] mb-1"
+          style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}
+        >
+          ✦ Abonnés
+        </p>
+        <div className="flex items-end justify-between">
+          <h1
+            className="font-serif text-gold"
+            style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}
+          >
             Newsletter
           </h1>
-          <p className="text-cream-muted text-sm mt-1">
-            {subscribers.length} abonné{subscribers.length !== 1 ? "s" : ""}
-          </p>
+          <div className="flex items-center gap-4">
+            <span style={{ fontSize: "0.7rem", color: "rgba(232,224,208,0.28)" }}>
+              {subscribers.length} abonné{subscribers.length !== 1 ? "s" : ""}
+            </span>
+            <button
+              type="button"
+              onClick={exportCSV}
+              className="px-4 py-1.5 text-sm transition-all"
+              style={{
+                borderRadius: "8px",
+                border: "1px solid rgba(200,162,77,0.18)",
+                color: "rgba(200,162,77,0.55)",
+                fontSize: "0.72rem",
+                letterSpacing: "0.05em",
+              }}
+            >
+              Exporter CSV
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          onClick={exportCSV}
-          className="px-4 py-2 rounded-lg border border-gold/30 text-cream text-sm hover:border-gold transition-colors"
-        >
-          Exporter CSV
-        </button>
+        <div
+          className="mt-3"
+          style={{
+            width: 40,
+            height: 1,
+            background: "linear-gradient(90deg, rgba(200,162,77,0.40), transparent)",
+          }}
+        />
       </div>
 
       {/* Recherche */}
-      <div className="mb-4">
+      <div className="mb-6">
         <input
           type="text"
           placeholder="Rechercher un email…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-sm bg-transparent border border-gold/30 rounded-lg px-4 py-2 text-cream text-sm focus:outline-none focus:border-gold placeholder:text-cream-muted/50"
+          className="w-full max-w-sm text-sm focus:outline-none transition-colors placeholder:text-cream-muted/20 border border-gold/15 focus:border-gold/40"
+          style={{
+            background: "rgba(6,14,7,0.50)",
+            borderRadius: "10px",
+            padding: "10px 16px",
+            color: "rgba(232,224,208,0.75)",
+            fontSize: "0.8rem",
+          }}
         />
       </div>
 
       {/* Tableau */}
       <div
-        className="rounded-xl border border-gold/20 overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.04)" }}
+        style={{
+          background: "rgba(6,14,7,0.32)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(200,162,77,0.10)",
+          borderRadius: "16px",
+          overflow: "hidden",
+        }}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gold/10">
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Email
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Date d&apos;inscription
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Statut
-                </th>
+              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.07)" }}>
+                {["Email", "Date d'inscription", "Statut"].map((h) => (
+                  <th
+                    key={h}
+                    className="px-6 py-4 text-left font-serif uppercase"
+                    style={{
+                      fontSize: "0.5rem",
+                      letterSpacing: "0.22em",
+                      color: "rgba(200,162,77,0.32)",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -100,7 +145,8 @@ export default function NewsletterPage() {
                 <tr>
                   <td
                     colSpan={3}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
                     Chargement…
                   </td>
@@ -110,24 +156,46 @@ export default function NewsletterPage() {
                 <tr>
                   <td
                     colSpan={3}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
                     Aucun abonné
                   </td>
                 </tr>
               )}
               {!loading &&
-                filtered.map((sub) => (
+                filtered.map((sub, i) => (
                   <tr
                     key={sub.id}
-                    className="border-b border-gold/5 hover:bg-white/5 transition-colors"
+                    style={{
+                      borderBottom:
+                        i < filtered.length - 1
+                          ? "1px solid rgba(200,162,77,0.05)"
+                          : "none",
+                    }}
                   >
-                    <td className="px-6 py-4 text-cream">{sub.email}</td>
-                    <td className="px-6 py-4 text-cream-muted">
+                    <td
+                      className="px-6 py-4"
+                      style={{ color: "rgba(232,224,208,0.78)", fontSize: "0.82rem" }}
+                    >
+                      {sub.email}
+                    </td>
+                    <td
+                      className="px-6 py-4"
+                      style={{ color: "rgba(232,224,208,0.38)", fontSize: "0.8rem" }}
+                    >
                       {new Date(sub.created_at).toLocaleDateString("fr-FR")}
                     </td>
                     <td className="px-6 py-4">
-                      <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-teal/20 text-teal-light">
+                      <span
+                        className="inline-block px-2.5 py-0.5 text-xs font-medium"
+                        style={{
+                          borderRadius: "6px",
+                          background: "rgba(42,124,123,0.15)",
+                          color: "rgba(42,200,195,0.80)",
+                          border: "1px solid rgba(42,124,123,0.25)",
+                        }}
+                      >
                         {sub.status ?? "actif"}
                       </span>
                     </td>

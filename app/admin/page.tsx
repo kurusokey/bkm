@@ -37,32 +37,6 @@ async function getStats() {
   };
 }
 
-function StatCard({
-  label,
-  value,
-  sub,
-}: {
-  label: string;
-  value: string | number;
-  sub?: string;
-}) {
-  return (
-    <div
-      className="rounded-xl border border-gold/20 p-5"
-      style={{
-        background: "rgba(255,255,255,0.04)",
-        backdropFilter: "blur(8px)",
-      }}
-    >
-      <p className="text-cream-muted text-xs tracking-wider uppercase mb-1">
-        {label}
-      </p>
-      <p className="text-2xl font-medium text-cream">{value}</p>
-      {sub && <p className="text-cream-muted text-xs mt-0.5">{sub}</p>}
-    </div>
-  );
-}
-
 function fmt(cents: number) {
   return new Intl.NumberFormat("fr-FR", {
     style: "currency",
@@ -80,49 +54,183 @@ type Order = {
   items: unknown;
 };
 
+const STATUS_COLORS: Record<string, string> = {
+  paid: "rgba(42,124,123,0.75)",
+  shipped: "rgba(200,162,77,0.80)",
+  delivered: "rgba(74,222,128,0.75)",
+  cancelled: "rgba(200,80,80,0.75)",
+};
+const STATUS_LABELS: Record<string, string> = {
+  paid: "Payé",
+  shipped: "Expédié",
+  delivered: "Livré",
+  cancelled: "Annulé",
+};
+
 export default async function AdminDashboard() {
   const stats = await getStats();
 
   return (
-    <div className="p-8">
-      <h1 className="font-serif text-2xl text-gold tracking-wider mb-6">
-        Vue d&apos;ensemble
-      </h1>
+    <div className="p-8 min-h-screen" style={{ background: "#060e07" }}>
+      {/* Halo subtil */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 50% at 60% 30%, rgba(200,162,77,0.03) 0%, transparent 70%)",
+        }}
+      />
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Commandes" value={stats.totalOrders} />
-        <StatCard label="Chiffre d'affaires" value={fmt(stats.totalRevenue)} />
-        <StatCard label="Abonnés newsletter" value={stats.subscribers} />
-        <StatCard label="Messages non lus" value={stats.unreadMessages} />
+      {/* En-tête */}
+      <div className="relative mb-10">
+        <p
+          className="font-serif uppercase tracking-[0.35em] mb-1"
+          style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}
+        >
+          ✦ Dashboard
+        </p>
+        <h1
+          className="font-serif text-gold"
+          style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}
+        >
+          Vue d&apos;ensemble
+        </h1>
+        <div
+          className="mt-3"
+          style={{
+            width: 40,
+            height: 1,
+            background:
+              "linear-gradient(90deg, rgba(200,162,77,0.40), transparent)",
+          }}
+        />
+      </div>
+
+      {/* Cartes stats */}
+      <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        {[
+          {
+            label: "Commandes",
+            value: stats.totalOrders,
+            sub: "au total",
+          },
+          {
+            label: "Chiffre d'affaires",
+            value: fmt(stats.totalRevenue),
+            sub: "toutes commandes",
+          },
+          {
+            label: "Abonnés",
+            value: stats.subscribers,
+            sub: "à la newsletter",
+          },
+          {
+            label: "Messages",
+            value: stats.unreadMessages,
+            sub: stats.unreadMessages > 0 ? "non lus" : "en attente",
+            highlight: stats.unreadMessages > 0,
+          },
+        ].map((card) => (
+          <div
+            key={card.label}
+            style={{
+              background: "rgba(6,14,7,0.38)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(200,162,77,0.12)",
+              borderRadius: "16px",
+              padding: "1.4rem 1.5rem 1.5rem",
+            }}
+          >
+            <p
+              className="font-serif uppercase"
+              style={{
+                fontSize: "0.53rem",
+                letterSpacing: "0.25em",
+                color: "rgba(200,162,77,0.38)",
+                marginBottom: "0.6rem",
+              }}
+            >
+              {card.label}
+            </p>
+            <div
+              style={{
+                height: 1,
+                background:
+                  "linear-gradient(90deg, rgba(200,162,77,0.12), transparent)",
+                marginBottom: "0.75rem",
+              }}
+            />
+            <p
+              className="font-serif"
+              style={{
+                fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)",
+                color: card.highlight
+                  ? "rgba(200,162,77,0.90)"
+                  : "rgba(232,224,208,0.88)",
+                letterSpacing: "0.02em",
+                lineHeight: 1,
+              }}
+            >
+              {card.value}
+            </p>
+            {card.sub && (
+              <p
+                className="mt-1.5"
+                style={{
+                  fontSize: "0.65rem",
+                  color: "rgba(232,224,208,0.28)",
+                }}
+              >
+                {card.sub}
+              </p>
+            )}
+          </div>
+        ))}
       </div>
 
       {/* Dernières commandes */}
-      <div
-        className="rounded-xl border border-gold/20 overflow-hidden"
-        style={{ background: "rgba(255,255,255,0.04)" }}
-      >
-        <div className="px-6 py-4 border-b border-gold/10">
-          <h2 className="text-cream text-base font-medium">
+      <div className="relative">
+        <div className="mb-5">
+          <p
+            className="font-serif uppercase tracking-[0.28em]"
+            style={{ fontSize: "0.55rem", color: "rgba(200,162,77,0.38)" }}
+          >
             Dernières commandes
-          </h2>
+          </p>
         </div>
-        <div className="overflow-x-auto">
+
+        <div
+          style={{
+            background: "rgba(6,14,7,0.32)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(200,162,77,0.10)",
+            borderRadius: "16px",
+            overflow: "hidden",
+          }}
+        >
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gold/10">
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Date
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Client
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Montant
-                </th>
-                <th className="px-6 py-3 text-left text-cream-muted text-xs tracking-wider uppercase">
-                  Statut
-                </th>
+              <tr
+                style={{
+                  borderBottom: "1px solid rgba(200,162,77,0.07)",
+                }}
+              >
+                {["Date", "Client", "Montant", "Statut"].map((h) => (
+                  <th
+                    key={h}
+                    className="px-6 py-4 text-left font-serif uppercase"
+                    style={{
+                      fontSize: "0.5rem",
+                      letterSpacing: "0.22em",
+                      color: "rgba(200,162,77,0.32)",
+                      fontWeight: 400,
+                    }}
+                  >
+                    {h}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -130,28 +238,53 @@ export default async function AdminDashboard() {
                 <tr>
                   <td
                     colSpan={4}
-                    className="px-6 py-8 text-center text-cream-muted"
+                    className="px-6 py-10 text-center"
+                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
                   >
-                    Aucune commande
+                    Aucune commande pour le moment
                   </td>
                 </tr>
               )}
-              {stats.recent.map((order: Order) => (
+              {stats.recent.map((order: Order, i: number) => (
                 <tr
                   key={order.id}
-                  className="border-b border-gold/5 hover:bg-white/5 transition-colors"
+                  style={{
+                    borderBottom:
+                      i < stats.recent.length - 1
+                        ? "1px solid rgba(200,162,77,0.05)"
+                        : "none",
+                  }}
                 >
-                  <td className="px-6 py-3 text-cream-muted">
+                  <td
+                    className="px-6 py-4"
+                    style={{ color: "rgba(232,224,208,0.40)", fontSize: "0.8rem" }}
+                  >
                     {new Date(order.created_at).toLocaleDateString("fr-FR")}
                   </td>
-                  <td className="px-6 py-3 text-cream">
+                  <td
+                    className="px-6 py-4"
+                    style={{ color: "rgba(232,224,208,0.80)", fontSize: "0.82rem" }}
+                  >
                     {order.customer_name ?? order.customer_email}
                   </td>
-                  <td className="px-6 py-3 text-cream">
+                  <td
+                    className="px-6 py-4 font-medium"
+                    style={{ color: "rgba(232,224,208,0.88)", fontSize: "0.82rem" }}
+                  >
                     {fmt(order.total_amount_cents)}
                   </td>
-                  <td className="px-6 py-3">
-                    <StatusBadge status={order.status} />
+                  <td className="px-6 py-4">
+                    <span
+                      className="inline-block px-2.5 py-0.5 text-xs font-medium"
+                      style={{
+                        borderRadius: "6px",
+                        background: `${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}22`,
+                        color: STATUS_COLORS[order.status] ?? "rgba(232,224,208,0.50)",
+                        border: `1px solid ${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}44`,
+                      }}
+                    >
+                      {STATUS_LABELS[order.status] ?? order.status}
+                    </span>
                   </td>
                 </tr>
               ))}
@@ -160,28 +293,5 @@ export default async function AdminDashboard() {
         </div>
       </div>
     </div>
-  );
-}
-
-function StatusBadge({ status }: { status: string }) {
-  const map: Record<string, string> = {
-    paid: "bg-teal/20 text-teal-light",
-    shipped: "bg-gold/20 text-gold",
-    delivered: "bg-green-500/20 text-green-400",
-    cancelled: "bg-crimson/20 text-crimson-light",
-  };
-  const labels: Record<string, string> = {
-    paid: "Payé",
-    shipped: "Expédié",
-    delivered: "Livré",
-    cancelled: "Annulé",
-  };
-  const cls = map[status] ?? "bg-cream/10 text-cream-muted";
-  return (
-    <span
-      className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${cls}`}
-    >
-      {labels[status] ?? status}
-    </span>
   );
 }
