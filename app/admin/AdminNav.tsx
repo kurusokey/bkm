@@ -49,7 +49,7 @@ export default function AdminNav() {
       >
         {/* Logo */}
         <Link
-          href="/admin"
+          href="/"
           onClick={() => setMenuOpen(false)}
           style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexShrink: 0, textDecoration: "none" }}
         >
