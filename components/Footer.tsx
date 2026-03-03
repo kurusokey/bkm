@@ -20,7 +20,7 @@ export default function Footer() {
   ) return null;
 
   return (
-    <footer style={{ background: '#060e07' }}>
+    <footer style={{ background: '#060e07', position: 'relative', zIndex: 10 }}>
 
       {/* Filet tricolore */}
       <div className="h-px w-full flex">
