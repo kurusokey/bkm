@@ -4,8 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import SiteShell from '@/components/SiteShell';
 import AgeVerification from '@/components/AgeVerification';
 import CookieBanner from '@/components/CookieBanner';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
@@ -59,11 +58,7 @@ export default function RootLayout({
           <AgeVerification />
           <CookieBanner />
           <GoogleAnalytics />
-          <Header />
-          <main className="min-h-screen">
-            {children}
-          </main>
-          <Footer />
+          <SiteShell>{children}</SiteShell>
         </CartProvider>
         <Analytics />
         <SpeedInsights />
