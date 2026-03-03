@@ -345,7 +345,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
               </ScrollReveal>
 
               {/* Grille — style coffrets */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              <div className="flex flex-wrap justify-center gap-5">
                 {relatedProducts.map((related, i) => {
                   const relatedPrice = (related.price_cents / 100).toFixed(2);
                   const relatedName =
@@ -355,7 +355,8 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
                   const isAddedRelated = addedRelatedId === related.id;
 
                   return (
-                    <ScrollReveal key={related.id} delay={i * 80} distance={25}>
+                    <div key={related.id} className="w-full sm:w-[280px]">
+                    <ScrollReveal delay={i * 80} distance={25}>
                       <div
                         className="group"
                         style={{
@@ -446,6 +447,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
                         </div>
                       </div>
                     </ScrollReveal>
+                    </div>
                   );
                 })}
               </div>
