@@ -94,6 +94,7 @@ export default function Footer() {
               { href: '/mentions-legales', label: 'Mentions légales' },
               { href: '/cgv',              label: 'CGV' },
               { href: '/confidentialite',  label: 'Confidentialité' },
+              { href: '/admin',            label: 'Dashboard'        },
             ].map(({ href, label }) => (
               <Link
                 key={href}
