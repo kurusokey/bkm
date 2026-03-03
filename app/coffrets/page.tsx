@@ -74,8 +74,8 @@ export default function CoffretsPage() {
             )}
 
           <section
-            className="relative overflow-hidden flex items-center"
-            style={{ minHeight: '100vh' }}
+            className="relative flex items-center"
+            style={{ minHeight: '100vh', overflow: 'clip' }}
           >
             {/* Fond : jardin botanique */}
             <Image
