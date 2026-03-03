@@ -14,13 +14,10 @@ const EMPTY_PRODUCT: Partial<Product> = {
   category: "punch", image_url: null,
 };
 
-const CARD_STYLE = {
-  background: "rgba(6,14,7,0.28)",
-  backdropFilter: "blur(24px)",
-  WebkitBackdropFilter: "blur(24px)",
-  border: "1px solid rgba(200,162,77,0.75)",
-  borderRadius: "16px",
-} as const;
+const CARD = { background: "rgba(6,14,7,0.28)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", border: "1px solid rgba(200,162,77,0.75)", borderRadius: "20px", overflow: "hidden" } as const;
+const HEADER_ZONE = { background: "radial-gradient(ellipse 70% 100% at 0% 50%, rgba(200,162,77,0.07) 0%, rgba(42,124,59,0.03) 55%, transparent 90%)" } as const;
+const SEP = { height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.25), transparent)" } as const;
+const SEP_LEFT = { height: "1px", background: "linear-gradient(90deg, rgba(200,162,77,0.18), transparent)" } as const;
 
 const FIELD_INPUT_STYLE = {
   background: "rgba(6,14,7,0.60)",
@@ -87,54 +84,73 @@ export default function ProduitsPage() {
 
   return (
     <div className="p-8">
-      {/* En-tête */}
-      <div className="mb-8">
-        <p className="font-serif uppercase tracking-[0.35em] mb-1" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}>✦ Catalogue</p>
-        <div className="flex items-end justify-between">
-          <h1 className="font-serif text-gold" style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}>Produits</h1>
-          <button type="button" onClick={openCreate} className="px-4 py-2 text-sm font-medium transition-opacity hover:opacity-80" style={{ background: "rgba(200,162,77,0.88)", borderRadius: "9px", color: "#060e07", fontSize: "0.75rem", letterSpacing: "0.05em" }}>
-            + Nouveau produit
-          </button>
-        </div>
-        <div className="mt-3" style={{ width: 40, height: 1, background: "linear-gradient(90deg, rgba(200,162,77,0.50), transparent)" }} />
-      </div>
+      <div style={CARD}>
 
-      {/* Tableau */}
-      <div style={{ ...CARD_STYLE, overflow: "hidden" }}>
+        {/* Zone header */}
+        <div style={{ ...HEADER_ZONE, padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div>
+            <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.50)" }}>
+              Catalogue
+            </p>
+            <div style={{ ...SEP_LEFT, marginTop: "0.35rem", marginBottom: "0.35rem" }} />
+            <p className="font-serif text-gold" style={{ fontSize: "1.15rem", letterSpacing: "0.04em" }}>
+              Produits
+            </p>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+            <p style={{ fontSize: "0.68rem", color: "rgba(232,224,208,0.25)" }}>
+              {products.length} produit{products.length !== 1 ? "s" : ""}
+            </p>
+            <button
+              type="button"
+              onClick={openCreate}
+              style={{ padding: "6px 16px", borderRadius: "8px", border: "1px solid rgba(200,162,77,0.35)", color: "rgba(200,162,77,0.65)", fontSize: "0.72rem", background: "rgba(6,14,7,0.40)", backdropFilter: "blur(8px)", letterSpacing: "0.04em" }}
+            >
+              + Nouveau produit
+            </button>
+          </div>
+        </div>
+        <div style={SEP} />
+
+        {/* Tableau */}
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full">
             <thead>
-              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.15)" }}>
+              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
                 {["Produit", "Prix", "Stock", "Catégorie", "Actif", "Actions"].map((h) => (
-                  <th key={h} className="px-6 py-4 text-left font-serif uppercase" style={{ fontSize: "0.5rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.40)", fontWeight: 400 }}>{h}</th>
+                  <th key={h} className="text-left font-serif uppercase" style={{ fontSize: "0.5rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.38)", fontWeight: 400, padding: "1rem 1.75rem" }}>
+                    {h}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {loading && <tr><td colSpan={6} className="px-6 py-10 text-center" style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}>Chargement…</td></tr>}
-              {!loading && products.length === 0 && <tr><td colSpan={6} className="px-6 py-10 text-center" style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}>Aucun produit — la table products n&apos;est peut-être pas encore créée dans Supabase.</td></tr>}
+              {loading && <tr><td colSpan={6} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</td></tr>}
+              {!loading && products.length === 0 && <tr><td colSpan={6} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun produit — la table products n&apos;est peut-être pas encore créée dans Supabase.</td></tr>}
               {!loading && products.map((p, i) => (
-                <tr key={p.id} style={{ borderBottom: i < products.length - 1 ? "1px solid rgba(200,162,77,0.08)" : "none" }}>
-                  <td className="px-6 py-4">
+                <tr key={p.id} style={{ borderBottom: i < products.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none" }}>
+                  <td style={{ padding: "1.1rem 1.75rem" }}>
                     <p style={{ color: "rgba(232,224,208,0.85)", fontSize: "0.82rem", fontWeight: 500 }}>{p.name}</p>
                     <p style={{ color: "rgba(232,224,208,0.28)", fontSize: "0.7rem" }}>{p.tagline}</p>
                   </td>
-                  <td className="px-6 py-4" style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.82rem" }}>{fmt(p.price_cents)}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2">
-                      <button type="button" onClick={() => updateStock(p, -1)} className="flex items-center justify-center transition-colors" style={{ width: 24, height: 24, borderRadius: "6px", border: "1px solid rgba(200,162,77,0.25)", color: "rgba(232,224,208,0.45)", fontSize: "0.9rem" }}>−</button>
-                      <span className="text-sm font-medium min-w-8 text-center" style={{ color: p.stock_quantity <= 2 ? "rgba(200,80,80,0.85)" : "rgba(232,224,208,0.82)" }}>{p.stock_quantity}</span>
-                      <button type="button" onClick={() => updateStock(p, 1)} className="flex items-center justify-center transition-colors" style={{ width: 24, height: 24, borderRadius: "6px", border: "1px solid rgba(200,162,77,0.25)", color: "rgba(232,224,208,0.45)", fontSize: "0.9rem" }}>+</button>
+                  <td style={{ padding: "1.1rem 1.75rem", color: "rgba(232,224,208,0.82)", fontSize: "0.82rem" }}>{fmt(p.price_cents)}</td>
+                  <td style={{ padding: "1.1rem 1.75rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                      <button type="button" onClick={() => updateStock(p, -1)} style={{ width: 24, height: 24, borderRadius: "6px", border: "1px solid rgba(200,162,77,0.25)", color: "rgba(232,224,208,0.45)", fontSize: "0.9rem", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                      <span style={{ minWidth: "2rem", textAlign: "center", fontSize: "0.82rem", fontWeight: 500, color: p.stock_quantity <= 2 ? "rgba(200,80,80,0.85)" : "rgba(232,224,208,0.82)" }}>{p.stock_quantity}</span>
+                      <button type="button" onClick={() => updateStock(p, 1)} style={{ width: 24, height: 24, borderRadius: "6px", border: "1px solid rgba(200,162,77,0.25)", color: "rgba(232,224,208,0.45)", fontSize: "0.9rem", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
                     </div>
                   </td>
-                  <td className="px-6 py-4"><span className="capitalize" style={{ color: "rgba(232,224,208,0.38)", fontSize: "0.75rem" }}>{p.category ?? "punch"}</span></td>
-                  <td className="px-6 py-4">
-                    <button type="button" onClick={() => toggleActive(p)} aria-label={p.is_active ? "Désactiver le produit" : "Activer le produit"} className="relative transition-colors" style={{ width: 36, height: 20, borderRadius: "10px", background: p.is_active ? "rgba(200,162,77,0.75)" : "rgba(232,224,208,0.12)" }}>
-                      <span className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all" style={{ right: p.is_active ? "2px" : undefined, left: p.is_active ? undefined : "2px" }} />
+                  <td style={{ padding: "1.1rem 1.75rem" }}>
+                    <span style={{ color: "rgba(232,224,208,0.38)", fontSize: "0.75rem", textTransform: "capitalize" }}>{p.category ?? "punch"}</span>
+                  </td>
+                  <td style={{ padding: "1.1rem 1.75rem" }}>
+                    <button type="button" onClick={() => toggleActive(p)} aria-label={p.is_active ? "Désactiver le produit" : "Activer le produit"} style={{ position: "relative", width: 36, height: 20, borderRadius: "10px", background: p.is_active ? "rgba(200,162,77,0.75)" : "rgba(232,224,208,0.12)", transition: "background 0.2s" }}>
+                      <span style={{ position: "absolute", top: 2, width: 16, height: 16, borderRadius: "50%", background: "white", transition: "all 0.2s", ...(p.is_active ? { right: 2 } : { left: 2 }) }} />
                     </button>
                   </td>
-                  <td className="px-6 py-4">
-                    <button type="button" onClick={() => openEdit(p)} className="transition-colors" style={{ fontSize: "0.72rem", color: "rgba(200,162,77,0.55)", letterSpacing: "0.05em" }}>Modifier</button>
+                  <td style={{ padding: "1.1rem 1.75rem" }}>
+                    <button type="button" onClick={() => openEdit(p)} style={{ fontSize: "0.72rem", color: "rgba(200,162,77,0.55)", letterSpacing: "0.05em" }}>Modifier</button>
                   </td>
                 </tr>
               ))}
@@ -146,14 +162,22 @@ export default function ProduitsPage() {
       {/* Modal create/edit */}
       {modal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: "rgba(4,10,5,0.85)", backdropFilter: "blur(6px)" }}>
-          <div className="w-full max-w-lg" style={{ background: "rgba(6,14,7,0.70)", backdropFilter: "blur(32px)", WebkitBackdropFilter: "blur(32px)", border: "1px solid rgba(200,162,77,0.75)", borderRadius: "20px", maxHeight: "90vh", overflowY: "auto" }}>
-            <div className="px-6 py-4 flex items-center justify-between" style={{ borderBottom: "1px solid rgba(200,162,77,0.15)" }}>
-              <p className="font-serif uppercase tracking-[0.2em]" style={{ fontSize: "0.6rem", color: "rgba(200,162,77,0.60)" }}>
-                {modal === "create" ? "Nouveau produit" : "Modifier le produit"}
-              </p>
+          <div className="w-full" style={{ maxWidth: "520px", background: "rgba(6,14,7,0.70)", backdropFilter: "blur(32px)", WebkitBackdropFilter: "blur(32px)", border: "1px solid rgba(200,162,77,0.75)", borderRadius: "20px", maxHeight: "90vh", overflowY: "auto" }}>
+            {/* Header modal */}
+            <div style={{ ...HEADER_ZONE, padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <div>
+                <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.52rem", color: "rgba(200,162,77,0.45)" }}>
+                  {modal === "create" ? "Catalogue" : "Modifier"}
+                </p>
+                <div style={{ ...SEP_LEFT, marginTop: "0.3rem", marginBottom: "0.3rem" }} />
+                <p className="font-serif text-gold" style={{ fontSize: "1rem", letterSpacing: "0.04em" }}>
+                  {modal === "create" ? "Nouveau produit" : "Modifier le produit"}
+                </p>
+              </div>
               <button type="button" onClick={() => setModal(null)} style={{ color: "rgba(232,224,208,0.30)", fontSize: "1.2rem" }}>×</button>
             </div>
-            <form onSubmit={handleSave} className="p-6 space-y-4">
+            <div style={SEP} />
+            <form onSubmit={handleSave} style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
               <div className="grid grid-cols-2 gap-4">
                 <Field id="edit-id" label="ID" value={editing.id ?? ""} onChange={(v) => setEditing((p) => ({ ...p, id: v }))} required disabled={modal === "edit"} />
                 <Field id="edit-slug" label="Slug" value={editing.slug ?? ""} onChange={(v) => setEditing((p) => ({ ...p, slug: v }))} required />
@@ -165,12 +189,12 @@ export default function ProduitsPage() {
                 <textarea id="edit-description" value={editing.description ?? ""} onChange={(e) => setEditing((p) => ({ ...p, description: e.target.value }))} rows={3} className="focus:outline-none resize-none" style={FIELD_INPUT_STYLE} />
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Field id="edit-price" label="Prix (centimes)" value={String(editing.price_cents ?? 0)} onChange={(v) => setEditing((p) => ({ ...p, price_cents: parseInt(v, 10) || 0 }))} type="number" required />
-                <Field id="edit-stock" label="Stock" value={String(editing.stock_quantity ?? 0)} onChange={(v) => setEditing((p) => ({ ...p, stock_quantity: parseInt(v, 10) || 0 }))} type="number" />
+                <Field id="edit-price" label="Prix (centimes)" value={String(editing.price_cents ?? 0)} onChange={(v) => setEditing((p) => ({ ...p, price_cents: Number.parseInt(v, 10) || 0 }))} type="number" required />
+                <Field id="edit-stock" label="Stock" value={String(editing.stock_quantity ?? 0)} onChange={(v) => setEditing((p) => ({ ...p, stock_quantity: Number.parseInt(v, 10) || 0 }))} type="number" />
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <Field id="edit-alcohol" label="Degré alcool" value={String(editing.alcohol_degree ?? "")} onChange={(v) => setEditing((p) => ({ ...p, alcohol_degree: parseFloat(v) || null }))} type="number" />
-                <Field id="edit-volume-ml" label="Volume (ml)" value={String(editing.volume_ml ?? "")} onChange={(v) => setEditing((p) => ({ ...p, volume_ml: parseInt(v, 10) || null }))} type="number" />
+                <Field id="edit-alcohol" label="Degré alcool" value={String(editing.alcohol_degree ?? "")} onChange={(v) => setEditing((p) => ({ ...p, alcohol_degree: Number.parseFloat(v) || null }))} type="number" />
+                <Field id="edit-volume-ml" label="Volume (ml)" value={String(editing.volume_ml ?? "")} onChange={(v) => setEditing((p) => ({ ...p, volume_ml: Number.parseInt(v, 10) || null }))} type="number" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Field id="edit-volume" label="Volume (ex: 70cl)" value={editing.volume ?? ""} onChange={(v) => setEditing((p) => ({ ...p, volume: v }))} />
@@ -183,21 +207,21 @@ export default function ProduitsPage() {
                   <option value="coffret" className="bg-charcoal">Coffret</option>
                 </select>
               </div>
-              <div className="flex gap-6">
-                <label htmlFor="edit-active" className="flex items-center gap-2 cursor-pointer" style={{ fontSize: "0.8rem", color: "rgba(232,224,208,0.65)" }}>
+              <div style={{ display: "flex", gap: "1.5rem" }}>
+                <label htmlFor="edit-active" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "rgba(232,224,208,0.65)", cursor: "pointer" }}>
                   <input id="edit-active" type="checkbox" checked={editing.is_active ?? true} onChange={(e) => setEditing((p) => ({ ...p, is_active: e.target.checked }))} className="accent-gold" />
                   Actif
                 </label>
-                <label htmlFor="edit-featured" className="flex items-center gap-2 cursor-pointer" style={{ fontSize: "0.8rem", color: "rgba(232,224,208,0.65)" }}>
+                <label htmlFor="edit-featured" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontSize: "0.8rem", color: "rgba(232,224,208,0.65)", cursor: "pointer" }}>
                   <input id="edit-featured" type="checkbox" checked={editing.is_featured ?? false} onChange={(e) => setEditing((p) => ({ ...p, is_featured: e.target.checked }))} className="accent-gold" />
                   Mis en avant
                 </label>
               </div>
               {error && <p style={{ color: "rgba(220,80,80,0.85)", fontSize: "0.8rem" }}>{error}</p>}
-              <div style={{ height: 1, background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.15), transparent)", margin: "0.5rem 0" }} />
-              <div className="flex gap-3">
-                <button type="button" onClick={() => setModal(null)} className="flex-1 py-2.5 transition-colors" style={{ borderRadius: "9px", border: "1px solid rgba(200,162,77,0.20)", color: "rgba(232,224,208,0.40)", fontSize: "0.78rem" }}>Annuler</button>
-                <button type="submit" disabled={saving} className="flex-1 py-2.5 font-medium transition-opacity disabled:opacity-50" style={{ borderRadius: "9px", background: "rgba(200,162,77,0.88)", color: "#060e07", fontSize: "0.78rem", letterSpacing: "0.05em" }}>
+              <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.15), transparent)", margin: "0.25rem 0" }} />
+              <div style={{ display: "flex", gap: "0.75rem" }}>
+                <button type="button" onClick={() => setModal(null)} style={{ flex: 1, padding: "10px 0", borderRadius: "9px", border: "1px solid rgba(200,162,77,0.20)", color: "rgba(232,224,208,0.40)", fontSize: "0.78rem" }}>Annuler</button>
+                <button type="submit" disabled={saving} className="disabled:opacity-50" style={{ flex: 1, padding: "10px 0", borderRadius: "9px", background: "rgba(200,162,77,0.88)", color: "#060e07", fontSize: "0.78rem", letterSpacing: "0.05em", fontWeight: 500 }}>
                   {saving ? "Sauvegarde…" : "Sauvegarder"}
                 </button>
               </div>
