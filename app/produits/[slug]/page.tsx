@@ -67,6 +67,16 @@ export default async function ProductPage(
     },
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Accueil',  item: BASE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Boutique', item: `${BASE_URL}/boutique` },
+      { '@type': 'ListItem', position: 3, name: product.name, item: url },
+    ],
+  };
+
   // Produits similaires : même catégorie ou saveurs communes, max 3
   const allProducts = getAllProducts();
   const related: Product[] = allProducts
@@ -91,6 +101,7 @@ export default async function ProductPage(
   return (
     <>
       <JsonLd data={productSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <ProductClient product={product} relatedProducts={relatedProducts} />
     </>
   );

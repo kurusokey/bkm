@@ -104,9 +104,16 @@ export default async function ConfirmationPage({
         </p>
       )}
 
-      <Link href="/boutique" className="btn-luxury-filled">
-        Retour à la boutique
-      </Link>
+      <div className="flex flex-col items-center gap-4">
+        {session_id && (
+          <Link href={`/commande/${session_id}`} className="btn-luxury-filled">
+            Suivre ma commande
+          </Link>
+        )}
+        <Link href="/boutique" className="text-xs text-gold/50 hover:text-gold transition-colors">
+          Retour à la boutique
+        </Link>
+      </div>
 
       <p className="text-cream/15 text-xs mt-10">
         L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
