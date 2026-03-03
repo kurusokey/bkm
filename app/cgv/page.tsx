@@ -4,7 +4,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 export const metadata: Metadata = {
   title: 'Conditions générales de vente',
   description: 'CGV de Bô Kay Mwen : commande, livraison, droit de rétractation et réglementation sur la vente d\'alcool.',
-  alternates: { canonical: 'https://blackbeard-umber.vercel.app/cgv' },
+  alternates: { canonical: 'https://laroutedurhum.com/cgv' },
   robots: { index: false, follow: false },
 };
 

@@ -13,7 +13,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'sw
 const cinzel = Cinzel({ subsets: ['latin'], variable: '--font-cinzel', weight: ['400', '500', '600', '700'], display: 'swap' });
 const cinzelDecorative = Cinzel_Decorative({ subsets: ['latin'], variable: '--font-cinzel-decorative', weight: ['400', '700'], display: 'swap' });
 
-const BASE_URL = 'https://blackbeard-umber.vercel.app';
+const BASE_URL = 'https://laroutedurhum.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

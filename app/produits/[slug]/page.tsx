@@ -7,7 +7,7 @@ import { Product } from '@/types';
 
 export const revalidate = 3600; // ISR : revalidation toutes les heures
 
-const BASE_URL = 'https://blackbeard-umber.vercel.app';
+const BASE_URL = 'https://laroutedurhum.com';
 
 export async function generateStaticParams() {
   return getAllProducts().map((p) => ({ slug: p.slug }));

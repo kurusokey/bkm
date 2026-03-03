@@ -6,8 +6,8 @@ import ContactForm from '@/components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Contactez Bô Kay Mwen : questions, commandes, partenariats. Nous serons ravis d\'échanger avec vous.',
-  alternates: { canonical: 'https://blackbeard-umber.vercel.app/contact' },
-  openGraph: { url: 'https://blackbeard-umber.vercel.app/contact' },
+  alternates: { canonical: 'https://laroutedurhum.com/contact' },
+  openGraph: { url: 'https://laroutedurhum.com/contact' },
 };
 
 export default function ContactPage() {

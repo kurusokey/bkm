@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/panier', '/acces-refuse', '/admin'],
       },
     ],
-    sitemap: 'https://blackbeard-umber.vercel.app/sitemap.xml',
+    sitemap: 'https://laroutedurhum.com/sitemap.xml',
   };
 }

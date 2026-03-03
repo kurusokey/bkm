@@ -5,9 +5,9 @@ import ScrollReveal from '@/components/ScrollReveal';
 export const metadata: Metadata = {
   title: 'Notre Savoir-Faire — L\'Art de la Macération Créole',
   description: 'Découvrez l\'art de la macération créole de Bô Kay Mwen : ingrédients locaux, patience et passion pour des punchs artisanaux d\'exception.',
-  alternates: { canonical: 'https://blackbeard-umber.vercel.app/savoir-faire' },
+  alternates: { canonical: 'https://laroutedurhum.com/savoir-faire' },
   openGraph: {
-    url: 'https://blackbeard-umber.vercel.app/savoir-faire',
+    url: 'https://laroutedurhum.com/savoir-faire',
     title: 'Notre Savoir-Faire | Bô Kay Mwen',
   },
 };

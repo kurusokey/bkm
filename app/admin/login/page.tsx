@@ -36,72 +36,46 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4">
+    <div className="relative min-h-screen flex items-center justify-center px-6">
       {/* Image de fond */}
       <div className="fixed inset-0" style={{ zIndex: 0 }}>
-        <Image
-          src="/images/spirits.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority
-        />
-        <div
-          className="absolute inset-0"
-          style={{ background: "rgba(4,12,6,0.78)" }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 55% 60% at 50% 50%, rgba(200,162,77,0.06) 0%, transparent 70%)",
-          }}
-        />
+        <Image src="/images/spirits.jpg" alt="" fill className="object-cover" sizes="100vw" priority />
+        <div className="absolute inset-0" style={{ background: "rgba(4,12,6,0.78)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 55% 60% at 50% 50%, rgba(200,162,77,0.06) 0%, transparent 70%)" }} />
       </div>
 
-      <div className="relative w-full max-w-sm" style={{ zIndex: 10 }}>
-        {/* Carte glassmorphism — style newsletter */}
-        <div
-          style={{
-            background: "rgba(6,14,7,0.28)",
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-            border: "1px solid rgba(200,162,77,0.75)",
-            borderRadius: "20px",
-            overflow: "hidden",
-          }}
-        >
-          {/* Zone logo */}
-          <div
-            style={{
-              height: "190px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              background:
-                "radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)",
-            }}
-          >
+      <div className="relative w-full" style={{ maxWidth: "440px", zIndex: 10 }}>
+        {/* Carte — structure identique à newsletter */}
+        <div style={{
+          background: "rgba(6,14,7,0.28)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          border: "1px solid rgba(200,162,77,0.75)",
+          borderRadius: "20px",
+          overflow: "hidden",
+        }}>
+          {/* Zone logo — 220px comme newsletter */}
+          <div style={{
+            height: "220px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)",
+          }}>
             <Image
               src="/images/bkm_logo_header.png"
               alt="Bô Kay Mwen"
-              width={160}
-              height={160}
+              width={180}
+              height={180}
               style={{ filter: "drop-shadow(0 8px 24px rgba(200,162,77,0.22))" }}
+              priority
             />
           </div>
 
-          {/* Séparateur */}
-          <div
-            style={{
-              height: "1px",
-              background:
-                "linear-gradient(90deg, transparent, rgba(200,162,77,0.40), transparent)",
-            }}
-          />
+          {/* Séparateur — identique newsletter */}
+          <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.40), transparent)" }} />
 
-          {/* Formulaire */}
+          {/* Zone contenu — padding identique newsletter */}
           <div style={{ padding: "1.75rem 1.75rem 2rem" }}>
             <p
               className="font-serif uppercase tracking-[0.38em] mb-2"
@@ -109,25 +83,14 @@ export default function AdminLoginPage() {
             >
               Administration
             </p>
-            <div
-              style={{
-                height: "1px",
-                marginBottom: "1.5rem",
-                background:
-                  "linear-gradient(90deg, rgba(200,162,77,0.20), transparent)",
-              }}
-            />
+            <div style={{ height: "1px", marginBottom: "1.5rem", background: "linear-gradient(90deg, rgba(200,162,77,0.20), transparent)" }} />
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label
                   htmlFor="login-email"
                   className="block font-serif uppercase mb-2"
-                  style={{
-                    fontSize: "0.54rem",
-                    letterSpacing: "0.22em",
-                    color: "rgba(200,162,77,0.50)",
-                  }}
+                  style={{ fontSize: "0.54rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.50)" }}
                 >
                   Email
                 </label>
@@ -140,11 +103,7 @@ export default function AdminLoginPage() {
                   autoComplete="email"
                   placeholder="votre@email.com"
                   className="w-full px-4 py-3 text-sm focus:outline-none transition-colors placeholder:text-cream-muted/20 border border-gold/30 focus:border-gold/60"
-                  style={{
-                    background: "rgba(6,14,7,0.55)",
-                    borderRadius: "10px",
-                    color: "rgba(232,224,208,0.88)",
-                  }}
+                  style={{ background: "rgba(6,14,7,0.55)", borderRadius: "10px", color: "rgba(232,224,208,0.88)" }}
                 />
               </div>
 
@@ -152,11 +111,7 @@ export default function AdminLoginPage() {
                 <label
                   htmlFor="login-password"
                   className="block font-serif uppercase mb-2"
-                  style={{
-                    fontSize: "0.54rem",
-                    letterSpacing: "0.22em",
-                    color: "rgba(200,162,77,0.50)",
-                  }}
+                  style={{ fontSize: "0.54rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.50)" }}
                 >
                   Mot de passe
                 </label>
@@ -168,43 +123,21 @@ export default function AdminLoginPage() {
                   required
                   autoComplete="current-password"
                   className="w-full px-4 py-3 text-sm focus:outline-none transition-colors border border-gold/30 focus:border-gold/60"
-                  style={{
-                    background: "rgba(6,14,7,0.55)",
-                    borderRadius: "10px",
-                    color: "rgba(232,224,208,0.88)",
-                  }}
+                  style={{ background: "rgba(6,14,7,0.55)", borderRadius: "10px", color: "rgba(232,224,208,0.88)" }}
                 />
               </div>
 
               {error && (
-                <p
-                  className="text-center text-sm"
-                  style={{ color: "rgba(220,80,80,0.85)" }}
-                >
-                  {error}
-                </p>
+                <p className="text-center text-sm" style={{ color: "rgba(220,80,80,0.85)" }}>{error}</p>
               )}
 
-              <div
-                style={{
-                  height: "1px",
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(200,162,77,0.18), transparent)",
-                  margin: "0.5rem 0",
-                }}
-              />
+              <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.14), transparent)", margin: "0.75rem 0" }} />
 
               <button
                 type="submit"
                 disabled={loading}
                 className="w-full py-3 text-sm font-medium tracking-widest transition-opacity disabled:opacity-50"
-                style={{
-                  background:
-                    "linear-gradient(135deg, rgba(200,162,77,0.92) 0%, rgba(200,162,77,0.76) 100%)",
-                  borderRadius: "10px",
-                  color: "#060e07",
-                  letterSpacing: "0.12em",
-                }}
+                style={{ background: "linear-gradient(135deg, rgba(200,162,77,0.92) 0%, rgba(200,162,77,0.76) 100%)", borderRadius: "10px", color: "#060e07", letterSpacing: "0.12em" }}
               >
                 {loading ? "Connexion…" : "Se connecter"}
               </button>
@@ -212,14 +145,7 @@ export default function AdminLoginPage() {
           </div>
         </div>
 
-        <p
-          className="text-center mt-6"
-          style={{
-            fontSize: "0.58rem",
-            color: "rgba(200,162,77,0.18)",
-            letterSpacing: "0.15em",
-          }}
-        >
+        <p className="text-center mt-7" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.15)", letterSpacing: "0.15em" }}>
           ✦ Accès réservé ✦
         </p>
       </div>

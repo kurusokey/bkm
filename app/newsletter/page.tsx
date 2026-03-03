@@ -6,8 +6,8 @@ import Newsletter from '@/components/Newsletter';
 export const metadata: Metadata = {
   title: 'Newsletter — Bô Kay Mwen',
   description: 'Inscris-toi à la newsletter Bô Kay Mwen : nouveautés, recettes et offres exclusives directement dans ta boîte mail.',
-  alternates: { canonical: 'https://blackbeard-umber.vercel.app/newsletter' },
-  openGraph: { url: 'https://blackbeard-umber.vercel.app/newsletter' },
+  alternates: { canonical: 'https://laroutedurhum.com/newsletter' },
+  openGraph: { url: 'https://laroutedurhum.com/newsletter' },
 };
 
 export default function NewsletterPage() {

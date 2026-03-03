@@ -71,7 +71,7 @@ export default function AdminSidebar() {
 
   return (
     <aside
-      className="w-60 flex flex-col shrink-0"
+      className="w-64 flex flex-col shrink-0"
       style={{
         background: "rgba(4,12,6,0.50)",
         backdropFilter: "blur(28px)",
@@ -79,30 +79,26 @@ export default function AdminSidebar() {
         borderRight: "1px solid rgba(200,162,77,0.35)",
       }}
     >
-      {/* Logo BKM */}
+      {/* Zone logo — style newsletter */}
       <div
-        className="flex flex-col items-center pt-8 pb-6 px-6"
-        style={{ borderBottom: "1px solid rgba(200,162,77,0.15)" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "200px",
+          background: "radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)",
+        }}
       >
-        <div
-          className="relative flex items-center justify-center mb-3"
-          style={{
-            width: 80,
-            height: 80,
-            background:
-              "radial-gradient(ellipse 85% 85% at 50% 50%, rgba(200,162,77,0.10) 0%, transparent 75%)",
-          }}
-        >
-          <Image
-            src="/images/bkm_logo_header.png"
-            alt="Bô Kay Mwen"
-            width={64}
-            height={64}
-            style={{ filter: "drop-shadow(0 4px 16px rgba(200,162,77,0.28))" }}
-          />
-        </div>
+        <Image
+          src="/images/bkm_logo_header.png"
+          alt="Bô Kay Mwen"
+          width={80}
+          height={80}
+          style={{ filter: "drop-shadow(0 6px 18px rgba(200,162,77,0.28))", marginBottom: "0.75rem" }}
+        />
         <p
-          className="font-serif text-center tracking-[0.28em]"
+          className="font-serif text-center tracking-[0.30em]"
           style={{ fontSize: "0.62rem", color: "rgba(200,162,77,0.85)" }}
         >
           BÔ KAY MWEN
@@ -115,8 +111,11 @@ export default function AdminSidebar() {
         </p>
       </div>
 
+      {/* Séparateur — identique newsletter */}
+      <div style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.25), transparent)" }} />
+
       {/* Navigation */}
-      <nav className="flex-1 px-3 py-5 space-y-0.5">
+      <nav className="flex-1 px-4 py-6 space-y-1">
         {NAV.map((item) => {
           const active =
             item.href === "/admin"
@@ -126,22 +125,17 @@ export default function AdminSidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 py-2.5 rounded-lg text-sm transition-all"
+              className="flex items-center gap-3 py-3 rounded-lg text-sm transition-all"
               style={{
-                paddingLeft: "12px",
-                paddingRight: "12px",
-                borderLeft: active
-                  ? "2px solid rgba(200,162,77,0.70)"
-                  : "2px solid transparent",
-                background: active
-                  ? "rgba(200,162,77,0.10)"
-                  : "transparent",
-                color: active
-                  ? "rgba(200,162,77,0.95)"
-                  : "rgba(232,224,208,0.45)",
+                paddingLeft: "14px",
+                paddingRight: "14px",
+                borderLeft: active ? "2px solid rgba(200,162,77,0.70)" : "2px solid transparent",
+                background: active ? "rgba(200,162,77,0.08)" : "transparent",
+                color: active ? "rgba(200,162,77,0.95)" : "rgba(232,224,208,0.40)",
+                letterSpacing: "0.01em",
               }}
             >
-              <span className="shrink-0" style={{ opacity: active ? 1 : 0.6 }}>
+              <span className="shrink-0" style={{ opacity: active ? 1 : 0.55 }}>
                 {item.icon}
               </span>
               {item.label}
@@ -151,27 +145,15 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Séparateur */}
-      <div
-        style={{
-          height: "1px",
-          margin: "0 16px",
-          background:
-            "linear-gradient(90deg, transparent, rgba(200,162,77,0.20), transparent)",
-        }}
-      />
+      <div style={{ height: "1px", margin: "0 20px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.15), transparent)" }} />
 
       {/* Déconnexion */}
-      <div className="px-3 py-5">
+      <div className="px-4 py-6">
         <button
           type="button"
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 py-2.5 rounded-lg text-sm transition-all hover:bg-gold/5"
-          style={{
-            paddingLeft: "12px",
-            paddingRight: "12px",
-            color: "rgba(200,162,77,0.35)",
-            borderLeft: "2px solid transparent",
-          }}
+          className="w-full flex items-center gap-3 py-3 rounded-lg text-sm transition-all hover:bg-gold/5"
+          style={{ paddingLeft: "14px", paddingRight: "14px", color: "rgba(200,162,77,0.30)", borderLeft: "2px solid transparent" }}
         >
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="shrink-0" aria-hidden="true">
             <path d="M9.5 7.5H2m0 0l2.5-2.5M2 7.5l2.5 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />

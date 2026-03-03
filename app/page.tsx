@@ -7,9 +7,9 @@ import JsonLd from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
   description: 'Punchs artisanaux macérés avec des fruits tropicaux des Caraïbes. Ananas-passion, coco, goyave, pili-pili — 100 % local, 100 % fait maison.',
-  alternates: { canonical: 'https://blackbeard-umber.vercel.app' },
+  alternates: { canonical: 'https://laroutedurhum.com' },
   openGraph: {
-    url: 'https://blackbeard-umber.vercel.app',
+    url: 'https://laroutedurhum.com',
     title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
     description: 'Punchs artisanaux macérés avec des fruits tropicaux des Caraïbes.',
   },
@@ -19,8 +19,8 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Bô Kay Mwen',
-  url: 'https://blackbeard-umber.vercel.app',
-  logo: 'https://blackbeard-umber.vercel.app/og-image.jpg',
+  url: 'https://laroutedurhum.com',
+  logo: 'https://laroutedurhum.com/og-image.jpg',
   description: 'Punchs artisanaux des Caraïbes — 100 % local, 100 % fait maison.',
   sameAs: [],
 };
@@ -29,7 +29,7 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Bô Kay Mwen',
-  url: 'https://blackbeard-umber.vercel.app',
+  url: 'https://laroutedurhum.com',
 };
 
 

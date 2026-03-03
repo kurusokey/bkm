@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getAllProducts } from '@/lib/products';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://blackbeard-umber.vercel.app';
+  const baseUrl = 'https://laroutedurhum.com';
 
   const products = getAllProducts();
 

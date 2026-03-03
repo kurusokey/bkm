@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Le panier est vide' }, { status: 400 });
     }
 
-    const origin = request.headers.get('origin') || 'https://blackbeard-umber.vercel.app';
+    const origin = request.headers.get('origin') || 'https://laroutedurhum.com';
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
