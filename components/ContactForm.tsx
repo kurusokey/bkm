@@ -119,7 +119,7 @@ export default function ContactForm() {
           onChange={set('subject')}
           disabled={status === 'loading'}
           className={inputCls}
-          style={{ ...inputStyle, appearance: 'none' }}
+          style={{ ...inputStyle, appearance: 'none', color: form.subject === '' ? '#C8A24D' : 'rgba(232,224,208,0.9)' }}
         >
           <option value="">Sélectionnez un sujet</option>
           {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
