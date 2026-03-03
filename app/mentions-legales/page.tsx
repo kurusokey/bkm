@@ -5,7 +5,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 export const metadata: Metadata = {
   title: 'Mentions légales',
   description: 'Mentions légales du site Bô Kay Mwen : éditeur, hébergeur, propriété intellectuelle et réglementation sur l\'alcool.',
-  alternates: { canonical: 'https://laroutedurhum.com/mentions-legales' },
+  alternates: { canonical: `${BASE_URL}/mentions-legales` },
   robots: { index: false, follow: false },
 };
 

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Blog — Recettes, histoire et actualités',
   description: 'Recettes de cocktails créoles, histoire du punch antillais, actualités Bô Kay Mwen.',
-  alternates: { canonical: 'https://laroutedurhum.com/blog' },
+  alternates: { canonical: `${BASE_URL}/blog` },
 };
 
 // Articles à venir — à remplacer par des données Supabase ou MDX

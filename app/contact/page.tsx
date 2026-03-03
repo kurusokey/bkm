@@ -7,8 +7,8 @@ import ContactForm from '@/components/ContactForm';
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Contactez Bô Kay Mwen : questions, commandes, partenariats. Nous serons ravis d\'échanger avec vous.',
-  alternates: { canonical: 'https://laroutedurhum.com/contact' },
-  openGraph: { url: 'https://laroutedurhum.com/contact' },
+  alternates: { canonical: `${BASE_URL}/contact` },
+  openGraph: { url: `${BASE_URL}/contact` },
 };
 
 export default function ContactPage() {

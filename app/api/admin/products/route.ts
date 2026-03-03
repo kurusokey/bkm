@@ -1,7 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { verifyAdminToken } from "@/lib/adminAuth";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!verifyAdminToken(request)) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   const { data, error } = await supabaseAdmin
     .from("products")
     .select("*")
@@ -13,6 +15,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  if (!verifyAdminToken(request)) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -32,6 +35,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  if (!verifyAdminToken(request)) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   const { searchParams } = request.nextUrl;
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "id manquant" }, { status: 400 });
@@ -56,6 +60,7 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  if (!verifyAdminToken(request)) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   const { searchParams } = request.nextUrl;
   const id = searchParams.get("id");
   if (!id) return NextResponse.json({ error: "id manquant" }, { status: 400 });

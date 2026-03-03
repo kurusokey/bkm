@@ -6,9 +6,9 @@ import ScrollReveal from '@/components/ScrollReveal';
 export const metadata: Metadata = {
   title: 'Notre Histoire — Istwa an nou',
   description: 'Un amour profond pour la terre antillaise, des ingrédients locaux et des recettes transmises avec passion. Découvrez l\'âme de Bô Kay Mwen.',
-  alternates: { canonical: 'https://laroutedurhum.com/a-propos' },
+  alternates: { canonical: `${BASE_URL}/a-propos` },
   openGraph: {
-    url: 'https://laroutedurhum.com/a-propos',
+    url: `${BASE_URL}/a-propos`,
     title: 'Notre Histoire | Bô Kay Mwen',
     description: 'L\'histoire d\'un amour profond pour la terre antillaise et la volonté de le partager.',
   },

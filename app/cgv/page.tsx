@@ -5,7 +5,7 @@ import ScrollReveal from '@/components/ScrollReveal';
 export const metadata: Metadata = {
   title: 'Conditions générales de vente',
   description: 'CGV de Bô Kay Mwen : commande, livraison, droit de rétractation et réglementation sur la vente d\'alcool.',
-  alternates: { canonical: 'https://laroutedurhum.com/cgv' },
+  alternates: { canonical: `${BASE_URL}/cgv` },
   robots: { index: false, follow: false },
 };
 

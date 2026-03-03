@@ -7,8 +7,8 @@ import Newsletter from '@/components/Newsletter';
 export const metadata: Metadata = {
   title: 'Newsletter — Bô Kay Mwen',
   description: 'Inscris-toi à la newsletter Bô Kay Mwen : nouveautés, recettes et offres exclusives directement dans ta boîte mail.',
-  alternates: { canonical: 'https://laroutedurhum.com/newsletter' },
-  openGraph: { url: 'https://laroutedurhum.com/newsletter' },
+  alternates: { canonical: `${BASE_URL}/newsletter` },
+  openGraph: { url: `${BASE_URL}/newsletter` },
 };
 
 export default function NewsletterPage() {

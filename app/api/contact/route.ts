@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceRoleKey) {
-    console.warn('[contact] SUPABASE_SERVICE_ROLE_KEY manquante — message non enregistré:', { name, email, subject });
-    return NextResponse.json({ success: true });
+    console.error('[contact] SUPABASE_SERVICE_ROLE_KEY manquante — message non enregistré:', { name, email, subject });
+    return NextResponse.json({ error: 'Service temporairement indisponible' }, { status: 503 });
   }
 
   const supabase = createClient(supabaseUrl, serviceRoleKey, {

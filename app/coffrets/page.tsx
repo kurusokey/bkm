@@ -9,9 +9,9 @@ export const metadata: Metadata = {
   title: 'Coffrets Cadeaux — Offrez les Caraïbes',
   description:
     "Coffrets cadeaux Bô Kay Mwen : l'idée cadeau idéale pour offrir un voyage gustatif aux Antilles. Coffret Découverte et Coffret Prestige.",
-  alternates: { canonical: 'https://laroutedurhum.com/coffrets' },
+  alternates: { canonical: `${BASE_URL}/coffrets` },
   openGraph: {
-    url: 'https://laroutedurhum.com/coffrets',
+    url: `${BASE_URL}/coffrets`,
     title: 'Coffrets Cadeaux | Bô Kay Mwen',
   },
 };

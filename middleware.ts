@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { verifyAdminToken } from "@/lib/adminAuth";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -8,10 +9,17 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Protéger toutes les routes /admin/*
+  // Protéger les API routes admin → retourner 401
+  if (pathname.startsWith("/api/admin")) {
+    if (!verifyAdminToken(request)) {
+      return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+    }
+    return NextResponse.next();
+  }
+
+  // Protéger les pages admin → rediriger vers login
   if (pathname.startsWith("/admin")) {
-    const token = request.cookies.get("admin_token");
-    if (!token?.value) {
+    if (!verifyAdminToken(request)) {
       const loginUrl = new URL("/admin/login", request.url);
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
@@ -22,5 +30,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

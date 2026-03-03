@@ -251,7 +251,7 @@ export default function PanierPage() {
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                 style={{
-                                  width: '26px', height: '26px',
+                                  width: '44px', height: '44px',
                                   border: '1px solid rgba(200,162,77,0.28)',
                                   background: 'rgba(6,14,7,0.55)',
                                   borderRadius: '4px',
@@ -269,7 +269,7 @@ export default function PanierPage() {
                               <button
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                 style={{
-                                  width: '26px', height: '26px',
+                                  width: '44px', height: '44px',
                                   border: '1px solid rgba(200,162,77,0.28)',
                                   background: 'rgba(6,14,7,0.55)',
                                   borderRadius: '4px',
