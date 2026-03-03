@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 
 async function getStats() {
