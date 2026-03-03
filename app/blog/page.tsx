@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/lib/config';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 

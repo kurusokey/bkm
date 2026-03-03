@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/lib/config';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Le panier est vide' }, { status: 400 });
     }
 
-    const origin = request.headers.get('origin') || 'https://laroutedurhum.com';
+    const origin = request.headers.get('origin') || BASE_URL;
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

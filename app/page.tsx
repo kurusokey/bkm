@@ -1,3 +1,4 @@
+import { BASE_URL } from '@/lib/config';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -7,9 +8,9 @@ import JsonLd from '@/components/JsonLd';
 export const metadata: Metadata = {
   title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
   description: 'Punchs artisanaux macérés avec des fruits tropicaux des Caraïbes. Ananas-passion, coco, goyave, pili-pili — 100 % local, 100 % fait maison.',
-  alternates: { canonical: 'https://laroutedurhum.com' },
+  alternates: { canonical: BASE_URL },
   openGraph: {
-    url: 'https://laroutedurhum.com',
+    url: BASE_URL,
     title: 'Bô Kay Mwen — Punchs Artisanaux des Caraïbes',
     description: 'Punchs artisanaux macérés avec des fruits tropicaux des Caraïbes.',
   },
@@ -19,7 +20,7 @@ const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Bô Kay Mwen',
-  url: 'https://laroutedurhum.com',
+  url: BASE_URL,
   logo: 'https://laroutedurhum.com/og-image.jpg',
   description: 'Punchs artisanaux des Caraïbes — 100 % local, 100 % fait maison.',
   sameAs: [],
@@ -29,7 +30,7 @@ const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Bô Kay Mwen',
-  url: 'https://laroutedurhum.com',
+  url: BASE_URL,
 };
 
 

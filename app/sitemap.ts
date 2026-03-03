@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
 import { getAllProducts } from '@/lib/products';
+import { BASE_URL } from '@/lib/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://laroutedurhum.com';
+  const baseUrl = BASE_URL;
 
   const products = getAllProducts();
 

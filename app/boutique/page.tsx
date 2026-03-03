@@ -5,9 +5,9 @@ import ScrollReveal from '@/components/ScrollReveal';
 import ProductList from '@/components/ProductList';
 import JsonLd from '@/components/JsonLd';
 import { getAllProducts, getFeaturedProducts } from '@/lib/products';
+import { BASE_URL } from '@/lib/config';
 import { getProductImage } from '@/lib/productImages';
 
-const BASE_URL = 'https://laroutedurhum.com';
 
 export const metadata: Metadata = {
   title: 'Boutique — Nos Punchs Artisanaux',

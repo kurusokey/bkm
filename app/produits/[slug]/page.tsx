@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getAllProducts, getProductBySlug } from '@/lib/products';
+import { BASE_URL } from '@/lib/config';
 import JsonLd from '@/components/JsonLd';
 import ProductClient from '@/components/ProductClient';
 import { Product } from '@/types';
 
 export const revalidate = 3600; // ISR : revalidation toutes les heures
 
-const BASE_URL = 'https://laroutedurhum.com';
 
 export async function generateStaticParams() {
   return getAllProducts().map((p) => ({ slug: p.slug }));
