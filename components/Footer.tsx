@@ -8,12 +8,18 @@ const NAV_LINKS = [
   { href: '/coffrets',      label: 'Coffrets'       },
   { href: '/savoir-faire',  label: 'Savoir-faire'   },
   { href: '/a-propos',      label: 'Notre histoire' },
+  { href: '/newsletter',    label: 'Newsletter'     },
   { href: '/contact',       label: 'Contact'        },
 ];
 
 export default function Footer() {
   const pathname = usePathname();
-  if (pathname === '/') return null;
+  if (
+    pathname === '/' ||
+    pathname === '/boutique' ||
+    pathname === '/savoir-faire' ||
+    pathname.startsWith('/produits/')
+  ) return null;
 
   return (
     <footer style={{ background: '#060e07' }}>

@@ -53,7 +53,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
   const displayName = product.category === 'coffret' ? product.name : product.name.replace(/^Punch\s+/i, '');
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative" style={{ overscrollBehavior: 'none' }}>
       {/* Fond marché créole — fixe pleine page */}
       <div className="fixed inset-0" style={{ zIndex: 0 }}>
         <Image
@@ -290,6 +290,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
                 <button
                   onClick={handleShare}
                   className="flex items-center justify-center gap-2 w-full py-3 text-xs uppercase tracking-[0.15em] text-cream-muted/50 hover:text-gold transition-colors duration-300 font-serif"
+                  style={{ marginTop: '1.25rem' }}
                 >
                   {shared ? (
                     <>
@@ -315,24 +316,36 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
         {/* Section "Vous aimerez aussi" */}
         {relatedProducts.length > 0 && (
           <div
-            className="w-full py-14"
+            className="w-full"
             style={{
               background: 'rgba(30,22,10,0.55)',
               backdropFilter: 'blur(2px)',
+              padding: '4rem 0 4.5rem',
             }}
           >
             <div className="mx-auto" style={{ maxWidth: '960px', padding: '0 32px' }}>
-              <div className="text-center mb-8">
-                <div className="gold-line-wide mx-auto mb-4" />
-                <p
-                  className="font-serif text-gold/60 uppercase tracking-[0.3em] text-shadow-sm"
-                  style={{ fontSize: '0.65rem' }}
-                >
-                  Vous aimerez aussi
-                </p>
-              </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {/* Titre */}
+              <ScrollReveal direction="up" distance={20}>
+                <div className="text-center mb-10">
+                  <p
+                    className="font-serif uppercase tracking-[0.38em]"
+                    style={{ fontSize: '0.58rem', color: 'rgba(200,162,77,0.50)' }}
+                  >
+                    Vous aimerez aussi
+                  </p>
+                  <div
+                    style={{
+                      width: '32px', height: '1px',
+                      background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.35), transparent)',
+                      margin: '0.6rem auto 0',
+                    }}
+                  />
+                </div>
+              </ScrollReveal>
+
+              {/* Grille — style coffrets */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
                 {relatedProducts.map((related, i) => {
                   const relatedPrice = (related.price_cents / 100).toFixed(2);
                   const relatedName =
@@ -342,69 +355,94 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
                   const isAddedRelated = addedRelatedId === related.id;
 
                   return (
-                    <ScrollReveal key={related.id} delay={i * 80} distance={20}>
+                    <ScrollReveal key={related.id} delay={i * 80} distance={25}>
                       <div
-                        className="group flex flex-row sm:flex-col gap-3 rounded-lg overflow-hidden"
+                        className="group"
                         style={{
-                          background: 'rgba(15,26,15,0.45)',
-                          border: '1px solid rgba(200,162,77,0.10)',
+                          background: 'rgba(6,14,7,0.28)',
+                          backdropFilter: 'blur(24px)',
+                          WebkitBackdropFilter: 'blur(24px)',
+                          border: '1px solid rgba(200,162,77,0.18)',
+                          borderRadius: '20px',
+                          overflow: 'hidden',
                         }}
                       >
-                        <Link
-                          href={`/produits/${related.slug}`}
-                          className="shrink-0 sm:shrink relative w-24 h-24 sm:w-full sm:h-auto"
-                          style={{ aspectRatio: '1/1' }}
-                        >
+                        {/* Zone image */}
+                        <Link href={`/produits/${related.slug}`}>
                           <div
-                            className="relative w-24 h-24 sm:w-full overflow-hidden"
-                            style={{ aspectRatio: '1/1' }}
+                            className="relative flex items-center justify-center"
+                            style={{
+                              height: '200px',
+                              background:
+                                'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
+                            }}
                           >
                             <Image
                               src={getProductImage(related.slug, related.image_url)}
                               alt={related.name}
                               fill
-                              className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                              sizes="(min-width: 640px) 33vw, 96px"
+                              className="object-contain p-6 transition-transform duration-500 group-hover:scale-105"
+                              sizes="(min-width: 640px) 33vw, 100vw"
                             />
                           </div>
                         </Link>
 
-                        <div className="flex-1 flex flex-col justify-center py-2 px-3 sm:px-4 sm:py-3">
+                        {/* Séparateur */}
+                        <div
+                          style={{
+                            height: '1px',
+                            background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.14), transparent)',
+                          }}
+                        />
+
+                        {/* Infos */}
+                        <div style={{ padding: '1.25rem 1.5rem 1.5rem' }}>
                           <Link href={`/produits/${related.slug}`}>
                             <h3
-                              className="font-serif text-gold leading-tight sm:text-center"
-                              style={{ fontSize: '0.85rem' }}
+                              className="font-serif text-gold leading-snug mb-1"
+                              style={{ fontSize: '0.95rem' }}
                             >
                               {relatedName}
                             </h3>
                           </Link>
-                          <p
-                            className="text-warm-white font-semibold sm:text-center mt-1"
-                            style={{ fontSize: '0.85rem' }}
-                          >
-                            {relatedPrice}&euro;
-                          </p>
-                          <button
-                            onClick={() => handleAddRelated(related)}
-                            disabled={related.stock_quantity === 0}
-                            className="mt-2 sm:w-full font-semibold uppercase transition-all duration-300 disabled:opacity-40 self-start sm:self-auto"
+                          {related.tagline && (
+                            <p className="italic text-cream-muted/45" style={{ fontSize: '0.75rem' }}>
+                              {related.tagline}
+                            </p>
+                          )}
+                          <div
                             style={{
-                              padding: '4px 10px',
-                              fontSize: '0.6rem',
-                              letterSpacing: '0.08em',
-                              borderRadius: '4px',
-                              border: isAddedRelated
-                                ? '1px solid rgba(42,124,123,0.6)'
-                                : '1px solid rgba(200,162,77,0.4)',
-                              background: isAddedRelated
-                                ? 'rgba(42,124,123,0.2)'
-                                : 'rgba(200,162,77,0.10)',
-                              color: isAddedRelated ? '#3A9B9A' : '#C8A24D',
-                              cursor: related.stock_quantity > 0 ? 'pointer' : 'not-allowed',
+                              height: '1px',
+                              background: 'linear-gradient(90deg, rgba(200,162,77,0.12), transparent)',
+                              margin: '0.85rem 0',
                             }}
-                          >
-                            {isAddedRelated ? 'Ajouté !' : 'Ajouter'}
-                          </button>
+                          />
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <p className="text-warm-white font-semibold" style={{ fontSize: '1rem' }}>
+                              {relatedPrice}&nbsp;€
+                            </p>
+                            <button
+                              onClick={() => handleAddRelated(related)}
+                              disabled={related.stock_quantity === 0}
+                              className="disabled:opacity-40 transition-all duration-300"
+                              style={{
+                                padding: '6px 14px',
+                                fontSize: '0.65rem',
+                                letterSpacing: '0.08em',
+                                borderRadius: '8px',
+                                border: isAddedRelated
+                                  ? '1px solid rgba(42,124,123,0.6)'
+                                  : '1px solid rgba(200,162,77,0.40)',
+                                background: isAddedRelated
+                                  ? 'rgba(42,124,123,0.2)'
+                                  : 'rgba(200,162,77,0.10)',
+                                color: isAddedRelated ? '#3A9B9A' : '#C8A24D',
+                                cursor: related.stock_quantity > 0 ? 'pointer' : 'not-allowed',
+                              }}
+                            >
+                              {isAddedRelated ? 'Ajouté !' : 'Ajouter'}
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </ScrollReveal>

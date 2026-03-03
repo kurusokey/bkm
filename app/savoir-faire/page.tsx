@@ -55,7 +55,7 @@ const ETAPES = [
 
 export default function SavoirFairePage() {
   return (
-    <div className="min-h-screen" style={{ background: '#060e07' }}>
+    <div className="min-h-screen" style={{ background: '#060e07', overscrollBehavior: 'none' }}>
 
       {/* ══════════════════════════════════════════
           HERO

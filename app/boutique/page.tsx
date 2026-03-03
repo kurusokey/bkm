@@ -39,7 +39,7 @@ export default function BoutiquePage() {
   };
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative" style={{ overscrollBehavior: 'none' }}>
 
       {/* Fond fixe — champ de cannes */}
       <div className="fixed inset-0" style={{ zIndex: 0 }}>
