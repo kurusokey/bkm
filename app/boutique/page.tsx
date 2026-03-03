@@ -135,7 +135,7 @@ export default function BoutiquePage() {
                           aspectRatio: '3/4',
                           background: 'rgba(6,14,7,0.5)',
                           backdropFilter: 'blur(8px)',
-                          border: '1px solid rgba(200,162,77,0.12)',
+                          border: '1px solid rgba(200,162,77,0.55)',
                         }}
                       >
                         <Image

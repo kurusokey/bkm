@@ -124,7 +124,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
           >
             {/* Image produit */}
             <ScrollReveal direction="left" distance={40}>
-              <div className="relative h-[300px] md:h-[520px] flex items-center justify-center">
+              <div className="relative h-[300px] md:h-[520px] flex items-center justify-center" style={{ border: '1px solid rgba(200,162,77,0.55)', borderRadius: '12px' }}>
                 <Image
                   src={getProductImage(product.slug, product.image_url)}
                   alt={product.name}
@@ -376,6 +376,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
                               height: '200px',
                               background:
                                 'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
+                              border: '1px solid rgba(200,162,77,0.55)',
                             }}
                           >
                             <Image

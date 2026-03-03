@@ -137,6 +137,7 @@ export default function CoffretsPage() {
                           height: '280px',
                           background:
                             'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
+                          border: '1px solid rgba(200,162,77,0.55)',
                         }}
                       >
                         <Image
