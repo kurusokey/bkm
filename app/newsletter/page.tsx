@@ -45,7 +45,7 @@ export default function NewsletterPage() {
 
         {/* Contenu centré */}
         <div
-          className="relative z-[5] w-full flex items-start md:items-center justify-center px-6 pt-[120px] pb-12"
+          className="relative z-[5] w-full flex items-start md:items-center justify-center px-6 pt-[80px] md:pt-[120px] pb-12"
           style={{ minHeight: '100vh' }}
         >
           <div style={{ width: '100%', maxWidth: '440px' }}>
