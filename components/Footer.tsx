@@ -16,8 +16,6 @@ export default function Footer() {
   const pathname = usePathname();
   if (
     pathname === '/' ||
-    pathname === '/boutique' ||
-    pathname === '/savoir-faire' ||
     pathname.startsWith('/produits/')
   ) return null;
 
