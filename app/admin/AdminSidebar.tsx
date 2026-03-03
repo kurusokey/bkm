@@ -73,43 +73,43 @@ export default function AdminSidebar() {
     <aside
       className="w-60 flex flex-col shrink-0"
       style={{
-        background: "rgba(4,10,5,0.70)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        borderRight: "1px solid rgba(200,162,77,0.10)",
+        background: "rgba(4,12,6,0.50)",
+        backdropFilter: "blur(28px)",
+        WebkitBackdropFilter: "blur(28px)",
+        borderRight: "1px solid rgba(200,162,77,0.35)",
       }}
     >
       {/* Logo BKM */}
       <div
         className="flex flex-col items-center pt-8 pb-6 px-6"
-        style={{ borderBottom: "1px solid rgba(200,162,77,0.07)" }}
+        style={{ borderBottom: "1px solid rgba(200,162,77,0.15)" }}
       >
         <div
           className="relative flex items-center justify-center mb-3"
           style={{
-            width: 72,
-            height: 72,
+            width: 80,
+            height: 80,
             background:
-              "radial-gradient(ellipse 85% 85% at 50% 50%, rgba(200,162,77,0.09) 0%, transparent 75%)",
+              "radial-gradient(ellipse 85% 85% at 50% 50%, rgba(200,162,77,0.10) 0%, transparent 75%)",
           }}
         >
           <Image
             src="/images/bkm_logo_header.png"
             alt="Bô Kay Mwen"
-            width={58}
-            height={58}
-            style={{ filter: "drop-shadow(0 4px 14px rgba(200,162,77,0.22))" }}
+            width={64}
+            height={64}
+            style={{ filter: "drop-shadow(0 4px 16px rgba(200,162,77,0.28))" }}
           />
         </div>
         <p
           className="font-serif text-center tracking-[0.28em]"
-          style={{ fontSize: "0.62rem", color: "rgba(200,162,77,0.80)" }}
+          style={{ fontSize: "0.62rem", color: "rgba(200,162,77,0.85)" }}
         >
           BÔ KAY MWEN
         </p>
         <p
           className="text-center mt-1 tracking-[0.22em]"
-          style={{ fontSize: "0.5rem", color: "rgba(200,162,77,0.30)" }}
+          style={{ fontSize: "0.5rem", color: "rgba(200,162,77,0.35)" }}
         >
           ADMINISTRATION
         </p>
@@ -131,15 +131,17 @@ export default function AdminSidebar() {
                 paddingLeft: "12px",
                 paddingRight: "12px",
                 borderLeft: active
-                  ? "2px solid rgba(200,162,77,0.55)"
+                  ? "2px solid rgba(200,162,77,0.70)"
                   : "2px solid transparent",
-                background: active ? "rgba(200,162,77,0.07)" : "transparent",
+                background: active
+                  ? "rgba(200,162,77,0.10)"
+                  : "transparent",
                 color: active
-                  ? "rgba(200,162,77,0.90)"
-                  : "rgba(232,224,208,0.40)",
+                  ? "rgba(200,162,77,0.95)"
+                  : "rgba(232,224,208,0.45)",
               }}
             >
-              <span className="shrink-0" style={{ opacity: active ? 1 : 0.65 }}>
+              <span className="shrink-0" style={{ opacity: active ? 1 : 0.6 }}>
                 {item.icon}
               </span>
               {item.label}
@@ -154,7 +156,7 @@ export default function AdminSidebar() {
           height: "1px",
           margin: "0 16px",
           background:
-            "linear-gradient(90deg, transparent, rgba(200,162,77,0.08), transparent)",
+            "linear-gradient(90deg, transparent, rgba(200,162,77,0.20), transparent)",
         }}
       />
 
@@ -167,7 +169,7 @@ export default function AdminSidebar() {
           style={{
             paddingLeft: "12px",
             paddingRight: "12px",
-            color: "rgba(200,162,77,0.30)",
+            color: "rgba(200,162,77,0.35)",
             borderLeft: "2px solid transparent",
           }}
         >

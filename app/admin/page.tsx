@@ -55,10 +55,10 @@ type Order = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  paid: "rgba(42,124,123,0.75)",
-  shipped: "rgba(200,162,77,0.80)",
-  delivered: "rgba(74,222,128,0.75)",
-  cancelled: "rgba(200,80,80,0.75)",
+  paid: "rgba(42,124,123,0.85)",
+  shipped: "rgba(200,162,77,0.90)",
+  delivered: "rgba(74,222,128,0.85)",
+  cancelled: "rgba(200,80,80,0.85)",
 };
 const STATUS_LABELS: Record<string, string> = {
   paid: "Payé",
@@ -67,22 +67,21 @@ const STATUS_LABELS: Record<string, string> = {
   cancelled: "Annulé",
 };
 
+const CARD_STYLE = {
+  background: "rgba(6,14,7,0.28)",
+  backdropFilter: "blur(24px)",
+  WebkitBackdropFilter: "blur(24px)",
+  border: "1px solid rgba(200,162,77,0.75)",
+  borderRadius: "16px",
+} as const;
+
 export default async function AdminDashboard() {
   const stats = await getStats();
 
   return (
-    <div className="p-8 min-h-screen" style={{ background: "#060e07" }}>
-      {/* Halo subtil */}
-      <div
-        className="fixed inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 50% at 60% 30%, rgba(200,162,77,0.03) 0%, transparent 70%)",
-        }}
-      />
-
+    <div className="p-8">
       {/* En-tête */}
-      <div className="relative mb-10">
+      <div className="mb-10">
         <p
           className="font-serif uppercase tracking-[0.35em] mb-1"
           style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}
@@ -100,30 +99,17 @@ export default async function AdminDashboard() {
           style={{
             width: 40,
             height: 1,
-            background:
-              "linear-gradient(90deg, rgba(200,162,77,0.40), transparent)",
+            background: "linear-gradient(90deg, rgba(200,162,77,0.50), transparent)",
           }}
         />
       </div>
 
       {/* Cartes stats */}
-      <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
         {[
-          {
-            label: "Commandes",
-            value: stats.totalOrders,
-            sub: "au total",
-          },
-          {
-            label: "Chiffre d'affaires",
-            value: fmt(stats.totalRevenue),
-            sub: "toutes commandes",
-          },
-          {
-            label: "Abonnés",
-            value: stats.subscribers,
-            sub: "à la newsletter",
-          },
+          { label: "Commandes", value: stats.totalOrders, sub: "au total" },
+          { label: "Chiffre d'affaires", value: fmt(stats.totalRevenue), sub: "toutes commandes" },
+          { label: "Abonnés", value: stats.subscribers, sub: "à la newsletter" },
           {
             label: "Messages",
             value: stats.unreadMessages,
@@ -131,33 +117,17 @@ export default async function AdminDashboard() {
             highlight: stats.unreadMessages > 0,
           },
         ].map((card) => (
-          <div
-            key={card.label}
-            style={{
-              background: "rgba(6,14,7,0.38)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(200,162,77,0.12)",
-              borderRadius: "16px",
-              padding: "1.4rem 1.5rem 1.5rem",
-            }}
-          >
+          <div key={card.label} style={{ ...CARD_STYLE, padding: "1.4rem 1.5rem 1.5rem" }}>
             <p
               className="font-serif uppercase"
-              style={{
-                fontSize: "0.53rem",
-                letterSpacing: "0.25em",
-                color: "rgba(200,162,77,0.38)",
-                marginBottom: "0.6rem",
-              }}
+              style={{ fontSize: "0.53rem", letterSpacing: "0.25em", color: "rgba(200,162,77,0.50)", marginBottom: "0.6rem" }}
             >
               {card.label}
             </p>
             <div
               style={{
                 height: 1,
-                background:
-                  "linear-gradient(90deg, rgba(200,162,77,0.12), transparent)",
+                background: "linear-gradient(90deg, rgba(200,162,77,0.20), transparent)",
                 marginBottom: "0.75rem",
               }}
             />
@@ -165,9 +135,7 @@ export default async function AdminDashboard() {
               className="font-serif"
               style={{
                 fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)",
-                color: card.highlight
-                  ? "rgba(200,162,77,0.90)"
-                  : "rgba(232,224,208,0.88)",
+                color: card.highlight ? "rgba(200,162,77,0.95)" : "rgba(232,224,208,0.90)",
                 letterSpacing: "0.02em",
                 lineHeight: 1,
               }}
@@ -175,13 +143,7 @@ export default async function AdminDashboard() {
               {card.value}
             </p>
             {card.sub && (
-              <p
-                className="mt-1.5"
-                style={{
-                  fontSize: "0.65rem",
-                  color: "rgba(232,224,208,0.28)",
-                }}
-              >
+              <p className="mt-1.5" style={{ fontSize: "0.65rem", color: "rgba(232,224,208,0.30)" }}>
                 {card.sub}
               </p>
             )}
@@ -190,43 +152,23 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Dernières commandes */}
-      <div className="relative">
-        <div className="mb-5">
-          <p
-            className="font-serif uppercase tracking-[0.28em]"
-            style={{ fontSize: "0.55rem", color: "rgba(200,162,77,0.38)" }}
-          >
-            Dernières commandes
-          </p>
-        </div>
-
-        <div
-          style={{
-            background: "rgba(6,14,7,0.32)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "1px solid rgba(200,162,77,0.10)",
-            borderRadius: "16px",
-            overflow: "hidden",
-          }}
+      <div>
+        <p
+          className="font-serif uppercase tracking-[0.28em] mb-5"
+          style={{ fontSize: "0.55rem", color: "rgba(200,162,77,0.40)" }}
         >
+          Dernières commandes
+        </p>
+
+        <div style={{ ...CARD_STYLE, overflow: "hidden" }}>
           <table className="w-full text-sm">
             <thead>
-              <tr
-                style={{
-                  borderBottom: "1px solid rgba(200,162,77,0.07)",
-                }}
-              >
+              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.15)" }}>
                 {["Date", "Client", "Montant", "Statut"].map((h) => (
                   <th
                     key={h}
                     className="px-6 py-4 text-left font-serif uppercase"
-                    style={{
-                      fontSize: "0.5rem",
-                      letterSpacing: "0.22em",
-                      color: "rgba(200,162,77,0.32)",
-                      fontWeight: 400,
-                    }}
+                    style={{ fontSize: "0.5rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.40)", fontWeight: 400 }}
                   >
                     {h}
                   </th>
@@ -236,11 +178,7 @@ export default async function AdminDashboard() {
             <tbody>
               {stats.recent.length === 0 && (
                 <tr>
-                  <td
-                    colSpan={4}
-                    className="px-6 py-10 text-center"
-                    style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}
-                  >
+                  <td colSpan={4} className="px-6 py-10 text-center" style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}>
                     Aucune commande pour le moment
                   </td>
                 </tr>
@@ -248,29 +186,15 @@ export default async function AdminDashboard() {
               {stats.recent.map((order: Order, i: number) => (
                 <tr
                   key={order.id}
-                  style={{
-                    borderBottom:
-                      i < stats.recent.length - 1
-                        ? "1px solid rgba(200,162,77,0.05)"
-                        : "none",
-                  }}
+                  style={{ borderBottom: i < stats.recent.length - 1 ? "1px solid rgba(200,162,77,0.08)" : "none" }}
                 >
-                  <td
-                    className="px-6 py-4"
-                    style={{ color: "rgba(232,224,208,0.40)", fontSize: "0.8rem" }}
-                  >
+                  <td className="px-6 py-4" style={{ color: "rgba(232,224,208,0.40)", fontSize: "0.8rem" }}>
                     {new Date(order.created_at).toLocaleDateString("fr-FR")}
                   </td>
-                  <td
-                    className="px-6 py-4"
-                    style={{ color: "rgba(232,224,208,0.80)", fontSize: "0.82rem" }}
-                  >
+                  <td className="px-6 py-4" style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.82rem" }}>
                     {order.customer_name ?? order.customer_email}
                   </td>
-                  <td
-                    className="px-6 py-4 font-medium"
-                    style={{ color: "rgba(232,224,208,0.88)", fontSize: "0.82rem" }}
-                  >
+                  <td className="px-6 py-4 font-medium" style={{ color: "rgba(232,224,208,0.90)", fontSize: "0.82rem" }}>
                     {fmt(order.total_amount_cents)}
                   </td>
                   <td className="px-6 py-4">
@@ -280,7 +204,7 @@ export default async function AdminDashboard() {
                         borderRadius: "6px",
                         background: `${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}22`,
                         color: STATUS_COLORS[order.status] ?? "rgba(232,224,208,0.50)",
-                        border: `1px solid ${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}44`,
+                        border: `1px solid ${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}55`,
                       }}
                     >
                       {STATUS_LABELS[order.status] ?? order.status}
