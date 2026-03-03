@@ -4,13 +4,10 @@ import { useEffect, useState } from "react";
 
 type Subscriber = { id: string; email: string; created_at: string; status?: string };
 
-const CARD_STYLE = {
-  background: "rgba(6,14,7,0.28)",
-  backdropFilter: "blur(24px)",
-  WebkitBackdropFilter: "blur(24px)",
-  border: "1px solid rgba(200,162,77,0.75)",
-  borderRadius: "16px",
-} as const;
+const CARD = { background: "rgba(6,14,7,0.28)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", border: "1px solid rgba(200,162,77,0.75)", borderRadius: "20px", overflow: "hidden" } as const;
+const HEADER_ZONE = { background: "radial-gradient(ellipse 70% 100% at 0% 50%, rgba(200,162,77,0.07) 0%, rgba(42,124,59,0.03) 55%, transparent 90%)" } as const;
+const SEP = { height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.20), transparent)" } as const;
+const SEP_LEFT = { height: "1px", background: "linear-gradient(90deg, rgba(200,162,77,0.18), transparent)" } as const;
 
 export default function NewsletterPage() {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -38,77 +35,114 @@ export default function NewsletterPage() {
   const filtered = subscribers.filter((s) => s.email.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <div className="p-8">
-      {/* En-tête */}
-      <div className="mb-8">
-        <p className="font-serif uppercase tracking-[0.35em] mb-1" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.40)" }}>
-          ✦ Abonnés
-        </p>
-        <div className="flex items-end justify-between">
-          <h1 className="font-serif text-gold" style={{ fontSize: "clamp(1.3rem, 2vw, 1.75rem)", letterSpacing: "0.06em" }}>
+    <div style={CARD}>
+
+      {/* Header */}
+      <div style={{ ...HEADER_ZONE, padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div>
+          <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.50)" }}>
+            Abonnés
+          </p>
+          <div style={{ ...SEP_LEFT, marginTop: "0.35rem", marginBottom: "0.35rem" }} />
+          <p className="font-serif text-gold" style={{ fontSize: "1.15rem", letterSpacing: "0.04em" }}>
             Newsletter
-          </h1>
-          <div className="flex items-center gap-4">
-            <span style={{ fontSize: "0.7rem", color: "rgba(232,224,208,0.28)" }}>
-              {subscribers.length} abonné{subscribers.length !== 1 ? "s" : ""}
-            </span>
-            <button
-              type="button"
-              onClick={exportCSV}
-              className="px-4 py-1.5 transition-all"
-              style={{ borderRadius: "8px", border: "1px solid rgba(200,162,77,0.40)", color: "rgba(200,162,77,0.70)", fontSize: "0.72rem", background: "rgba(6,14,7,0.28)", backdropFilter: "blur(12px)" }}
-            >
-              Exporter CSV
-            </button>
-          </div>
+          </p>
         </div>
-        <div className="mt-3" style={{ width: 40, height: 1, background: "linear-gradient(90deg, rgba(200,162,77,0.50), transparent)" }} />
+        <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
+          <p style={{ fontSize: "0.68rem", color: "rgba(232,224,208,0.22)" }}>
+            {subscribers.length} abonné{subscribers.length !== 1 ? "s" : ""}
+          </p>
+          <button
+            type="button"
+            onClick={exportCSV}
+            style={{
+              padding: "5px 14px",
+              borderRadius: "8px",
+              border: "1px solid rgba(200,162,77,0.30)",
+              color: "rgba(200,162,77,0.60)",
+              fontSize: "0.68rem",
+              background: "rgba(6,14,7,0.40)",
+              backdropFilter: "blur(8px)",
+              letterSpacing: "0.04em",
+            }}
+          >
+            Exporter CSV
+          </button>
+        </div>
       </div>
+      <div style={SEP} />
 
       {/* Recherche */}
-      <div className="mb-6">
+      <div style={{ padding: "1rem 1.75rem", borderBottom: "1px solid rgba(200,162,77,0.07)" }}>
         <input
           type="text"
           placeholder="Rechercher un email…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full max-w-sm text-sm focus:outline-none transition-colors placeholder:text-cream-muted/20 border border-gold/30 focus:border-gold/60"
-          style={{ background: "rgba(6,14,7,0.45)", borderRadius: "10px", padding: "10px 16px", color: "rgba(232,224,208,0.75)", fontSize: "0.8rem", backdropFilter: "blur(12px)" }}
+          className="focus:outline-none transition-colors placeholder:text-cream-muted/20 border border-gold/20 focus:border-gold/40"
+          style={{
+            background: "rgba(6,14,7,0.50)",
+            borderRadius: "10px",
+            padding: "8px 14px",
+            color: "rgba(232,224,208,0.75)",
+            fontSize: "0.80rem",
+            width: "100%",
+            maxWidth: "340px",
+          }}
         />
       </div>
 
       {/* Tableau */}
-      <div style={{ ...CARD_STYLE, overflow: "hidden" }}>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.15)" }}>
-                {["Email", "Date d'inscription", "Statut"].map((h) => (
-                  <th key={h} className="px-6 py-4 text-left font-serif uppercase" style={{ fontSize: "0.5rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.40)", fontWeight: 400 }}>
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {loading && <tr><td colSpan={3} className="px-6 py-10 text-center" style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}>Chargement…</td></tr>}
-              {!loading && filtered.length === 0 && <tr><td colSpan={3} className="px-6 py-10 text-center" style={{ color: "rgba(232,224,208,0.25)", fontSize: "0.8rem" }}>Aucun abonné</td></tr>}
-              {!loading && filtered.map((sub, i) => (
-                <tr key={sub.id} style={{ borderBottom: i < filtered.length - 1 ? "1px solid rgba(200,162,77,0.08)" : "none" }}>
-                  <td className="px-6 py-4" style={{ color: "rgba(232,224,208,0.80)", fontSize: "0.82rem" }}>{sub.email}</td>
-                  <td className="px-6 py-4" style={{ color: "rgba(232,224,208,0.38)", fontSize: "0.8rem" }}>
-                    {new Date(sub.created_at).toLocaleDateString("fr-FR")}
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-block px-2.5 py-0.5 text-xs font-medium" style={{ borderRadius: "6px", background: "rgba(42,124,123,0.15)", color: "rgba(42,200,195,0.85)", border: "1px solid rgba(42,124,123,0.35)" }}>
-                      {sub.status ?? "actif"}
-                    </span>
-                  </td>
-                </tr>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
+              {["Email", "Date d'inscription", "Statut"].map((h) => (
+                <th
+                  key={h}
+                  className="text-left font-serif uppercase"
+                  style={{ fontSize: "0.5rem", letterSpacing: "0.22em", color: "rgba(200,162,77,0.38)", fontWeight: 400, padding: "1rem 1.75rem" }}
+                >
+                  {h}
+                </th>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </tr>
+          </thead>
+          <tbody>
+            {loading && (
+              <tr><td colSpan={3} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</td></tr>
+            )}
+            {!loading && filtered.length === 0 && (
+              <tr><td colSpan={3} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun abonné</td></tr>
+            )}
+            {!loading && filtered.map((sub, i) => (
+              <tr key={sub.id} style={{ borderBottom: i < filtered.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none" }}>
+                <td style={{ padding: "1.1rem 1.75rem", color: "rgba(232,224,208,0.80)", fontSize: "0.82rem" }}>
+                  {sub.email}
+                </td>
+                <td style={{ padding: "1.1rem 1.75rem", color: "rgba(232,224,208,0.38)", fontSize: "0.79rem" }}>
+                  {new Date(sub.created_at).toLocaleDateString("fr-FR")}
+                </td>
+                <td style={{ padding: "1.1rem 1.75rem" }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      padding: "2px 10px",
+                      borderRadius: "6px",
+                      fontSize: "0.72rem",
+                      fontWeight: 500,
+                      background: "rgba(42,124,123,0.15)",
+                      color: "rgba(42,200,195,0.85)",
+                      border: "1px solid rgba(42,124,123,0.30)",
+                    }}
+                  >
+                    {sub.status ?? "actif"}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import AdminSidebar from "./AdminSidebar";
+import AdminNav from "./AdminNav";
 
 export const metadata: Metadata = {
   title: "Administration — Bô Kay Mwen",
   robots: { index: false, follow: false },
 };
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="relative min-h-screen flex">
-      {/* Image de fond fixe */}
+    <div style={{ minHeight: "100vh", background: "#060e07" }}>
+
+      {/* Fond fixe */}
       <div className="fixed inset-0" style={{ zIndex: 0 }}>
         <Image
           src="/images/spirits.jpg"
@@ -24,12 +21,7 @@ export default function AdminLayout({
           sizes="100vw"
           priority
         />
-        {/* Voile sombre */}
-        <div
-          className="absolute inset-0"
-          style={{ background: "rgba(4,12,6,0.82)" }}
-        />
-        {/* Halo gold central */}
+        <div className="absolute inset-0" style={{ background: "rgba(4,12,6,0.82)" }} />
         <div
           className="absolute inset-0"
           style={{
@@ -39,14 +31,16 @@ export default function AdminLayout({
         />
       </div>
 
+      {/* Barre de navigation */}
+      <AdminNav />
+
       {/* Contenu */}
-      <div
-        className="relative flex min-h-screen w-full"
-        style={{ zIndex: 10 }}
-      >
-        <AdminSidebar />
-        <main className="flex-1 overflow-auto">{children}</main>
+      <div className="relative" style={{ zIndex: 10, paddingTop: "64px" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 1.5rem" }}>
+          {children}
+        </div>
       </div>
+
     </div>
   );
 }
