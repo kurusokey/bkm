@@ -16,6 +16,15 @@ const HEADER_ZONE = { background: "radial-gradient(ellipse 70% 100% at 0% 50%, r
 const SEP = { height: "1px", background: "linear-gradient(90deg, transparent, rgba(200,162,77,0.20), transparent)" } as const;
 const SEP_LEFT = { height: "1px", background: "linear-gradient(90deg, rgba(200,162,77,0.18), transparent)" } as const;
 
+function StatusBadge({ status }: { status: string }) {
+  const color = STATUS_COLORS[status] ?? "rgba(200,162,77,0.50)";
+  return (
+    <span style={{ display: "inline-block", padding: "2px 8px", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 500, background: `${color}22`, color, border: `1px solid ${color}55`, whiteSpace: "nowrap" }}>
+      {STATUS_LABELS[status] ?? status}
+    </span>
+  );
+}
+
 export default function MessagesPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,6 +52,12 @@ export default function MessagesPage() {
     setUpdating(null);
   }
 
+  function selectMsg(msg: Message) {
+    const status = msg.status ?? "unread";
+    setSelected(msg);
+    if (status === "unread") setStatus(msg, "read");
+  }
+
   const unread = messages.filter((m) => !m.status || m.status === "unread").length;
 
   return (
@@ -52,22 +67,22 @@ export default function MessagesPage() {
       <div style={{ flex: 1, ...CARD }}>
 
         {/* Header */}
-        <div style={{ ...HEADER_ZONE, padding: "1.5rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ ...HEADER_ZONE, padding: "1.5rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.50)" }}>
+            <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.55rem", color: "rgba(200,162,77,0.50)" }}>
               Contact
             </p>
             <div style={{ ...SEP_LEFT, marginTop: "0.35rem", marginBottom: "0.35rem" }} />
-            <p className="font-serif text-gold" style={{ fontSize: "1.15rem", letterSpacing: "0.04em" }}>
+            <p className="font-serif text-gold" style={{ fontSize: "1.1rem", letterSpacing: "0.04em" }}>
               Messages
             </p>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <p style={{ fontSize: "0.68rem", color: "rgba(232,224,208,0.22)" }}>
-              {messages.length} message{messages.length !== 1 ? "s" : ""}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <p style={{ fontSize: "0.65rem", color: "rgba(232,224,208,0.22)" }}>
+              {messages.length} msg
             </p>
             {unread > 0 && (
-              <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: "6px", fontSize: "0.68rem", fontWeight: 500, background: "rgba(200,162,77,0.10)", color: "rgba(200,162,77,0.90)", border: "1px solid rgba(200,162,77,0.30)" }}>
+              <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 500, background: "rgba(200,162,77,0.10)", color: "rgba(200,162,77,0.90)", border: "1px solid rgba(200,162,77,0.30)" }}>
                 {unread} non lu{unread !== 1 ? "s" : ""}
               </span>
             )}
@@ -75,8 +90,43 @@ export default function MessagesPage() {
         </div>
         <div style={SEP} />
 
-        {/* Tableau */}
-        <div className="overflow-x-auto">
+        {/* ── Vue mobile : liste de cartes ── */}
+        <div className="md:hidden">
+          {loading && <p style={{ padding: "3rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</p>}
+          {!loading && messages.length === 0 && <p style={{ padding: "3rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun message</p>}
+          {!loading && messages.map((msg, i) => {
+            const status = msg.status ?? "unread";
+            const isUnread = status === "unread";
+            return (
+              <div
+                key={msg.id}
+                onClick={() => selectMsg(msg)}
+                className="cursor-pointer"
+                style={{
+                  padding: "1rem 1.5rem",
+                  borderBottom: i < messages.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+                  background: selected?.id === msg.id ? "rgba(200,162,77,0.04)" : "transparent",
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.75rem", marginBottom: "0.35rem" }}>
+                  <p style={{ color: isUnread ? "rgba(232,224,208,0.90)" : "rgba(232,224,208,0.45)", fontSize: "0.82rem", fontWeight: isUnread ? 500 : 400, flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {msg.name}
+                  </p>
+                  <StatusBadge status={status} />
+                </div>
+                <p style={{ color: isUnread ? "rgba(232,224,208,0.60)" : "rgba(232,224,208,0.28)", fontSize: "0.75rem", marginBottom: "0.2rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {msg.subject ?? "(sans sujet)"}
+                </p>
+                <p style={{ color: "rgba(232,224,208,0.20)", fontSize: "0.68rem" }}>
+                  {new Date(msg.created_at).toLocaleDateString("fr-FR")}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* ── Vue desktop : tableau ── */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
@@ -100,7 +150,7 @@ export default function MessagesPage() {
                 return (
                   <tr
                     key={msg.id}
-                    onClick={() => { setSelected(msg); if (status === "unread") setStatus(msg, "read"); }}
+                    onClick={() => selectMsg(msg)}
                     className="cursor-pointer"
                     style={{
                       borderBottom: i < messages.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
@@ -119,9 +169,7 @@ export default function MessagesPage() {
                       {new Date(msg.created_at).toLocaleDateString("fr-FR")}
                     </td>
                     <td style={{ padding: "1.1rem 1.75rem" }}>
-                      <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: "6px", fontSize: "0.70rem", fontWeight: 500, background: `${STATUS_COLORS[status] ?? "rgba(200,162,77,0.12)"}22`, color: STATUS_COLORS[status] ?? "rgba(232,224,208,0.45)", border: `1px solid ${STATUS_COLORS[status] ?? "rgba(200,162,77,0.12)"}55` }}>
-                        {STATUS_LABELS[status] ?? status}
-                      </span>
+                      <StatusBadge status={status} />
                     </td>
                     <td style={{ padding: "1.1rem 1.75rem" }}>
                       <span style={{ display: "flex", gap: "0.75rem" }}>

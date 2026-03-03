@@ -49,6 +49,27 @@ const SEP = { height: "1px", background: "linear-gradient(90deg, transparent, rg
 const SEP_LEFT = { height: "1px", background: "linear-gradient(90deg, rgba(200,162,77,0.18), transparent)" } as const;
 const HEADER_ZONE = { background: "radial-gradient(ellipse 70% 100% at 0% 50%, rgba(200,162,77,0.07) 0%, rgba(42,124,59,0.03) 55%, transparent 90%)" } as const;
 
+function StatusBadge({ status }: { status: string }) {
+  const color = STATUS_COLORS[status] ?? "rgba(200,162,77,0.50)";
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        padding: "2px 10px",
+        borderRadius: "6px",
+        fontSize: "0.70rem",
+        fontWeight: 500,
+        background: `${color}22`,
+        color,
+        border: `1px solid ${color}55`,
+        whiteSpace: "nowrap",
+      }}
+    >
+      {STATUS_LABELS[status] ?? status}
+    </span>
+  );
+}
+
 export default async function AdminDashboard() {
   const stats = await getStats();
 
@@ -71,10 +92,10 @@ export default async function AdminDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {STAT_CARDS.map((card) => (
           <div key={card.label} style={CARD}>
-            <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>
+            <div style={{ padding: "1.25rem 1.25rem 1.5rem" }}>
               <p
-                className="font-serif uppercase tracking-[0.28em]"
-                style={{ fontSize: "0.50rem", color: "rgba(200,162,77,0.45)", marginBottom: "0.6rem" }}
+                className="font-serif uppercase tracking-[0.20em]"
+                style={{ fontSize: "0.48rem", color: "rgba(200,162,77,0.45)", marginBottom: "0.6rem" }}
               >
                 {card.label}
               </p>
@@ -82,7 +103,7 @@ export default async function AdminDashboard() {
               <p
                 className="font-serif"
                 style={{
-                  fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)",
+                  fontSize: "clamp(1.2rem, 4vw, 1.9rem)",
                   color: card.highlight ? "rgba(200,162,77,0.95)" : "rgba(232,224,208,0.92)",
                   lineHeight: 1,
                   letterSpacing: "0.02em",
@@ -90,7 +111,7 @@ export default async function AdminDashboard() {
               >
                 {card.value}
               </p>
-              <p style={{ fontSize: "0.60rem", color: "rgba(232,224,208,0.22)", marginTop: "0.4rem" }}>
+              <p style={{ fontSize: "0.58rem", color: "rgba(232,224,208,0.22)", marginTop: "0.4rem" }}>
                 {card.sup}
               </p>
             </div>
@@ -102,24 +123,61 @@ export default async function AdminDashboard() {
       <div style={CARD}>
 
         {/* Header */}
-        <div style={{ ...HEADER_ZONE, padding: "1.25rem 1.75rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ ...HEADER_ZONE, padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div>
-            <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.58rem", color: "rgba(200,162,77,0.50)" }}>
+            <p className="font-serif uppercase tracking-[0.38em]" style={{ fontSize: "0.55rem", color: "rgba(200,162,77,0.50)" }}>
               Aperçu
             </p>
             <div style={{ ...SEP_LEFT, marginTop: "0.35rem", marginBottom: "0.35rem" }} />
-            <p className="font-serif text-gold" style={{ fontSize: "1.05rem", letterSpacing: "0.04em" }}>
+            <p className="font-serif text-gold" style={{ fontSize: "1rem", letterSpacing: "0.04em" }}>
               Dernières commandes
             </p>
           </div>
-          <p style={{ fontSize: "0.68rem", color: "rgba(232,224,208,0.22)" }}>
+          <p style={{ fontSize: "0.65rem", color: "rgba(232,224,208,0.22)" }}>
             {stats.totalOrders} au total
           </p>
         </div>
         <div style={SEP} />
 
-        {/* Tableau */}
-        <div className="overflow-x-auto">
+        {/* ── Vue mobile : liste de cartes ── */}
+        <div className="md:hidden">
+          {stats.recent.length === 0 && (
+            <p style={{ padding: "2.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>
+              Aucune commande pour le moment
+            </p>
+          )}
+          {stats.recent.map((order: Order, i: number) => (
+            <div
+              key={order.id}
+              style={{
+                padding: "1rem 1.5rem",
+                borderBottom: i < stats.recent.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                gap: "0.75rem",
+              }}
+            >
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.82rem", marginBottom: "0.2rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {order.customer_name ?? order.customer_email}
+                </p>
+                <p style={{ color: "rgba(232,224,208,0.32)", fontSize: "0.70rem" }}>
+                  {new Date(order.created_at).toLocaleDateString("fr-FR")}
+                </p>
+              </div>
+              <div style={{ textAlign: "right", flexShrink: 0 }}>
+                <p style={{ color: "rgba(232,224,208,0.92)", fontSize: "0.82rem", fontWeight: 500, marginBottom: "0.3rem" }}>
+                  {fmt(order.total_amount_cents)}
+                </p>
+                <StatusBadge status={order.status} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Vue desktop : tableau ── */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
@@ -157,26 +215,14 @@ export default async function AdminDashboard() {
                     {fmt(order.total_amount_cents)}
                   </td>
                   <td style={{ padding: "1.1rem 1.75rem" }}>
-                    <span
-                      style={{
-                        display: "inline-block",
-                        padding: "2px 10px",
-                        borderRadius: "6px",
-                        fontSize: "0.72rem",
-                        fontWeight: 500,
-                        background: `${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}22`,
-                        color: STATUS_COLORS[order.status] ?? "rgba(232,224,208,0.50)",
-                        border: `1px solid ${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}55`,
-                      }}
-                    >
-                      {STATUS_LABELS[order.status] ?? order.status}
-                    </span>
+                    <StatusBadge status={order.status} />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+
       </div>
 
     </div>
