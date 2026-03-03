@@ -27,6 +27,7 @@ export default function Header() {
     { href: '/coffrets', label: 'Coffrets' },
     { href: '/savoir-faire', label: 'Savoir-faire' },
     { href: '/a-propos', label: 'Notre histoire' },
+    { href: '/newsletter', label: 'Newsletter' },
     { href: '/contact', label: 'Contact' },
   ];
 

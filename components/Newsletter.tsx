@@ -38,17 +38,15 @@ export default function Newsletter() {
 
   return (
     <div className="text-center">
-      <p className="font-serif text-gold text-sm tracking-wider mb-2">
-        Reste branché
-      </p>
-      <p className="text-cream-muted/60 text-xs leading-relaxed mb-5">
-        Nouveautés, recettes et offres exclusives directement dans ta boîte mail.
+
+      <p className="text-cream-muted/60 text-xs leading-relaxed" style={{ marginBottom: '1.5rem' }}>
+        Nouveautés et offres exclusives directement dans ta boîte mail.
       </p>
 
       {status === 'success' ? (
         <p className="text-teal-light text-sm">Mèsi ! Ton inscription a bien été enregistrée.</p>
       ) : (
-        <form onSubmit={handleSubmit} className="flex gap-2 max-w-xs mx-auto">
+        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '0.5rem', maxWidth: '320px', margin: '0 auto' }}>
           <input
             type="email"
             required
@@ -56,12 +54,26 @@ export default function Newsletter() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Ton email"
             disabled={status === 'loading'}
-            className="flex-1 px-4 py-2.5 rounded-full text-sm bg-ink border border-gold-muted/20 text-cream placeholder:text-cream-muted/40 focus:outline-none focus:border-gold/50 transition-colors disabled:opacity-50"
+            className="flex-1 text-sm focus:outline-none transition-colors disabled:opacity-50"
+            style={{
+              padding: '0.6rem 1rem',
+              borderRadius: '9999px',
+              background: 'rgba(6,14,7,0.55)',
+              border: '1px solid rgba(200,162,77,0.65)',
+              color: 'rgba(232,224,208,0.9)',
+            }}
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-gold text-ink hover:bg-gold-light transition-colors disabled:opacity-50"
+            className="text-xs font-semibold uppercase tracking-wider disabled:opacity-50"
+            style={{
+              padding: '0.6rem 1.25rem',
+              borderRadius: '9999px',
+              background: '#C8A24D',
+              color: '#060e07',
+              flexShrink: 0,
+            }}
           >
             {status === 'loading' ? '…' : 'OK'}
           </button>
@@ -72,7 +84,7 @@ export default function Newsletter() {
         <p className="text-crimson-light text-xs mt-3">{errorMsg}</p>
       )}
 
-      <p className="text-cream-muted/30 text-[10px] mt-4 leading-relaxed">
+      <p className="text-cream-muted/30 text-[10px] leading-relaxed" style={{ marginTop: '1.5rem' }}>
         En t&apos;inscrivant, tu acceptes de recevoir nos communications. Désinscription possible à tout moment.
       </p>
     </div>

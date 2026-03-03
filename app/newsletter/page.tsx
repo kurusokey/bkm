@@ -1,0 +1,132 @@
+import type { Metadata } from 'next';
+import Image from 'next/image';
+import ScrollReveal from '@/components/ScrollReveal';
+import Newsletter from '@/components/Newsletter';
+
+export const metadata: Metadata = {
+  title: 'Newsletter — Bô Kay Mwen',
+  description: 'Inscris-toi à la newsletter Bô Kay Mwen : nouveautés, recettes et offres exclusives directement dans ta boîte mail.',
+  alternates: { canonical: 'https://blackbeard-umber.vercel.app/newsletter' },
+  openGraph: { url: 'https://blackbeard-umber.vercel.app/newsletter' },
+};
+
+export default function NewsletterPage() {
+  return (
+    <div style={{ background: '#060e07' }}>
+
+      <section
+        className="relative overflow-hidden flex items-center"
+        style={{ minHeight: '100vh' }}
+      >
+        {/* Fond */}
+        <Image
+          src="/images/hero-rum.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+
+        {/* Voile sombre */}
+        <div
+          className="absolute inset-0 z-[1]"
+          style={{ background: 'rgba(4,12,6,0.65)' }}
+        />
+
+        {/* Halo central */}
+        <div
+          className="absolute inset-0 z-[2]"
+          style={{
+            background:
+              'radial-gradient(ellipse 50% 55% at 50% 50%, rgba(200,162,77,0.04) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Contenu centré */}
+        <div
+          className="relative z-[5] w-full flex items-center justify-center px-6"
+          style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: '48px' }}
+        >
+          <div style={{ width: '100%', maxWidth: '440px' }}>
+            <ScrollReveal direction="up" distance={30} delay={60}>
+
+              {/* Carte glassmorphism */}
+              <div
+                style={{
+                  background: 'rgba(6,14,7,0.28)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
+                  border: '1px solid rgba(200,162,77,0.75)',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                }}
+              >
+                {/* Zone logo */}
+                <div
+                  style={{
+                    height: '200px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background:
+                      'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
+                  }}
+                >
+                  <Image
+                    src="/images/bkm_logo_header.png"
+                    alt="Bô Kay Mwen"
+                    width={180}
+                    height={180}
+                    style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
+                  />
+                </div>
+
+                {/* Séparateur */}
+                <div
+                  style={{
+                    height: '1px',
+                    background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.14), transparent)',
+                  }}
+                />
+
+                {/* Contenu */}
+                <div style={{ padding: '1.75rem 1.75rem 2rem' }}>
+                  <p
+                    className="font-serif uppercase tracking-[0.38em] mb-2"
+                    style={{ fontSize: '0.58rem', color: '#C8A24D' }}
+                  >
+                    Newsletter
+                  </p>
+
+                  <div
+                    style={{
+                      height: '1px',
+                      marginBottom: '1.5rem',
+                      background: 'linear-gradient(90deg, rgba(200,162,77,0.15), transparent)',
+                    }}
+                  />
+
+                  <Newsletter />
+                </div>
+
+              </div>
+
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* Mention légale */}
+      <div
+        className="text-center py-4 px-6"
+        style={{ borderTop: '1px solid rgba(200,162,77,0.06)' }}
+      >
+        <p style={{ fontSize: '0.68rem', color: 'rgba(232,224,208,0.14)' }}>
+          L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
+        </p>
+      </div>
+
+    </div>
+  );
+}
