@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/panier', '/acces-refuse'],
+        disallow: ['/api/', '/panier', '/acces-refuse', '/admin'],
       },
     ],
     sitemap: 'https://blackbeard-umber.vercel.app/sitemap.xml',
