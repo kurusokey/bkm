@@ -49,8 +49,8 @@ export default function ContactPage() {
 
         {/* Contenu — centré */}
         <div
-          className="relative z-[5] w-full flex items-center justify-center px-6"
-          style={{ minHeight: '100vh', paddingTop: '120px', paddingBottom: '48px' }}
+          className="relative z-[5] w-full flex items-start md:items-center justify-center px-6 pt-[88px] md:pt-[120px] pb-12"
+          style={{ minHeight: '100vh' }}
         >
           <div style={{ width: '100%', maxWidth: '440px' }}>
             <ScrollReveal direction="up" distance={30} delay={60}>
