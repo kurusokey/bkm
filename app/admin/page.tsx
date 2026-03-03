@@ -68,7 +68,7 @@ export default async function AdminDashboard() {
     <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
 
       {/* ── Cartes stats ── */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {STAT_CARDS.map((card) => (
           <div key={card.label} style={CARD}>
             <div style={{ padding: "1.25rem 1.5rem 1.5rem" }}>

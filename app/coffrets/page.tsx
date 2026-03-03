@@ -38,7 +38,7 @@ export default function CoffretsPage() {
   const coffrets = getAllProducts().filter((p) => p.category === 'coffret');
 
   return (
-    <div style={{ background: '#060e07' }}>
+    <div style={{ background: '#060e07', overflow: 'hidden', overscrollBehavior: 'none' }}>
 
       {/* ══════════════════════════════════════════════════════════
           COFFRETS — Dans le jardin, immédiatement

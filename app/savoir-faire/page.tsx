@@ -94,7 +94,7 @@ export default function SavoirFairePage() {
               />
               <h1
                 className="font-serif text-gold text-shadow-lg mb-5"
-                style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)', whiteSpace: 'nowrap' }}
+                style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}
               >
                 Notre savoir-faire
               </h1>
@@ -127,7 +127,7 @@ export default function SavoirFairePage() {
           alignItems: 'center',
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'flex-start', gap: '5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start', gap: '3rem' }}>
           {PILIERS.map(({ icon, title }) => (
             <div key={title} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', width: '90px' }}>
               {icon}
@@ -169,7 +169,7 @@ export default function SavoirFairePage() {
               </p>
               <h2
                 className="font-serif text-gold leading-tight mb-6"
-                style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', whiteSpace: 'nowrap' }}
+                style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)' }}
               >
                 L&apos;art de la macération
               </h2>
@@ -200,7 +200,7 @@ export default function SavoirFairePage() {
               </p>
               <h2
                 className="font-serif text-gold tracking-wide mb-4"
-                style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)', whiteSpace: 'nowrap' }}
+                style={{ fontSize: 'clamp(1.4rem, 3vw, 1.8rem)' }}
               >
                 De la terre à la bouteille
               </h2>

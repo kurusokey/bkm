@@ -46,7 +46,7 @@ export default function MessagesPage() {
   const unread = messages.filter((m) => !m.status || m.status === "unread").length;
 
   return (
-    <div style={{ display: "flex", gap: "1.25rem", alignItems: "flex-start" }}>
+    <div className="flex flex-col md:flex-row" style={{ gap: "1.25rem", alignItems: "flex-start" }}>
 
       {/* ── Liste ── */}
       <div style={{ flex: 1, ...CARD }}>
@@ -143,7 +143,7 @@ export default function MessagesPage() {
 
       {/* ── Prévisualisation ── */}
       {selected && (
-        <div style={{ width: "300px", flexShrink: 0, ...CARD }}>
+        <div className="w-full md:w-[300px] md:flex-shrink-0" style={CARD}>
 
           {/* Header */}
           <div style={{ ...HEADER_ZONE, padding: "1.25rem 1.5rem", display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
