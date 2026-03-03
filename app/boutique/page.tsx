@@ -76,7 +76,7 @@ export default function BoutiquePage() {
             width={220}
             height={220}
             className="mx-auto mb-4"
-            style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))' }}
+            style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', width: 'clamp(140px, 38vw, 220px)', height: 'auto' }}
             priority
           />
           <h1
@@ -122,7 +122,7 @@ export default function BoutiquePage() {
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {featured.map((product, i) => {
                 const price = (product.price_cents / 100).toFixed(2);
                 const shortName = product.name.replace(/^Punch\s+/i, '');

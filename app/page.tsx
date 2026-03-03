@@ -64,12 +64,12 @@ export default function Home() {
               width={300}
               height={300}
               className="mx-auto"
-              style={{ filter: 'drop-shadow(0 8px 40px rgba(200,162,77,0.3))' }}
+              style={{ filter: 'drop-shadow(0 8px 40px rgba(200,162,77,0.3))', width: 'clamp(180px, 45vw, 300px)', height: 'auto' }}
               priority
             />
           </ScrollReveal>
           <ScrollReveal delay={800} direction="up" distance={30} duration={1000}>
-            <p className="text-base md:text-lg lg:text-xl mx-auto mb-12 text-shadow-sm font-light whitespace-nowrap" style={{ color: '#C8A24D' }}>
+            <p className="text-base md:text-lg lg:text-xl mx-auto mb-12 text-shadow-sm font-light" style={{ color: '#C8A24D' }}>
               Le goût des îles dans une bouteille.
             </p>
           </ScrollReveal>

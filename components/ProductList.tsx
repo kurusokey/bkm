@@ -86,7 +86,7 @@ export default function ProductList({ products }: ProductListProps) {
             return (
               <ScrollReveal key={product.id} delay={index * 60} distance={24}>
                 <div
-                  className="group flex gap-3 sm:flex-col sm:gap-0 rounded-lg overflow-hidden transition-all duration-300"
+                  className="group flex flex-col rounded-lg overflow-hidden transition-all duration-300"
                   style={{
                     background: 'rgba(15, 26, 15, 0.5)',
                     border: '1px solid rgba(200, 162, 77, 0.1)',
@@ -102,7 +102,7 @@ export default function ProductList({ products }: ProductListProps) {
                   }}
                 >
                   {/* Image */}
-                  <Link href={`/produits/${product.slug}`} className="shrink-0 relative">
+                  <Link href={`/produits/${product.slug}`} className="relative">
                     {/* Badge rupture uniquement */}
                     {!inStock && (
                       <span
@@ -118,7 +118,7 @@ export default function ProductList({ products }: ProductListProps) {
                     )}
 
                     <div
-                      className="relative w-56 h-56 sm:w-full sm:h-auto overflow-hidden"
+                      className="relative w-full overflow-hidden"
                       style={{ aspectRatio: '3/4' }}
                     >
                       <Image
@@ -126,16 +126,16 @@ export default function ProductList({ products }: ProductListProps) {
                         alt={product.name}
                         fill
                         className="object-contain p-1 transition-transform duration-500 group-hover:scale-105"
-                        sizes="(min-width: 1024px) 380px, (min-width: 640px) 44vw, 224px"
+                        sizes="(min-width: 1024px) 380px, (min-width: 640px) 44vw, 100vw"
                       />
                     </div>
                   </Link>
 
                   {/* Infos */}
-                  <div className="flex-1 flex flex-col justify-center py-3 pr-4 sm:px-4 sm:py-4 min-w-0">
+                  <div className="flex flex-col px-4 py-4">
                     <Link href={`/produits/${product.slug}`}>
                       <h2
-                        className="font-serif text-gold leading-tight sm:text-center"
+                        className="font-serif text-gold leading-tight text-center"
                         style={{ fontSize: '1rem' }}
                       >
                         {shortName}
@@ -144,7 +144,7 @@ export default function ProductList({ products }: ProductListProps) {
 
                     {product.tagline && (
                       <p
-                        className="text-cream-muted italic sm:text-center mt-1"
+                        className="text-cream-muted italic text-center mt-1"
                         style={{ fontSize: '0.75rem' }}
                       >
                         {product.tagline}
@@ -152,7 +152,7 @@ export default function ProductList({ products }: ProductListProps) {
                     )}
 
                     {/* Méta : degré + volume */}
-                    <div className="flex gap-3 sm:justify-center mt-2">
+                    <div className="flex gap-3 justify-center mt-2">
                       {product.alcohol_degree != null && (
                         <span
                           className="text-cream-muted/60"
@@ -172,7 +172,7 @@ export default function ProductList({ products }: ProductListProps) {
                     </div>
 
                     <p
-                      className="text-warm-white font-semibold sm:text-center mt-2"
+                      className="text-warm-white font-semibold text-center mt-2"
                       style={{ fontSize: '0.95rem' }}
                     >
                       {price}&euro;
@@ -181,7 +181,7 @@ export default function ProductList({ products }: ProductListProps) {
                     <button
                       onClick={() => handleAdd(product)}
                       disabled={!inStock}
-                      className="mt-3 self-start sm:self-auto sm:w-full font-semibold uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="mt-3 w-full font-semibold uppercase transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
                       style={{
                         padding: '6px 12px',
                         fontSize: '0.65rem',

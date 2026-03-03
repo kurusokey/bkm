@@ -120,7 +120,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
         >
           <div
             className="mx-auto grid md:grid-cols-2 gap-10"
-            style={{ maxWidth: '960px', padding: '40px 32px 40px' }}
+            style={{ maxWidth: '960px', padding: '40px 20px 40px' }}
           >
             {/* Image produit */}
             <ScrollReveal direction="left" distance={40}>
@@ -323,7 +323,7 @@ export default function ProductClient({ product, relatedProducts = [] }: Product
               padding: '4rem 0 4.5rem',
             }}
           >
-            <div className="mx-auto" style={{ maxWidth: '960px', padding: '0 32px' }}>
+            <div className="mx-auto" style={{ maxWidth: '960px', padding: '0 20px' }}>
 
               {/* Titre */}
               <ScrollReveal direction="up" distance={20}>

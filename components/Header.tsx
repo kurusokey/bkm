@@ -100,7 +100,7 @@ export default function Header() {
         {/* Menu Mobile */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-400 ease-out ${
-            isMenuOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+            isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           <div className="mt-4 pb-4 border-t border-gold-muted/20 pt-4 space-y-4">

@@ -46,7 +46,7 @@ export default function Footer() {
         <div style={{ width: '40px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.4), transparent)' }} />
 
         {/* Navigation */}
-        <nav className="flex flex-wrap justify-center" style={{ gap: '32px' }}>
+        <nav className="flex flex-wrap justify-center" style={{ gap: '16px 28px' }}>
           {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}

@@ -90,7 +90,7 @@ export default function SavoirFairePage() {
                 alt="Bô Kay Mwen"
                 width={220}
                 height={220}
-                style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', marginBottom: '1.25rem' }}
+                style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', marginBottom: '1.25rem', width: 'clamp(140px, 38vw, 220px)', height: 'auto' }}
                 priority
               />
               <h1
@@ -122,13 +122,13 @@ export default function SavoirFairePage() {
       <section
         style={{
           background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)',
-          padding: '5rem 1.5rem',
+          padding: 'clamp(2.5rem, 8vw, 5rem) 1.5rem',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start', gap: '3rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-start', gap: 'clamp(1.5rem, 5vw, 3rem)' }}>
           {PILIERS.map(({ icon, title }) => (
             <div key={title} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', width: '90px' }}>
               {icon}
@@ -161,7 +161,7 @@ export default function SavoirFairePage() {
           style={{ background: 'linear-gradient(135deg, rgba(20,8,4,0.82) 0%, rgba(10,18,6,0.65) 100%)' }}
         />
 
-        <div style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '90vh', padding: '6rem 1.5rem' }}>
+        <div style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '90vh', padding: 'clamp(3rem, 8vw, 6rem) 1.5rem' }}>
           <div style={{ maxWidth: '560px', width: '100%', textAlign: 'center' }}>
             <ScrollReveal direction="up" distance={30}>
               <p className="font-serif uppercase tracking-[0.3em] mb-4"
@@ -190,7 +190,7 @@ export default function SavoirFairePage() {
           ④ DE LA TERRE À LA BOUTEILLE — épuré
       ══════════════════════════════════════════ */}
       <section
-        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)', padding: '6rem 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+        style={{ background: 'linear-gradient(180deg, #060e07 0%, #0D1A0D 100%)', padding: 'clamp(3rem, 8vw, 6rem) 1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
         <div style={{ width: '100%', maxWidth: '480px' }}>
           <ScrollReveal direction="up" distance={30}>
