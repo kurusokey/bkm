@@ -85,7 +85,11 @@ export default function Newsletter() {
       )}
 
       <p className="text-cream-muted/30 text-[10px] leading-relaxed" style={{ marginTop: '1.5rem' }}>
-        En t&apos;inscrivant, tu acceptes de recevoir nos communications. Désinscription possible à tout moment.
+        En t&apos;inscrivant, tu acceptes de recevoir nos communications.{' '}
+        <a href="/newsletter/desinscription" className="underline hover:text-cream-muted/60 transition-colors">
+          Désinscription
+        </a>{' '}
+        possible à tout moment.
       </p>
     </div>
   );
