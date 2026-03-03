@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import ScrollReveal from '@/components/ScrollReveal';
-import Newsletter from '@/components/Newsletter';
 
 export const metadata: Metadata = {
   title: 'Notre Savoir-Faire — L\'Art de la Macération Créole',
@@ -248,30 +247,8 @@ export default function SavoirFairePage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          NEWSLETTER
-      ══════════════════════════════════════════ */}
-      <section
-        className="flex flex-col items-center"
-        style={{ background: '#060e07', padding: '60px 24px 80px' }}
-      >
-        <div
-          style={{
-            width: '100%',
-            maxWidth: '420px',
-            background: 'rgba(6,14,7,0.6)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(200,162,77,0.12)',
-            borderRadius: '20px',
-            padding: '2.5rem 2rem',
-          }}
-        >
-          <Newsletter />
-        </div>
-      </section>
 
-      {/* Mention légale */}
+{/* Mention légale */}
       <div className="text-center py-4 px-6" style={{ borderTop: '1px solid rgba(200,162,77,0.07)' }}>
         <p style={{ fontSize: '0.68rem', color: 'rgba(232,224,208,0.14)' }}>
           L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
