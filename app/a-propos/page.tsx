@@ -37,9 +37,19 @@ export default function AProposPage() {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={400} direction="up" distance={40} duration={1000}>
-            <h1 className="font-serif text-2xl text-gold text-shadow-lg mb-5 tracking-wide">
-              Bô Kay Mwen
-            </h1>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <Image
+                src="/images/bkm_logo_header.png"
+                alt="Bô Kay Mwen"
+                width={220}
+                height={220}
+                style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', marginBottom: '1.25rem', width: 'clamp(140px, 38vw, 220px)', height: 'auto' }}
+                priority
+              />
+              <h1 className="font-serif text-gold text-shadow-lg mb-5 tracking-wide" style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}>
+                Bô Kay Mwen
+              </h1>
+            </div>
           </ScrollReveal>
           <ScrollReveal delay={600} direction="up" distance={20} duration={1000}>
             <div
