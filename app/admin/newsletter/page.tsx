@@ -191,7 +191,6 @@ export default function NewsletterPage() {
           </tbody>
         </table>
       </div>
-      </div>
     </div>
   );
 }

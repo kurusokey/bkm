@@ -222,7 +222,6 @@ export default function ProduitsPage() {
             </tbody>
           </table>
         </div>
-        </div>
       </div>
 
       {/* ── Modal ── */}
