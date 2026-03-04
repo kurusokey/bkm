@@ -54,10 +54,10 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-ink to-transparent z-[2]" />
 
         {/* Logo — centré dans la zone claire */}
-        <div className="flex-1 flex items-center justify-center relative z-10 px-6 pt-16">
+        <div className="flex-1 flex items-center justify-center relative z-10 px-6 pt-20">
           <div className="max-w-5xl mx-auto text-center">
             <ScrollReveal delay={200} direction="none" duration={1000}>
-              <div className="gold-line-wide mx-auto mb-8" />
+              <div className="gold-line-wide mx-auto mb-6 md:mb-8" />
             </ScrollReveal>
             <ScrollReveal delay={400} direction="up" distance={50} duration={1200}>
               <Image
@@ -66,7 +66,7 @@ export default function Home() {
                 width={300}
                 height={300}
                 className="mx-auto"
-                style={{ filter: 'drop-shadow(0 8px 40px rgba(200,162,77,0.3))', width: 'clamp(180px, 45vw, 300px)', height: 'auto' }}
+                style={{ filter: 'drop-shadow(0 8px 40px rgba(200,162,77,0.3))', width: 'clamp(160px, 42vw, 300px)', height: 'auto' }}
                 priority
               />
             </ScrollReveal>
@@ -74,9 +74,9 @@ export default function Home() {
         </div>
 
         {/* Tagline + bouton — bas de page, sur le fond sombre */}
-        <div className="relative z-10 text-center px-6 pb-16 md:pb-20">
+        <div className="relative z-10 text-center px-6 pb-10 md:pb-20">
           <ScrollReveal delay={800} direction="up" distance={30} duration={1000}>
-            <p className="text-base md:text-lg mx-auto mb-10 font-light text-shadow-lg" style={{ color: '#C8A24D' }}>
+            <p className="text-sm md:text-base lg:text-lg mx-auto mb-6 md:mb-10 font-light text-shadow-lg" style={{ color: '#C8A24D' }}>
               Le goût des îles dans une bouteille.
             </p>
           </ScrollReveal>

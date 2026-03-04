@@ -210,10 +210,10 @@ export default function CoffretsPage() {
                       )}
 
                       <div
-                        className="pt-4 flex items-center justify-between"
+                        className="pt-4 flex flex-col gap-3"
                         style={{ borderTop: '1px solid rgba(200,162,77,0.1)' }}
                       >
-                        <div>
+                        <div className="flex items-center justify-between">
                           <p
                             className="font-serif uppercase tracking-wider mb-0.5"
                             style={{ fontSize: '0.57rem', color: 'rgba(200,162,77,0.32)' }}
@@ -226,8 +226,8 @@ export default function CoffretsPage() {
                         </div>
                         <Link
                           href={`/produits/${coffret.slug}`}
-                          className="btn-luxury-filled"
-                          style={{ fontSize: '0.7rem' }}
+                          className="btn-luxury-filled text-center"
+                          style={{ fontSize: '0.75rem' }}
                         >
                           Offrir ce coffret
                         </Link>

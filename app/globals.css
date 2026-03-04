@@ -225,6 +225,14 @@ h3 {
   color: var(--ink);
 }
 
+@media (max-width: 639px) {
+  .btn-luxury,
+  .btn-luxury-filled {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.75rem;
+  }
+}
+
 /* ============================================
    MADRAS & MARCHÉ CRÉOLE
    ============================================ */
