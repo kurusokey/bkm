@@ -75,6 +75,7 @@ export default function SavoirFairePage() {
           className="absolute inset-0"
           style={{
             background: 'linear-gradient(180deg, rgba(4,12,6,0.2) 0%, rgba(4,12,6,0.35) 50%, rgba(6,14,7,0.95) 100%)',
+            pointerEvents: 'none',
           }}
         />
         <div className="relative z-10 text-center px-6 max-w-2xl mx-auto">
@@ -86,7 +87,7 @@ export default function SavoirFairePage() {
               Artisanat &bull; Patience &bull; Terroir
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Link href="/" aria-label="Accueil">
+              <Link href="/" aria-label="Accueil" style={{ display: 'block' }}>
                 <Image
                   src="/images/bkm_logo_header.png"
                   alt="Bô Kay Mwen"

@@ -75,7 +75,7 @@ export default function NewsletterPage() {
                       'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
                   }}
                 >
-                  <Link href="/" aria-label="Accueil">
+                  <Link href="/" aria-label="Accueil" style={{ display: 'block' }}>
                     <Image
                       src="/images/bkm_logo_header.png"
                       alt="Bô Kay Mwen"

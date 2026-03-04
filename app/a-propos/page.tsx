@@ -28,8 +28,8 @@ export default function AProposPage() {
           className="object-cover animate-slow-zoom"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/40 via-ink/20 to-ink z-[1]" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-ink to-transparent z-[2]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-900/40 via-ink/20 to-ink z-[1]" style={{ pointerEvents: 'none' }} />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-ink to-transparent z-[2]" style={{ pointerEvents: 'none' }} />
 
         <div className="relative z-10 text-center w-full px-6 pb-14">
           <ScrollReveal delay={200} direction="up" distance={30} duration={1000}>
@@ -39,7 +39,7 @@ export default function AProposPage() {
           </ScrollReveal>
           <ScrollReveal delay={400} direction="up" distance={40} duration={1000}>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Link href="/" aria-label="Accueil">
+              <Link href="/" aria-label="Accueil" style={{ display: 'block' }}>
                 <Image
                   src="/images/bkm_logo_header.png"
                   alt="Bô Kay Mwen"

@@ -54,7 +54,7 @@ export default function BoutiquePage() {
           }}
         >
           <div className="gold-line-wide mb-6" />
-          <Link href="/" aria-label="Accueil">
+          <Link href="/" aria-label="Accueil" style={{ display: 'block' }}>
             <Image
               src="/images/bkm_logo_header.png"
               alt="Bô Kay Mwen"
