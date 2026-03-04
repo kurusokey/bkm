@@ -87,13 +87,60 @@ export default function NewsletterPage() {
             color: "rgba(232,224,208,0.75)",
             fontSize: "0.80rem",
             width: "100%",
-            maxWidth: "340px",
+            maxWidth: "100%",
           }}
         />
       </div>
 
-      {/* Tableau */}
-      <div className="overflow-x-auto">
+      {/* ── Vue mobile : liste ── */}
+      <div className="md:hidden">
+        {loading && (
+          <p style={{ padding: "3.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</p>
+        )}
+        {!loading && filtered.length === 0 && (
+          <p style={{ padding: "3.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun abonné</p>
+        )}
+        {!loading && filtered.map((sub, i) => (
+          <div
+            key={sub.id}
+            style={{
+              padding: "0.85rem 1.25rem",
+              borderBottom: i < filtered.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "0.75rem",
+            }}
+          >
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.82rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {sub.email}
+              </p>
+              <p style={{ color: "rgba(232,224,208,0.30)", fontSize: "0.65rem", marginTop: "2px" }}>
+                {new Date(sub.created_at).toLocaleDateString("fr-FR")}
+              </p>
+            </div>
+            <span
+              style={{
+                display: "inline-block",
+                padding: "2px 10px",
+                borderRadius: "6px",
+                fontSize: "0.68rem",
+                fontWeight: 500,
+                background: "rgba(42,124,123,0.15)",
+                color: "rgba(42,200,195,0.85)",
+                border: "1px solid rgba(42,124,123,0.30)",
+                flexShrink: 0,
+              }}
+            >
+              {sub.status ?? "actif"}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Vue desktop : tableau ── */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
@@ -143,6 +190,7 @@ export default function NewsletterPage() {
             ))}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

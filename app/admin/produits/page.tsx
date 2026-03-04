@@ -112,8 +112,58 @@ export default function ProduitsPage() {
         </div>
         <div style={SEP} />
 
-        {/* Tableau */}
-        <div className="overflow-x-auto">
+        {/* ── Vue mobile : cartes ── */}
+        <div className="md:hidden">
+          {loading && (
+            <p style={{ padding: "3.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</p>
+          )}
+          {!loading && products.length === 0 && (
+            <p style={{ padding: "3.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun produit</p>
+          )}
+          {!loading && products.map((p, i) => (
+            <div
+              key={p.id}
+              style={{
+                padding: "1rem 1.25rem",
+                borderBottom: i < products.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ color: "rgba(232,224,208,0.85)", fontSize: "0.85rem", fontWeight: 500 }}>{p.name}</p>
+                  {p.tagline && <p style={{ color: "rgba(232,224,208,0.28)", fontSize: "0.68rem" }}>{p.tagline}</p>}
+                  <p style={{ color: "rgba(232,224,208,0.35)", fontSize: "0.72rem", marginTop: "2px", textTransform: "capitalize" }}>{p.category ?? "punch"}</p>
+                </div>
+                <p style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.88rem", fontWeight: 500, flexShrink: 0 }}>
+                  {fmt(p.price_cents)}
+                </p>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <button type="button" onClick={() => updateStock(p, -1)} style={{ width: 32, height: 32, borderRadius: "6px", border: "1px solid rgba(200,162,77,0.22)", color: "rgba(232,224,208,0.42)", fontSize: "0.9rem", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+                  <span style={{ minWidth: "2rem", textAlign: "center", fontSize: "0.82rem", fontWeight: 500, color: p.stock_quantity <= 2 ? "rgba(200,80,80,0.85)" : "rgba(232,224,208,0.82)" }}>
+                    {p.stock_quantity}
+                  </span>
+                  <button type="button" onClick={() => updateStock(p, 1)} style={{ width: 32, height: 32, borderRadius: "6px", border: "1px solid rgba(200,162,77,0.22)", color: "rgba(232,224,208,0.42)", fontSize: "0.9rem", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                  <button
+                    type="button"
+                    onClick={() => toggleActive(p)}
+                    aria-label={p.is_active ? "Désactiver" : "Activer"}
+                    style={{ position: "relative", width: 36, height: 20, borderRadius: "10px", background: p.is_active ? "rgba(200,162,77,0.75)" : "rgba(232,224,208,0.12)", transition: "background 0.2s" }}
+                  >
+                    <span style={{ position: "absolute", top: 2, width: 16, height: 16, borderRadius: "50%", background: "white", transition: "all 0.2s", ...(p.is_active ? { right: 2 } : { left: 2 }) }} />
+                  </button>
+                  <button type="button" onClick={() => openEdit(p)} style={{ fontSize: "0.75rem", color: "rgba(200,162,77,0.60)", letterSpacing: "0.05em" }}>Modifier</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Vue desktop : tableau ── */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
@@ -172,6 +222,7 @@ export default function ProduitsPage() {
             </tbody>
           </table>
         </div>
+        </div>
       </div>
 
       {/* ── Modal ── */}
@@ -209,7 +260,7 @@ export default function ProduitsPage() {
             <div style={SEP} />
 
             <form onSubmit={handleSave} style={{ padding: "1.5rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field id="f-id" label="ID" value={editing.id ?? ""} onChange={(v) => setEditing((p) => ({ ...p, id: v }))} required disabled={modal === "edit"} />
                 <Field id="f-slug" label="Slug" value={editing.slug ?? ""} onChange={(v) => setEditing((p) => ({ ...p, slug: v }))} required />
               </div>
@@ -219,15 +270,15 @@ export default function ProduitsPage() {
                 <label htmlFor="f-desc" className="block font-serif uppercase mb-1.5" style={LABEL}>Description</label>
                 <textarea id="f-desc" value={editing.description ?? ""} onChange={(e) => setEditing((p) => ({ ...p, description: e.target.value }))} rows={3} className="focus:outline-none resize-none" style={INPUT} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field id="f-price" label="Prix (centimes)" value={String(editing.price_cents ?? 0)} onChange={(v) => setEditing((p) => ({ ...p, price_cents: Number.parseInt(v, 10) || 0 }))} type="number" required />
                 <Field id="f-stock" label="Stock" value={String(editing.stock_quantity ?? 0)} onChange={(v) => setEditing((p) => ({ ...p, stock_quantity: Number.parseInt(v, 10) || 0 }))} type="number" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field id="f-alc" label="Degré alcool" value={String(editing.alcohol_degree ?? "")} onChange={(v) => setEditing((p) => ({ ...p, alcohol_degree: Number.parseFloat(v) || null }))} type="number" />
                 <Field id="f-vol-ml" label="Volume (ml)" value={String(editing.volume_ml ?? "")} onChange={(v) => setEditing((p) => ({ ...p, volume_ml: Number.parseInt(v, 10) || null }))} type="number" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field id="f-vol" label="Volume (ex: 70cl)" value={editing.volume ?? ""} onChange={(v) => setEditing((p) => ({ ...p, volume: v }))} />
                 <Field id="f-flavor" label="Saveur" value={editing.flavor ?? ""} onChange={(v) => setEditing((p) => ({ ...p, flavor: v }))} />
               </div>

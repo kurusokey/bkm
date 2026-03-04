@@ -36,7 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Contenu */}
       <div className="relative" style={{ zIndex: 10, paddingTop: "64px" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 1.5rem" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "clamp(1rem, 3vw, 2rem) clamp(0.75rem, 3vw, 1.5rem)" }}>
           {children}
         </div>
       </div>

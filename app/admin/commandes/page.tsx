@@ -112,8 +112,80 @@ export default function CommandesPage() {
         ))}
       </div>
 
-      {/* Tableau */}
-      <div className="overflow-x-auto">
+      {/* ── Vue mobile : cartes ── */}
+      <div className="md:hidden">
+        {loading && (
+          <p style={{ padding: "3.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</p>
+        )}
+        {!loading && orders.length === 0 && (
+          <p style={{ padding: "3.5rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucune commande</p>
+        )}
+        {!loading && orders.map((order, i) => (
+          <div
+            key={order.id}
+            style={{
+              padding: "1rem 1.25rem",
+              borderBottom: i < orders.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+            }}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ color: "rgba(232,224,208,0.82)", fontSize: "0.85rem", fontWeight: 500, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {order.customer_name ?? "—"}
+                </p>
+                <p style={{ color: "rgba(232,224,208,0.28)", fontSize: "0.68rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {order.customer_email}
+                </p>
+              </div>
+              <div style={{ textAlign: "right", flexShrink: 0 }}>
+                <p style={{ color: "rgba(232,224,208,0.90)", fontSize: "0.88rem", fontWeight: 500 }}>
+                  {fmt(order.total_amount_cents)}
+                </p>
+                <p style={{ color: "rgba(232,224,208,0.28)", fontSize: "0.65rem", marginTop: "2px" }}>
+                  {new Date(order.created_at).toLocaleDateString("fr-FR")}
+                </p>
+              </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  padding: "2px 10px",
+                  borderRadius: "6px",
+                  fontSize: "0.68rem",
+                  fontWeight: 500,
+                  background: `${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}22`,
+                  color: STATUS_COLORS[order.status] ?? "rgba(232,224,208,0.50)",
+                  border: `1px solid ${STATUS_COLORS[order.status] ?? "rgba(200,162,77,0.15)"}55`,
+                }}
+              >
+                {STATUS_LABELS[order.status] ?? order.status}
+              </span>
+              <select
+                value={order.status}
+                disabled={updating === order.id}
+                onChange={(e) => changeStatus(order.id, e.target.value)}
+                className="focus:outline-none disabled:opacity-40"
+                style={{
+                  background: "rgba(6,14,7,0.70)",
+                  border: "1px solid rgba(200,162,77,0.22)",
+                  borderRadius: "7px",
+                  color: "rgba(232,224,208,0.60)",
+                  fontSize: "0.75rem",
+                  padding: "5px 8px",
+                }}
+              >
+                {STATUSES.filter((s) => s.value).map((s) => (
+                  <option key={s.value} value={s.value} className="bg-charcoal">{s.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Vue desktop : tableau ── */}
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr style={{ borderBottom: "1px solid rgba(200,162,77,0.10)" }}>
