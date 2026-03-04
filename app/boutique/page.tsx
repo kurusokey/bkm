@@ -39,35 +39,19 @@ export default function BoutiquePage() {
   };
 
   return (
-    <div className="min-h-screen relative" style={{ overscrollBehavior: 'none' }}>
+    <div className="min-h-screen" style={{ background: '#060e07', overscrollBehavior: 'none' }}>
 
-      {/* Fond fixe — champ de cannes */}
-      <div className="fixed inset-0" style={{ zIndex: 0 }}>
-        <Image
-          src="/images/sugarcane-hero.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(13,31,21,0.45) 0%, rgba(13,31,21,0.55) 40%, rgba(26,46,26,0.6) 70%, rgba(42,31,14,0.65) 100%)',
-          }}
-        />
-      </div>
-
-      {/* Contenu scrollable */}
       <JsonLd data={itemListSchema} />
-      <div className="relative" style={{ zIndex: 1 }}>
 
         {/* ── Hero ── */}
         <div
           className="flex flex-col items-center justify-end"
-          style={{ height: '45vh', minHeight: '300px', paddingBottom: '36px' }}
+          style={{
+            height: '45vh',
+            minHeight: '300px',
+            paddingBottom: '36px',
+            background: 'radial-gradient(ellipse 100% 80% at 50% 0%, rgba(18,14,5,1) 0%, #060e07 75%)',
+          }}
         >
           <div className="gold-line-wide mb-6" />
           <Image
@@ -96,8 +80,7 @@ export default function BoutiquePage() {
         {/* ── Les incontournables ── */}
         <div
           style={{
-            background: 'rgba(6,14,7,0.45)',
-            backdropFilter: 'blur(4px)',
+            background: 'linear-gradient(180deg, #080d08 0%, #060e07 100%)',
             borderTop: '1px solid rgba(200,162,77,0.08)',
             borderBottom: '1px solid rgba(200,162,77,0.08)',
             padding: '56px 24px',
@@ -171,8 +154,7 @@ export default function BoutiquePage() {
         {/* ── Toute la collection ── */}
         <div
           style={{
-            background: 'linear-gradient(180deg, rgba(13,31,21,0.5) 0%, rgba(26,46,26,0.55) 50%, rgba(42,31,14,0.5) 100%)',
-            backdropFilter: 'blur(2px)',
+            background: '#060e07',
           }}
         >
           <div style={{ maxWidth: '880px', margin: '0 auto', padding: '48px 14px' }}>
@@ -219,7 +201,6 @@ export default function BoutiquePage() {
           </p>
         </div>
 
-      </div>
     </div>
   );
 }

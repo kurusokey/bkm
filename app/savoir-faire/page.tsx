@@ -63,12 +63,12 @@ export default function SavoirFairePage() {
       ══════════════════════════════════════════ */}
       <section className="relative h-screen min-h-[560px] flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/distillerie-clement.jpg"
-          alt="Ancienne distillerie de l'Habitation Clément, Martinique"
+          src="/images/sugarcane-hero.jpg"
+          alt="Champ de canne à sucre des Antilles"
           fill priority
           className="object-cover animate-slow-zoom"
           sizes="100vw"
-          style={{ objectPosition: 'center 30%' }}
+          style={{ objectPosition: 'center 40%' }}
         />
         <div
           className="absolute inset-0"
