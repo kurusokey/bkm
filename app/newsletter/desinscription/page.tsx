@@ -77,13 +77,15 @@ export default function DesinscriptionPage() {
                   background: 'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
                 }}
               >
-                <Image
-                  src="/images/bkm_logo_header.png"
-                  alt="Bô Kay Mwen"
-                  width={140}
-                  height={140}
-                  style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
-                />
+                <Link href="/" aria-label="Accueil">
+                  <Image
+                    src="/images/bkm_logo_header.png"
+                    alt="Bô Kay Mwen"
+                    width={140}
+                    height={140}
+                    style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
+                  />
+                </Link>
               </div>
 
               <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.14), transparent)' }} />

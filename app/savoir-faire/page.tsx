@@ -1,6 +1,7 @@
 import { BASE_URL } from '@/lib/config';
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 
 export const metadata: Metadata = {
@@ -85,14 +86,16 @@ export default function SavoirFairePage() {
               Artisanat &bull; Patience &bull; Terroir
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <Image
-                src="/images/bkm_logo_header.png"
-                alt="Bô Kay Mwen"
-                width={220}
-                height={220}
-                style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', marginBottom: '1.25rem', width: 'clamp(140px, 38vw, 220px)', height: 'auto' }}
-                priority
-              />
+              <Link href="/" aria-label="Accueil">
+                <Image
+                  src="/images/bkm_logo_header.png"
+                  alt="Bô Kay Mwen"
+                  width={220}
+                  height={220}
+                  style={{ filter: 'drop-shadow(0 8px 32px rgba(200,162,77,0.25))', marginBottom: '1.25rem', width: 'clamp(140px, 38vw, 220px)', height: 'auto' }}
+                  priority
+                />
+              </Link>
               <h1
                 className="font-serif text-gold text-shadow-lg mb-5"
                 style={{ fontSize: 'clamp(2rem, 5vw, 3.4rem)' }}

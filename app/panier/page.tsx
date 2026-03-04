@@ -126,13 +126,15 @@ export default function PanierPage() {
 
                 {/* Zone logo */}
                 <div style={logoZoneStyle}>
-                  <Image
-                    src="/images/bkm_logo_header.png"
-                    alt="Bô Kay Mwen"
-                    width={150}
-                    height={150}
-                    style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
-                  />
+                  <Link href="/" aria-label="Accueil">
+                    <Image
+                      src="/images/bkm_logo_header.png"
+                      alt="Bô Kay Mwen"
+                      width={150}
+                      height={150}
+                      style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
+                    />
+                  </Link>
                 </div>
 
                 <div style={separatorStyle} />

@@ -1,6 +1,7 @@
 import { BASE_URL } from '@/lib/config';
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import Newsletter from '@/components/Newsletter';
 
@@ -74,13 +75,15 @@ export default function NewsletterPage() {
                       'radial-gradient(ellipse 70% 80% at 50% 55%, rgba(200,162,77,0.08) 0%, rgba(42,124,59,0.04) 50%, transparent 80%)',
                   }}
                 >
-                  <Image
-                    src="/images/bkm_logo_header.png"
-                    alt="Bô Kay Mwen"
-                    width={180}
-                    height={180}
-                    style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
-                  />
+                  <Link href="/" aria-label="Accueil">
+                    <Image
+                      src="/images/bkm_logo_header.png"
+                      alt="Bô Kay Mwen"
+                      width={180}
+                      height={180}
+                      style={{ filter: 'drop-shadow(0 8px 24px rgba(200,162,77,0.2))' }}
+                    />
+                  </Link>
                 </div>
 
                 {/* Séparateur */}
