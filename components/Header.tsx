@@ -45,7 +45,16 @@ export default function Header() {
       >
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <Link href="/" aria-label="Accueil" className="w-6" />
+          <Link href="/" aria-label="Accueil">
+            <Image
+              src="/images/bkm_logo_header.png"
+              alt="Bô Kay Mwen"
+              width={44}
+              height={44}
+              style={{ width: 'clamp(36px, 6vw, 44px)', height: 'auto', filter: 'drop-shadow(0 2px 8px rgba(200,162,77,0.2))' }}
+              priority
+            />
+          </Link>
 
           {/* Navigation Desktop */}
           <div className="hidden md:flex items-center gap-8">
