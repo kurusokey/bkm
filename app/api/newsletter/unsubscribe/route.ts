@@ -36,6 +36,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 
-  console.info('[newsletter] Désinscription effectuée:', email);
+  console.info('[newsletter] Désinscription effectuée');
   return NextResponse.json({ success: true });
 }

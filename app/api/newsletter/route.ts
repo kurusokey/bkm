@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceRoleKey) {
-    console.warn('[newsletter] SUPABASE_SERVICE_ROLE_KEY manquante — email non enregistré:', email);
+    console.warn('[newsletter] SUPABASE_SERVICE_ROLE_KEY manquante — email non enregistré');
     // Répondre 200 pour ne pas exposer la config manquante au client
     return NextResponse.json({ success: true });
   }
@@ -48,6 +48,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 
-  console.info('[newsletter] Inscription enregistrée:', email);
+  console.info('[newsletter] Inscription enregistrée');
   return NextResponse.json({ success: true });
 }

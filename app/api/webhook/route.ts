@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
   if (!supabaseUrl || !serviceRoleKey) {
     // Log l'ordre mais ne bloque pas Stripe (retourner 200)
-    console.warn('[webhook] SUPABASE_SERVICE_ROLE_KEY manquante — ordre non enregistré:', orderData);
+    console.warn('[webhook] SUPABASE_SERVICE_ROLE_KEY manquante — ordre non enregistré');
     return NextResponse.json({ received: true });
   }
 

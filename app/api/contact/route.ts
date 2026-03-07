@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !serviceRoleKey) {
-    console.error('[contact] SUPABASE_SERVICE_ROLE_KEY manquante — message non enregistré:', { name, email, subject });
+    console.error('[contact] SUPABASE_SERVICE_ROLE_KEY manquante — message non enregistré');
     return NextResponse.json({ error: 'Service temporairement indisponible' }, { status: 503 });
   }
 
@@ -57,6 +57,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 
-  console.info('[contact] Message reçu de:', email);
+  console.info('[contact] Message reçu');
   return NextResponse.json({ success: true });
 }
