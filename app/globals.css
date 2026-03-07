@@ -225,6 +225,19 @@ h3 {
   color: var(--ink);
 }
 
+.btn-luxury:focus-visible,
+.btn-luxury-filled:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 @media (max-width: 639px) {
   .btn-luxury,
   .btn-luxury-filled {

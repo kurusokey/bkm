@@ -27,7 +27,7 @@ export default function MentionsLegalesPage() {
           <section className="mb-10">
             <h2 className="font-serif text-gold text-lg mb-4">Éditeur du site</h2>
             <div className="text-cream-muted text-sm leading-relaxed space-y-2">
-              <p>Le site <strong className="text-cream">bokaymwen.fr</strong> est édité par :</p>
+              <p>Le site <strong className="text-cream">laroutedurhum.com</strong> est édité par :</p>
               <ul className="list-none space-y-1 pl-0">
                 <li>Raison sociale : <span className="text-cream">[À COMPLÉTER]</span></li>
                 <li>Forme juridique : <span className="text-cream">[À COMPLÉTER]</span></li>

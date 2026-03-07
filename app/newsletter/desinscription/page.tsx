@@ -44,7 +44,7 @@ export default function DesinscriptionPage() {
       >
         <Image
           src="/images/hero-rum.jpg"
-          alt=""
+          alt="Rhum artisanal des Caraïbes"
           fill
           priority
           className="object-cover"

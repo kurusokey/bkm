@@ -346,9 +346,10 @@ export default function AgeVerification() {
             marginBottom: '8px',
           }}
         >
-          Ce site propose la vente d&apos;alcool.
+          Ce site est réservé aux personnes âgées de{' '}
+          <strong style={{ color: '#2EC4B6' }}>18 ans et plus</strong>.
           <br />
-          Vous devez avoir l&apos;âge légal pour continuer.
+          La vente d&apos;alcool est interdite aux mineurs.
         </p>
         <p
           style={{
@@ -358,7 +359,7 @@ export default function AgeVerification() {
             marginBottom: '32px',
           }}
         >
-          Avez-vous{' '}
+          Confirmez-vous avoir{' '}
           <span style={{ fontSize: '24px', fontWeight: 700, color: '#2EC4B6' }}>18 ans</span>{' '}
           ou plus ?
         </p>

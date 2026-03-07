@@ -44,7 +44,7 @@ export default function Home() {
       <section className="relative h-screen min-h-[600px] flex flex-col overflow-hidden">
         <Image
           src="/images/punch-all.jpg"
-          alt=""
+          alt="Bouteilles de punch artisanal Bô Kay Mwen"
           fill
           priority
           className="object-cover animate-slow-zoom"

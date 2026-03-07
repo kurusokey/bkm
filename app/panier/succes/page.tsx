@@ -17,7 +17,7 @@ export default function SuccesPage() {
     <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #1A1208 0%, #0B0E11 100%)' }}>
       {/* Bande image marche en haut */}
       <div className="relative" style={{ height: '35vh', minHeight: '220px' }}>
-        <Image src="/images/marche-creole.jpg" alt="" fill className="object-cover" sizes="100vw" priority />
+        <Image src="/images/marche-creole.jpg" alt="Marché créole des Antilles" fill className="object-cover" sizes="100vw" priority />
         <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(26,18,8,0.3) 0%, rgba(26,18,8,0.95) 100%)' }} />
       </div>
 

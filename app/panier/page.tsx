@@ -84,7 +84,7 @@ export default function PanierPage() {
     <div className="fixed inset-0" style={{ zIndex: 0 }}>
       <Image
         src="/images/marche-creole.jpg"
-        alt=""
+        alt="Marché créole des Antilles"
         fill
         priority
         className="object-cover"

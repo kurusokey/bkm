@@ -1,4 +1,5 @@
 import { BASE_URL } from '@/lib/config';
+import { getProductBySlug } from '@/lib/products';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
@@ -22,6 +23,33 @@ export async function POST(request: NextRequest) {
     if (!items || items.length === 0) {
       return NextResponse.json({ error: 'Le panier est vide' }, { status: 400 });
     }
+
+    // ── Validation côté serveur : prix et stock ──────────────────────────────
+    for (const item of items) {
+      const product = getProductBySlug(item.id);
+
+      if (!product || !product.is_active) {
+        return NextResponse.json(
+          { error: `Produit indisponible : ${item.name}` },
+          { status: 400 }
+        );
+      }
+
+      if (product.price_cents !== item.price_cents) {
+        return NextResponse.json(
+          { error: `Prix invalide pour : ${item.name}` },
+          { status: 400 }
+        );
+      }
+
+      if (product.stock_quantity < item.quantity) {
+        return NextResponse.json(
+          { error: `Stock insuffisant pour : ${item.name} (${product.stock_quantity} disponible${product.stock_quantity > 1 ? 's' : ''})` },
+          { status: 400 }
+        );
+      }
+    }
+    // ────────────────────────────────────────────────────────────────────────
 
     const origin = request.headers.get('origin') || BASE_URL;
 
@@ -68,7 +96,6 @@ export async function POST(request: NextRequest) {
         quantity: item.quantity,
       })),
       metadata: {
-        // Sérialiser les items pour le webhook (max ~500 chars/key)
         items: JSON.stringify(
           items.map((i) => ({ id: i.id, name: i.name, price_cents: i.price_cents, qty: i.quantity }))
         ).slice(0, 480),
@@ -79,8 +106,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Erreur interne du serveur';
-    console.error('[checkout]', message);
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error('[checkout]', err instanceof Error ? err.message : err);
+    return NextResponse.json({ error: 'Erreur lors de la création du paiement. Veuillez réessayer.' }, { status: 500 });
   }
 }

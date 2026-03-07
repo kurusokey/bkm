@@ -14,10 +14,7 @@ const NAV_LINKS = [
 
 export default function Footer() {
   const pathname = usePathname();
-  if (
-    pathname === '/' ||
-    pathname.startsWith('/produits/')
-  ) return null;
+  if (pathname === '/') return null;
 
   return (
     <footer style={{ background: '#060e07', position: 'relative', zIndex: 10 }}>
