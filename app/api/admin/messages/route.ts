@@ -38,3 +38,19 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json(data);
 }
+
+export async function DELETE(request: NextRequest) {
+  if (!verifyAdminToken(request)) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+  const { searchParams } = request.nextUrl;
+  const id = searchParams.get("id");
+  if (!id) return NextResponse.json({ error: "id manquant" }, { status: 400 });
+
+  const { error } = await supabaseAdmin
+    .from("contact_messages")
+    .delete()
+    .eq("id", id);
+
+  if (error)
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ success: true });
+}

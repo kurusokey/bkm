@@ -1,15 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Message = { id: string; name: string; email: string; subject?: string; message: string; created_at: string; status?: string };
 
-const STATUS_LABELS: Record<string, string> = { unread: "Non lu", read: "Lu", archived: "Archivé" };
+const STATUS_LABELS: Record<string, string> = { unread: "Non lu", read: "Traité", archived: "Archivé" };
 const STATUS_COLORS: Record<string, string> = {
   unread: "rgba(200,162,77,0.90)",
   read: "rgba(42,124,123,0.85)",
-  archived: "rgba(232,224,208,0.28)",
+  archived: "rgba(132,132,132,0.60)",
 };
+
+const FILTERS: { value: string; label: string; match: (status: string) => boolean }[] = [
+  { value: "unread",   label: "Non lus",   match: (s) => !s || s === "unread" },
+  { value: "read",     label: "Traités",   match: (s) => s === "read" },
+  { value: "archived", label: "Archivés",  match: (s) => s === "archived" },
+  { value: "all",      label: "Tous",      match: () => true },
+];
 
 const CARD = { background: "rgba(6,14,7,0.28)", backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)", border: "1px solid rgba(200,162,77,0.75)", borderRadius: "20px", overflow: "hidden" } as const;
 const HEADER_ZONE = { background: "radial-gradient(ellipse 70% 100% at 0% 50%, rgba(200,162,77,0.07) 0%, rgba(42,124,59,0.03) 55%, transparent 90%)" } as const;
@@ -30,6 +37,7 @@ export default function MessagesPage() {
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<Message | null>(null);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [filter, setFilter] = useState("unread");
 
   useEffect(() => {
     fetch("/api/admin/messages")
@@ -52,13 +60,46 @@ export default function MessagesPage() {
     setUpdating(null);
   }
 
+  async function deleteMessage(msg: Message) {
+    const confirmText = `Supprimer définitivement le message de ${msg.name} ?\n\nCette action est irréversible.`;
+    if (!confirm(confirmText)) return;
+
+    setUpdating(msg.id);
+    const res = await fetch(`/api/admin/messages?id=${msg.id}`, { method: "DELETE" });
+    if (res.ok) {
+      setMessages((prev) => prev.filter((m) => m.id !== msg.id));
+      if (selected?.id === msg.id) setSelected(null);
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert(`Erreur : ${data.error ?? "impossible de supprimer le message"}`);
+    }
+    setUpdating(null);
+  }
+
   function selectMsg(msg: Message) {
     const status = msg.status ?? "unread";
     setSelected(msg);
     if (status === "unread") setStatus(msg, "read");
   }
 
-  const unread = messages.filter((m) => !m.status || m.status === "unread").length;
+  const counts = useMemo(() => {
+    const c: Record<string, number> = { unread: 0, read: 0, archived: 0, all: messages.length };
+    for (const m of messages) {
+      const s = m.status || "unread";
+      if (s === "unread") c.unread++;
+      else if (s === "read") c.read++;
+      else if (s === "archived") c.archived++;
+    }
+    return c;
+  }, [messages]);
+
+  const filteredMessages = useMemo(() => {
+    const filterDef = FILTERS.find((f) => f.value === filter);
+    if (!filterDef) return messages;
+    return messages.filter((m) => filterDef.match(m.status ?? "unread"));
+  }, [messages, filter]);
+
+  const unread = counts.unread;
 
   return (
     <div className="flex flex-col md:flex-row" style={{ gap: "1.25rem", alignItems: "flex-start" }}>
@@ -78,9 +119,6 @@ export default function MessagesPage() {
             </p>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <p style={{ fontSize: "0.65rem", color: "rgba(232,224,208,0.22)" }}>
-              {messages.length} msg
-            </p>
             {unread > 0 && (
               <span style={{ display: "inline-block", padding: "2px 10px", borderRadius: "6px", fontSize: "0.65rem", fontWeight: 500, background: "rgba(200,162,77,0.10)", color: "rgba(200,162,77,0.90)", border: "1px solid rgba(200,162,77,0.30)" }}>
                 {unread} non lu{unread !== 1 ? "s" : ""}
@@ -90,11 +128,48 @@ export default function MessagesPage() {
         </div>
         <div style={SEP} />
 
+        {/* Filtres */}
+        <div style={{ padding: "1rem 1.5rem", display: "flex", gap: "0.5rem", flexWrap: "wrap", borderBottom: "1px solid rgba(200,162,77,0.07)" }}>
+          {FILTERS.map((f) => (
+            <button
+              type="button"
+              key={f.value}
+              onClick={() => setFilter(f.value)}
+              style={{
+                padding: "6px 14px",
+                borderRadius: "8px",
+                fontSize: "0.70rem",
+                letterSpacing: "0.06em",
+                background: filter === f.value ? "rgba(200,162,77,0.12)" : "transparent",
+                border: filter === f.value ? "1px solid rgba(200,162,77,0.50)" : "1px solid rgba(200,162,77,0.15)",
+                color: filter === f.value ? "rgba(200,162,77,0.95)" : "rgba(232,224,208,0.35)",
+                transition: "all 0.15s",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              {f.label}
+              <span
+                style={{
+                  background: filter === f.value ? "rgba(200,162,77,0.20)" : "rgba(200,162,77,0.08)",
+                  padding: "1px 7px",
+                  borderRadius: "99px",
+                  fontSize: "0.62rem",
+                  color: filter === f.value ? "rgba(200,162,77,0.95)" : "rgba(232,224,208,0.45)",
+                }}
+              >
+                {counts[f.value] ?? 0}
+              </span>
+            </button>
+          ))}
+        </div>
+
         {/* ── Vue mobile : liste de cartes ── */}
         <div className="md:hidden">
           {loading && <p style={{ padding: "3rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</p>}
-          {!loading && messages.length === 0 && <p style={{ padding: "3rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun message</p>}
-          {!loading && messages.map((msg, i) => {
+          {!loading && filteredMessages.length === 0 && <p style={{ padding: "3rem 1.5rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun message</p>}
+          {!loading && filteredMessages.map((msg, i) => {
             const status = msg.status ?? "unread";
             const isUnread = status === "unread";
             return (
@@ -104,7 +179,7 @@ export default function MessagesPage() {
                 className="cursor-pointer"
                 style={{
                   padding: "1rem 1.5rem",
-                  borderBottom: i < messages.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+                  borderBottom: i < filteredMessages.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
                   background: selected?.id === msg.id ? "rgba(200,162,77,0.04)" : "transparent",
                 }}
               >
@@ -143,8 +218,8 @@ export default function MessagesPage() {
             </thead>
             <tbody>
               {loading && <tr><td colSpan={5} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Chargement…</td></tr>}
-              {!loading && messages.length === 0 && <tr><td colSpan={5} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun message</td></tr>}
-              {!loading && messages.map((msg, i) => {
+              {!loading && filteredMessages.length === 0 && <tr><td colSpan={5} style={{ padding: "3.5rem 1.75rem", textAlign: "center", color: "rgba(232,224,208,0.22)", fontSize: "0.8rem" }}>Aucun message</td></tr>}
+              {!loading && filteredMessages.map((msg, i) => {
                 const status = msg.status ?? "unread";
                 const isUnread = status === "unread";
                 return (
@@ -153,7 +228,7 @@ export default function MessagesPage() {
                     onClick={() => selectMsg(msg)}
                     className="cursor-pointer"
                     style={{
-                      borderBottom: i < messages.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
+                      borderBottom: i < filteredMessages.length - 1 ? "1px solid rgba(200,162,77,0.07)" : "none",
                       background: selected?.id === msg.id ? "rgba(200,162,77,0.04)" : "transparent",
                       transition: "background 0.15s",
                     }}
@@ -172,13 +247,48 @@ export default function MessagesPage() {
                       <StatusBadge status={status} />
                     </td>
                     <td style={{ padding: "1.1rem 1.75rem" }}>
-                      <span style={{ display: "flex", gap: "0.75rem" }}>
-                        {status !== "read" && (
-                          <button type="button" disabled={updating === msg.id} onClick={(e) => { e.stopPropagation(); setStatus(msg, "read"); }} style={{ fontSize: "0.70rem", color: "rgba(232,224,208,0.32)", letterSpacing: "0.03em" }}>Lu</button>
+                      <span style={{ display: "flex", gap: "0.9rem" }}>
+                        {status === "unread" && (
+                          <button
+                            type="button"
+                            disabled={updating === msg.id}
+                            onClick={(e) => { e.stopPropagation(); setStatus(msg, "read"); }}
+                            className="disabled:opacity-40 hover:text-gold transition-colors"
+                            style={{ fontSize: "0.70rem", color: "rgba(232,224,208,0.40)", letterSpacing: "0.03em" }}
+                          >
+                            Marquer lu
+                          </button>
                         )}
-                        {status !== "archived" && (
-                          <button type="button" disabled={updating === msg.id} onClick={(e) => { e.stopPropagation(); setStatus(msg, "archived"); }} style={{ fontSize: "0.70rem", color: "rgba(232,224,208,0.32)", letterSpacing: "0.03em" }}>Archiver</button>
+                        {status === "archived" ? (
+                          <button
+                            type="button"
+                            disabled={updating === msg.id}
+                            onClick={(e) => { e.stopPropagation(); setStatus(msg, "read"); }}
+                            className="disabled:opacity-40 hover:text-gold transition-colors"
+                            style={{ fontSize: "0.70rem", color: "rgba(232,224,208,0.40)", letterSpacing: "0.03em" }}
+                          >
+                            Rouvrir
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            disabled={updating === msg.id}
+                            onClick={(e) => { e.stopPropagation(); setStatus(msg, "archived"); }}
+                            className="disabled:opacity-40 hover:text-gold transition-colors"
+                            style={{ fontSize: "0.70rem", color: "rgba(232,224,208,0.40)", letterSpacing: "0.03em" }}
+                          >
+                            Archiver
+                          </button>
                         )}
+                        <button
+                          type="button"
+                          disabled={updating === msg.id}
+                          onClick={(e) => { e.stopPropagation(); deleteMessage(msg); }}
+                          className="disabled:opacity-40 transition-colors"
+                          style={{ fontSize: "0.70rem", color: "rgba(200,80,80,0.55)", letterSpacing: "0.03em" }}
+                        >
+                          Supprimer
+                        </button>
                       </span>
                     </td>
                   </tr>
@@ -228,14 +338,31 @@ export default function MessagesPage() {
               >
                 Répondre
               </a>
-              <button
-                type="button"
-                onClick={() => setStatus(selected, "archived")}
-                style={{ flex: 1, padding: "8px 0", borderRadius: "9px", border: "1px solid rgba(200,162,77,0.15)", color: "rgba(232,224,208,0.30)", fontSize: "0.70rem", letterSpacing: "0.05em" }}
-              >
-                Archiver
-              </button>
+              {selected.status === "archived" ? (
+                <button
+                  type="button"
+                  onClick={() => setStatus(selected, "read")}
+                  style={{ flex: 1, padding: "8px 0", borderRadius: "9px", border: "1px solid rgba(200,162,77,0.15)", color: "rgba(232,224,208,0.30)", fontSize: "0.70rem", letterSpacing: "0.05em" }}
+                >
+                  Rouvrir
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setStatus(selected, "archived")}
+                  style={{ flex: 1, padding: "8px 0", borderRadius: "9px", border: "1px solid rgba(200,162,77,0.15)", color: "rgba(232,224,208,0.30)", fontSize: "0.70rem", letterSpacing: "0.05em" }}
+                >
+                  Archiver
+                </button>
+              )}
             </div>
+            <button
+              type="button"
+              onClick={() => deleteMessage(selected)}
+              style={{ padding: "8px 0", borderRadius: "9px", border: "1px solid rgba(200,80,80,0.25)", color: "rgba(200,80,80,0.65)", fontSize: "0.68rem", letterSpacing: "0.05em", background: "transparent" }}
+            >
+              Supprimer définitivement
+            </button>
           </div>
         </div>
       )}
