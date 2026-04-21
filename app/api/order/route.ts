@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { getProductBySlug } from '@/lib/products';
 import { sendOrderEmails, type OrderEmailItem } from '@/lib/email';
+import { sendOrderTelegramNotification } from '@/lib/telegram';
 
 /*
   ── Table orders (schéma hybride Stripe + email) ──
@@ -111,17 +112,33 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Impossible d'enregistrer la commande" }, { status: 500 });
   }
 
-  try {
-    await sendOrderEmails({
+  // Notifications admin — emails Resend + Telegram en parallèle.
+  // Telegram ne bloque pas la réponse en cas d'échec : on log et on continue.
+  const [emailResult, telegramResult] = await Promise.allSettled([
+    sendOrderEmails({
       orderId: order.id,
       customerName,
       customerEmail,
       customerMessage: customerMessage || undefined,
       items: verifiedItems,
       totalCents,
-    });
-  } catch (err) {
-    console.error('[order] Erreur email:', err instanceof Error ? err.message : err);
+    }),
+    sendOrderTelegramNotification({
+      orderId: order.id,
+      customerName,
+      customerEmail,
+      customerMessage: customerMessage || undefined,
+      items: verifiedItems,
+      totalCents,
+    }),
+  ]);
+
+  if (telegramResult.status === 'rejected') {
+    console.error('[order] Erreur Telegram:', telegramResult.reason);
+  }
+
+  if (emailResult.status === 'rejected') {
+    console.error('[order] Erreur email:', emailResult.reason);
     return NextResponse.json(
       {
         orderId: order.id,
