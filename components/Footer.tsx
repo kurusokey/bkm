@@ -84,6 +84,9 @@ export default function Footer() {
           <p style={{ fontSize: '0.7rem', color: 'rgba(232,224,208,0.4)', lineHeight: '1.8' }}>
             L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
           </p>
+          <p className="italic" style={{ fontSize: '0.62rem', color: 'rgba(232,224,208,0.3)', lineHeight: '1.6' }}>
+            Photos des bouteilles non contractuelles.
+          </p>
           <div className="flex flex-wrap justify-center" style={{ gap: '20px' }}>
             {[
               { href: '/mentions-legales', label: 'Mentions légales' },
