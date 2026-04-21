@@ -29,12 +29,24 @@ function fmt(cents: number) {
 type Order = { id: string; created_at: string; customer_name: string | null; customer_email: string; total_amount_cents: number; status: string };
 
 const STATUS_COLORS: Record<string, string> = {
+  pending: "rgba(200,162,77,0.90)",
+  processing: "rgba(74,144,226,0.85)",
+  archived: "rgba(132,132,132,0.75)",
+  cancelled: "rgba(200,80,80,0.75)",
+  // Compat données Stripe historiques
   paid: "rgba(42,124,123,0.85)",
   shipped: "rgba(200,162,77,0.90)",
   delivered: "rgba(74,222,128,0.85)",
-  cancelled: "rgba(200,80,80,0.85)",
 };
-const STATUS_LABELS: Record<string, string> = { paid: "Payé", shipped: "Expédié", delivered: "Livré", cancelled: "Annulé" };
+const STATUS_LABELS: Record<string, string> = {
+  pending: "En attente",
+  processing: "En cours",
+  archived: "Archivée",
+  cancelled: "Annulée",
+  paid: "Payé",
+  shipped: "Expédié",
+  delivered: "Livré",
+};
 
 const CARD = {
   background: "rgba(6,14,7,0.28)",
