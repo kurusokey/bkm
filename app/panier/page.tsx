@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import ScrollReveal from '@/components/ScrollReveal';
+import OrderForm from '@/components/OrderForm';
 
 /* ── Bakoua SVG — conservé pour l'état vide ── */
 function BakouaSvg({ size = 60 }: { size?: number }) {
@@ -52,32 +53,7 @@ const lineSoftStyle: React.CSSProperties = {
 
 export default function PanierPage() {
   const { cart, removeFromCart, updateQuantity, totalPrice, totalItems, clearCart } = useCart();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleCheckout = async () => {
-    setIsLoading(true);
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          items: cart.map((item) => ({
-            id: item.id,
-            name: item.name,
-            price_cents: item.price_cents,
-            quantity: item.quantity,
-          })),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Erreur lors de la commande');
-      window.location.href = data.url;
-    } catch (err) {
-      setIsLoading(false);
-      const msg = err instanceof Error ? err.message : 'Erreur inconnue';
-      alert('Erreur : ' + msg);
-    }
-  };
+  const [showForm, setShowForm] = useState(false);
 
   /* ════════ FOND COMMUN ════════ */
   const Background = () => (
@@ -363,13 +339,25 @@ export default function PanierPage() {
                   <span className="font-bold text-gold" style={{ fontSize: '1.15rem' }}>{(totalPrice / 100).toFixed(2)}&nbsp;&euro;</span>
                 </div>
 
-                <button
-                  onClick={handleCheckout}
-                  disabled={isLoading}
-                  className="btn-luxury-filled w-full disabled:opacity-50"
-                >
-                  {isLoading ? 'Redirection...' : 'Passer la commande'}
-                </button>
+                {showForm ? (
+                  <>
+                    <div
+                      style={{
+                        height: '1px',
+                        marginBottom: '1.5rem',
+                        background: 'linear-gradient(90deg, transparent, rgba(200,162,77,0.25), transparent)',
+                      }}
+                    />
+                    <OrderForm onCancel={() => setShowForm(false)} />
+                  </>
+                ) : (
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="btn-luxury-filled w-full"
+                  >
+                    Passer la commande
+                  </button>
+                )}
 
                 <p style={{ fontSize: '0.62rem', color: 'rgba(232,224,208,0.12)', textAlign: 'center', marginTop: '1rem' }}>
                   L&apos;abus d&apos;alcool est dangereux pour la santé. À consommer avec modération.
