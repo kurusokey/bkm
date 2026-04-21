@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
   let body: {
     customerName?: string;
     customerEmail?: string;
-    customerAddress?: string;
     customerMessage?: string;
     items?: IncomingItem[];
   };
@@ -37,11 +36,10 @@ export async function POST(request: NextRequest) {
 
   const customerName = (body.customerName ?? '').trim();
   const customerEmail = (body.customerEmail ?? '').trim().toLowerCase();
-  const customerAddress = (body.customerAddress ?? '').trim();
   const customerMessage = (body.customerMessage ?? '').trim();
   const items = body.items ?? [];
 
-  if (!customerName || !customerEmail || !customerAddress) {
+  if (!customerName || !customerEmail) {
     return NextResponse.json({ error: 'Champs obligatoires manquants' }, { status: 422 });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
@@ -98,7 +96,6 @@ export async function POST(request: NextRequest) {
     .insert({
       customer_name: customerName,
       customer_email: customerEmail,
-      customer_address: customerAddress,
       customer_message: customerMessage || null,
       items: itemsJson,
       total_amount_cents: totalCents,
@@ -119,7 +116,6 @@ export async function POST(request: NextRequest) {
       orderId: order.id,
       customerName,
       customerEmail,
-      customerAddress,
       customerMessage: customerMessage || undefined,
       items: verifiedItems,
       totalCents,

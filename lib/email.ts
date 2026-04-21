@@ -10,7 +10,6 @@ interface SendOrderEmailsInput {
   orderId: string;
   customerName: string;
   customerEmail: string;
-  customerAddress: string;
   customerMessage?: string;
   items: OrderEmailItem[];
   totalCents: number;
@@ -85,8 +84,8 @@ export async function sendOrderEmails(input: SendOrderEmailsInput) {
     <h2 style="color:#C8A24D;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;border-bottom:1px solid rgba(200,162,77,0.15);padding-bottom:8px;margin:24px 0 16px;font-weight:normal;">Client</h2>
     <p style="margin:6px 0;color:#e8e0d0;"><strong style="color:#C8A24D;">Nom :</strong> ${input.customerName}</p>
     <p style="margin:6px 0;color:#e8e0d0;"><strong style="color:#C8A24D;">Email :</strong> <a href="mailto:${input.customerEmail}" style="color:#C8A24D;text-decoration:none;">${input.customerEmail}</a></p>
-    <p style="margin:6px 0;color:#e8e0d0;"><strong style="color:#C8A24D;">Adresse :</strong><br><span style="color:rgba(232,224,208,0.8);line-height:1.6;">${input.customerAddress.replace(/\n/g, '<br>')}</span></p>
     ${input.customerMessage ? `<p style="margin:16px 0 6px;color:#e8e0d0;"><strong style="color:#C8A24D;">Message :</strong><br><em style="color:rgba(232,224,208,0.7);">${input.customerMessage.replace(/\n/g, '<br>')}</em></p>` : ''}
+    <p style="margin:16px 0 6px;color:rgba(232,224,208,0.5);font-size:12px;font-style:italic;">👉 L'adresse de livraison sera demandée par retour d'email.</p>
 
     <h2 style="color:#C8A24D;font-size:11px;letter-spacing:0.3em;text-transform:uppercase;border-bottom:1px solid rgba(200,162,77,0.15);padding-bottom:8px;margin:32px 0 16px;font-weight:normal;">Commande</h2>
     ${tableHtml}
@@ -111,10 +110,11 @@ export async function sendOrderEmails(input: SendOrderEmailsInput) {
     ${tableHtml}
 
     <div style="background:rgba(42,124,123,0.08);border:1px solid rgba(42,124,123,0.25);border-radius:8px;padding:20px 24px;margin-top:32px;">
-      <p style="margin:0 0 8px;color:#C8A24D;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;">Prochaine étape</p>
+      <p style="margin:0 0 8px;color:#C8A24D;font-size:11px;letter-spacing:0.25em;text-transform:uppercase;">Prochaines étapes</p>
       <p style="margin:0;color:rgba(232,224,208,0.8);line-height:1.7;font-size:14px;">
-        Nous vous recontactons par email dans les 24-48h pour confirmer la disponibilité,
-        organiser le paiement (virement, chèque ou espèces) et la livraison de votre punch.
+        Nous vous recontactons par email dans les 24-48h pour vous demander
+        votre adresse de livraison, confirmer la disponibilité, et organiser
+        le paiement (virement, chèque ou espèces).
       </p>
     </div>
 

@@ -14,7 +14,6 @@ export default function OrderForm({ onCancel }: Props) {
   const [form, setForm] = useState({
     customerName: '',
     customerEmail: '',
-    customerAddress: '',
     customerMessage: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
@@ -117,22 +116,6 @@ export default function OrderForm({ onCancel }: Props) {
           placeholder="votre@email.com"
           disabled={status === 'loading'}
           className={inputCls}
-          style={inputStyle}
-        />
-      </div>
-
-      <div>
-        <label className={labelCls} style={labelStyle}>
-          Adresse de livraison *
-        </label>
-        <textarea
-          required
-          rows={3}
-          value={form.customerAddress}
-          onChange={set('customerAddress')}
-          placeholder={'12 rue des Flibustiers\n97190 Le Gosier\nGuadeloupe'}
-          disabled={status === 'loading'}
-          className={`${inputCls} resize-none`}
           style={inputStyle}
         />
       </div>

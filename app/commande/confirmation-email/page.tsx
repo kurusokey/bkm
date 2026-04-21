@@ -176,8 +176,8 @@ export default async function ConfirmationEmailPage({
                   }}
                 >
                   Un email de confirmation vient d'arriver. Nous vous recontactons sous
-                  24-48h pour confirmer la disponibilité, organiser le paiement et
-                  la livraison de votre punch.
+                  24-48h pour vous demander votre adresse de livraison, confirmer la
+                  disponibilité et organiser le paiement.
                 </p>
               </div>
 
